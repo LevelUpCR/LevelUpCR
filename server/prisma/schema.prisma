@@ -1,0 +1,171 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuarios {
+  idUsuario           Int       @id @default(autoincrement())
+  nombre              String
+  telefono            Int       @unique
+  correo              String    @unique
+  password            String    
+
+  Rol                 Rol       @default(Cliente)
+
+  pagos               Pagos[]
+  direccion           Direccion[]
+  productos           Productos[]
+  pedidos             Pedidos[]
+  evaluacion          Evaluacion[]
+}
+
+model Pagos {
+  idPago              Int                         @id @default(autoincrement())
+  numTarjeta          Int?                        @unique
+  proveedor           String?
+  numCuenta           Int?                        @unique
+  fechaExpiracion     DateTime?                   @default(now())
+  nombre              String
+  
+  idUsuario           Int
+  idTipoPago          Int
+  
+  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+
+  tipoPago            TipoPago                    @relation(fields: [idTipoPago],references: [idTipoPago])
+}
+
+model TipoPago {
+  idTipoPago          Int                         @id @default(autoincrement())
+  TipoPago            String
+  
+  pagos               Pagos[]
+}
+
+model Direccion {
+  idDireccion         Int                         @id @default(autoincrement())
+  provincia           String
+  canton              String
+  distrito            String
+  direccionExacta     String
+  codigoPostal        Int
+  telefono            Int
+
+  idUsuario           Int
+
+  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+}
+
+model Productos {
+  idProducto          Int                         @id @default(autoincrement())
+  nombre              String
+  descripcion         String
+  precio              Decimal
+  cantidad            Int
+  foto                Bytes?
+  
+  idCategoria         Int
+  idEstadoProducto    Int
+  idUsuario           Int
+
+  categoria           CategoriaProducto           @relation(fields: [idCategoria],references: [idCategoria])
+  estadoProducto      Estado_Producto             @relation(fields: [idEstadoProducto],references: [idEstado])
+
+  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+
+  preguntas           Preguntas[]
+  pedidos             Pedidos_Productos[]
+}
+
+ model CategoriaProducto {
+   idCategoria         Int                        @id @default(autoincrement())
+   categoria           String
+  
+   productos           Productos[]
+ }
+
+ model Estado_Producto {
+   idEstado            Int                        @id @default(autoincrement())
+   estado              Boolean
+
+   productos           Productos[]
+ }
+
+model Preguntas {
+  idPregunta          Int                         @id @default(autoincrement())
+  pregunta            String
+
+  idProducto          Int
+
+  productos           Productos                   @relation(fields: [idProducto],references: [idProducto])
+
+  respuestas          Respuestas[]
+}
+
+model Respuestas  {
+  idRespuesta         Int                         @id @default(autoincrement())
+  respuesta           String
+  
+  idPregunta          Int
+
+  preguntas           Preguntas                   @relation(fields: [idPregunta], references: [idPregunta])
+}
+
+model Pedidos {
+  idPedido            Int                         @id @default(autoincrement())
+  estadoPedido        EstadoPedido                @default(Recibido)
+  total               Decimal
+  
+  idUsuario           Int
+
+  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+  
+  evaluacion          Evaluacion[]
+  productos           Pedidos_Productos[]
+}
+
+model Pedidos_Productos {
+  idPedido            Int
+  pedidos             Pedidos                     @relation(fields: [idPedido],references: [idPedido])
+
+  idProducto          Int
+  productos           Productos                   @relation(fields: [idProducto],references: [idProducto])
+
+  @@id([idPedido,idProducto])
+}
+
+model Evaluacion  {
+  idEvaluacion        Int                         @id @default(autoincrement())
+  calificacion        Decimal?
+  comentario          String?
+  
+  idUsuario           Int
+  idPedido            Int
+
+  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+  pedidos             Pedidos                     @relation(fields: [idPedido],references: [idPedido])
+}
+
+enum Rol {
+  ADMIN
+  Vendedor
+  Cliente
+}
+
+enum  EstadoPedido  {
+  Recibido
+  Enviado
+  Entregado
+}
+
+enum EstadoProducto {
+  Disponible
+  Agotado
+}
