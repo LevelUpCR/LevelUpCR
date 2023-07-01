@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../../../appEjemplo/appEjemplo/server"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../appEjemplo/appEjemplo/client"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Tarea 6"
+	}
+}

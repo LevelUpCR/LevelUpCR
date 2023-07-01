@@ -1,0 +1,78 @@
+<mat-card class="full-width">
+    <!-- Titulo del Card -->
+    <mat-card-title>
+      Productos
+      <a
+        mat-fab
+        matTooltip="Crear Producto"
+        aria-label="Crear Producto"
+        color="primary"
+        (click)="crearProducto()"
+        style="background-color: #000163; color: #ffffff;"
+      >
+        <mat-icon>add</mat-icon>
+      </a>
+    </mat-card-title>
+    <mat-card-content>
+      <!-- Table -->
+      <div class="mat-elevation-z8" *ngIf="dataSource">
+        <table mat-table [dataSource]="dataSource" class="full-width-table" matSort aria-label="Elements">
+          <!-- Columna nombre -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td mat-cell *matCellDef="let row">{{ row.nombre }}</td>
+          </ng-container>
+  
+          <!-- Columna precio -->
+          <ng-container matColumnDef="precio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+            <td mat-cell *matCellDef="let row">{{ row.precio }}</td>
+          </ng-container>
+          <!-- Columna acciones -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let row">
+              <button
+              mat-mini-fab
+              color="accent"
+              matTooltip="Actualizar Producto"
+              aria-label="Actualizar Producto"
+              color="primary"
+              (click)="actualizarProducto(row.id)"
+              style="background-color: #b80000; color: #ffffff;"
+              >
+                <mat-icon class="mat-18">edit</mat-icon>
+              </button>
+              <button
+              mat-mini-fab
+              color="accent"
+              matTooltip="Detalle Producto"
+              aria-label="Detalle Producto"
+              color="primary"
+              (click)="detalle(row.id)"
+              style="background-color: #000163; color: #ffffff;"
+              >
+                <mat-icon class="mat-18">info</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+  
+        <mat-paginator
+          #paginator
+          [length]="dataSource?.data?.length"
+          [pageIndex]="0"
+          [pageSize]="3"
+          [pageSizeOptions]="[3, 5, 10]"
+          aria-label="Selecccione una página"
+          
+        >
+        </mat-paginator>
+      </div>
+      <!-- Table -->
+    </mat-card-content>
+  </mat-card>
+  

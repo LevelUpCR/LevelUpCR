@@ -5,10 +5,6 @@ export const estadoProducto = [
     },
     //2
     {
-        estado: true
-    },
-    //3
-    {
         estado: false
     }
 ];

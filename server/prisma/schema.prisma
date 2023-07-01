@@ -11,19 +11,20 @@ datasource db {
 }
 
 model Usuarios {
-  idUsuario           Int       @id @default(autoincrement())
+  idUsuario           Int                         @id @default(autoincrement())
   nombre              String
-  telefono            Int       @unique
-  correo              String    @unique
+  telefono            Int                         @unique
+  correo              String                      @unique
   password            String    
 
-  Rol                 Rol       @default(Cliente)
+  Rol                 Rol                         @default(Cliente)
 
   pagos               Pagos[]
   direccion           Direccion[]
   productos           Productos[]
   pedidos             Pedidos[]
   evaluacion          Evaluacion[]
+  preguntas           Preguntas[]
 }
 
 model Pagos {
@@ -34,12 +35,13 @@ model Pagos {
   fechaExpiracion     DateTime?                   @default(now())
   nombre              String
   
-  idUsuario           Int
-  idTipoPago          Int
+  usuarioId              Int
+  tipoPagoId          Int
   
-  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+  usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
+  tipoPago            TipoPago                    @relation(fields: [tipoPagoId],references: [idTipoPago])
 
-  tipoPago            TipoPago                    @relation(fields: [idTipoPago],references: [idTipoPago])
+  pedidos             Pedidos[]
 }
 
 model TipoPago {
@@ -58,9 +60,11 @@ model Direccion {
   codigoPostal        Int
   telefono            Int
 
-  idUsuario           Int
+  usuarioId           Int
 
-  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+  usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
+
+  pedidos             Pedidos[]
 }
 
 model Productos {
@@ -69,29 +73,36 @@ model Productos {
   descripcion         String
   precio              Decimal
   cantidad            Int
-  foto                Bytes?
   
-  idCategoria         Int
-  idEstadoProducto    Int
-  idUsuario           Int
+  categoriaId         Int
+  estadoProductoId    Int
+  usuarioId           Int
+  // fotoId              Int
 
-  categoria           CategoriaProducto           @relation(fields: [idCategoria],references: [idCategoria])
-  estadoProducto      Estado_Producto             @relation(fields: [idEstadoProducto],references: [idEstado])
-
-  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+  categoria           CategoriaProducto           @relation(fields: [categoriaId],references: [idCategoria])
+  estadoProducto      EstadoProducto              @relation(fields: [estadoProductoId],references: [idEstado])
+  usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
+  // fotos               Fotos_Productos             @relation(fields: [fotoId],references: [idFoto])
 
   preguntas           Preguntas[]
   pedidos             Pedidos_Productos[]
 }
 
- model CategoriaProducto {
-   idCategoria         Int                        @id @default(autoincrement())
-   categoria           String
-  
-   productos           Productos[]
- }
+// model Fotos_Productos { 
+//   idFoto              Int                         @id @default(autoincrement())
+//   Foto                Bytes
 
- model Estado_Producto {
+//   productos           Productos[]
+// }
+
+model CategoriaProducto {
+  idCategoria         Int                        @id @default(autoincrement())
+  categoria           String
+
+  productos           Productos[]
+}
+
+ model EstadoProducto {
    idEstado            Int                        @id @default(autoincrement())
    estado              Boolean
 
@@ -102,9 +113,11 @@ model Preguntas {
   idPregunta          Int                         @id @default(autoincrement())
   pregunta            String
 
-  idProducto          Int
+  productoId          Int
+  usuarioId           Int
 
-  productos           Productos                   @relation(fields: [idProducto],references: [idProducto])
+  productos           Productos                   @relation(fields: [productoId],references: [idProducto])
+  usuarios            Usuarios                    @relation(fields: [usuarioId], references: [idUsuario])
 
   respuestas          Respuestas[]
 }
@@ -113,32 +126,44 @@ model Respuestas  {
   idRespuesta         Int                         @id @default(autoincrement())
   respuesta           String
   
-  idPregunta          Int
+  preguntaId          Int
 
-  preguntas           Preguntas                   @relation(fields: [idPregunta], references: [idPregunta])
+  preguntas           Preguntas                   @relation(fields: [preguntaId], references: [idPregunta])
 }
 
 model Pedidos {
   idPedido            Int                         @id @default(autoincrement())
-  estadoPedido        EstadoPedido                @default(Recibido)
-  total               Decimal
-  
-  idUsuario           Int
+  //idProveedor         Int?
 
-  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
+  direccionId         Int
+  usuarioId           Int
+  estadoPedidoId      Int
+  pagoId              Int
+
+  direcciones         Direccion                   @relation(fields: [direccionId],references: [idDireccion])
+  usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
+  estadoPedido        Estado_Pedido               @relation(fields: [estadoPedidoId],references: [idEstadoPedido])
+  pagos               Pagos                       @relation(fields: [pagoId],references: [idPago])
   
   evaluacion          Evaluacion[]
   productos           Pedidos_Productos[]
 }
 
+model Estado_Pedido {
+  idEstadoPedido            Int                   @id @default(autoincrement())
+  estado                    String
+
+  pedidos                   Pedidos[]
+}
+
 model Pedidos_Productos {
-  idPedido            Int
-  pedidos             Pedidos                     @relation(fields: [idPedido],references: [idPedido])
+  pedidoId            Int
+  pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
 
-  idProducto          Int
-  productos           Productos                   @relation(fields: [idProducto],references: [idProducto])
+  productoId          Int
+  productos           Productos                   @relation(fields: [productoId],references: [idProducto])
 
-  @@id([idPedido,idProducto])
+  @@id([pedidoId,productoId])
 }
 
 model Evaluacion  {
@@ -146,11 +171,11 @@ model Evaluacion  {
   calificacion        Decimal?
   comentario          String?
   
-  idUsuario           Int
-  idPedido            Int
+  usuarioId           Int
+  pedidoId            Int
 
-  usuarios            Usuarios                    @relation(fields: [idUsuario],references: [idUsuario])
-  pedidos             Pedidos                     @relation(fields: [idPedido],references: [idPedido])
+  usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
+  pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
 }
 
 enum Rol {
@@ -159,13 +184,13 @@ enum Rol {
   Cliente
 }
 
-enum  EstadoPedido  {
-  Recibido
-  Enviado
-  Entregado
-}
+// enum  EstadoPedido  {
+//   Recibido
+//   Enviado
+//   Entregado
+// }
 
-enum EstadoProducto {
-  Disponible
-  Agotado
-}
+// enum EstadoProducto {
+//   Disponible
+//   Agotado
+// }

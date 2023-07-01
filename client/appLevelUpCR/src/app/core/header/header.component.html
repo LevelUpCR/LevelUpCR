@@ -1,0 +1,43 @@
+<mat-toolbar color="primary" class="header">
+    <button mat-icon-button [matMenuTriggerFor]="menu1" class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+      <img src="./assets/images/LevelUp CR.png" class="logo-image" alt="Logo">
+      <span>Level Up CR</span>
+
+    
+    <!-- <span><a [routerLink]="['/']" routerLinkActive="mat-raised-button" >Level Up CR</a></span> -->
+
+    <mat-menu #menu1="matMenu">
+      <button mat-menu-item [routerLink]="['/']" routerLinkActive="mat-raised-button">Inicio</button>
+      <button mat-menu-item [routerLink]="['/acerca-de']" routerLinkActive="mat-raised-button">Acerca de</button>
+      <button mat-menu-item [matMenuTriggerFor]="menu2" >Mantenimientos</button>
+    </mat-menu>
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item [routerLink]="['/productos/all']" routerLinkActive="mat-raised-button">Productos</button>
+    </mat-menu>
+    <div class="example-button-container"></div>
+    <div class="example-spacer"></div>
+    <div class="example-spacer left">
+      <!-- Enlaces de la aplicación -->
+      <!-- https://fonts.google.com/icons -->
+      <button mat-icon-button>
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      <span class="mat-caption" *ngIf="isAutenticated">{{currentUser.name}}</span>
+      <button mat-icon-button [matMenuTriggerFor]="menu3">
+        <mat-icon [ngStyle]="{'color': isAutenticated ? 'white':'#9E9E9E'}">person</mat-icon>
+      </button>
+      <mat-menu #menu3="matMenu">
+        <a mat-menu-item *ngIf="!(isAutenticated)">
+          <mat-icon>person_add</mat-icon>
+          <span>Login</span>
+        </a>
+        <a mat-menu-item *ngIf="!(isAutenticated)">
+          <mat-icon>person_remove</mat-icon>
+          <span>Logout</span>
+        </a>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
