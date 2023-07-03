@@ -12,7 +12,8 @@ import { ProductosDiagComponent } from '../productos-diag/productos-diag.compone
 export class ProductosIndexComponent {
   datos: any; //Respuesta del API
   destroy$: Subject<boolean> = new Subject<boolean>();
-
+  tarjetasPorPagina = 4;
+  paginaActual = 1;
   constructor(private gService: GenericService, private dialog: MatDialog) {
     this.listaProductos();
   }
@@ -28,6 +29,7 @@ export class ProductosIndexComponent {
       });
   }
   detalleProducto(id: number) {
+    console.log(id);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.data = {

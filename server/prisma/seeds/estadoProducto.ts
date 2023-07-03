@@ -1,10 +1,22 @@
 export const estadoProducto = [
     //1
     {
-        estado: true
+        estado: "Nuevo"
     },
     //2
     {
-        estado: false
+        estado: "Usado"
+    },
+    //3
+    {
+        estado: "Defectuoso"
+    },
+    //4
+    {
+        estado: "Dañado"
+    },
+    //5
+    {
+        estado: "Agotado"
     }
 ];

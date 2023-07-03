@@ -104,7 +104,7 @@ model CategoriaProducto {
 
  model EstadoProducto {
    idEstado            Int                        @id @default(autoincrement())
-   estado              Boolean
+   estado              String
 
    productos           Productos[]
  }
@@ -139,6 +139,7 @@ model Pedidos {
   usuarioId           Int
   estadoPedidoId      Int
   pagoId              Int
+  total              Decimal
 
   direcciones         Direccion                   @relation(fields: [direccionId],references: [idDireccion])
   usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])

@@ -11,9 +11,9 @@ async function main() {
     await prisma.usuarios.create({
         data: {
             nombre: 'Admin',
-            telefono: 123,
-            correo:'admin',
-            password:'123456789',
+            telefono: 81818181,
+            correo:'admin@admin.com',
+            password:'123456',
             Rol: Rol.ADMIN
         }
     });
@@ -21,9 +21,9 @@ async function main() {
     await prisma.usuarios.create({
         data: {
             nombre: 'Luis Solera',
-            telefono: 456,
-            correo:'lsolera',
-            password:'123789456',
+            telefono: 82828282,
+            correo:'lsolera@cliente.com',
+            password:'123456',
             Rol: Rol.Cliente
         }
     });
@@ -31,9 +31,39 @@ async function main() {
     await prisma.usuarios.create({
         data: {
             nombre: 'Israel Calvo',
-            telefono: 789,
-            correo:'icalvo',
-            password:'789456123',
+            telefono: 83838383,
+            correo:'icalvo@cliente.com',
+            password:'123456',
+            Rol: Rol.Cliente
+        }
+    });
+    //4
+    await prisma.usuarios.create({
+        data: {
+            nombre: 'Sony',
+            telefono: 84848484,
+            correo:'sony@vendedor.com',
+            password:'123456',
+            Rol: Rol.Vendedor
+        }
+    });
+    //5
+    await prisma.usuarios.create({
+        data: {
+            nombre: 'Nintendo',
+            telefono: 85858585,
+            correo:'nintendo@vendedor.com',
+            password:'123456',
+            Rol: Rol.Vendedor
+        }
+    });
+    //6
+    await prisma.usuarios.create({
+        data: {
+            nombre: 'Microsoft',
+            telefono: 86868686,
+            correo:'microsoft@vendedor.com',
+            password:'123456',
             Rol: Rol.Vendedor
         }
     });
@@ -138,7 +168,7 @@ async function main() {
             //fotoId:                 1,
             categoriaId:            1,
             estadoProductoId:       1,
-            usuarioId:              1
+            usuarioId:              4
         }
     });
     //2
@@ -151,7 +181,7 @@ async function main() {
             //fotoId:                 1,
             categoriaId:            3,
             estadoProductoId:       2,
-            usuarioId:              2
+            usuarioId:              5
         }
     });    
     //3
@@ -164,7 +194,98 @@ async function main() {
             //fotoId:                 1,
             categoriaId:            3,
             estadoProductoId:       2,
-            usuarioId:              2
+            usuarioId:              6
+        }
+    });
+    //4
+    await prisma.productos.create({
+        data: {
+            nombre:                 'Auriculares Pulse 3D',
+            descripcion:            'Audifonos de Sony para la PS5',
+            precio:                 69.99,
+            cantidad:               10,
+            //fotoId:                 1,
+            categoriaId:            3,
+            estadoProductoId:       1,
+            usuarioId:              4
+        }
+    });
+    //5
+    await prisma.productos.create({
+        data: {
+            nombre:                 'Control DualSense Original White',
+            descripcion:            'Control oficial para la PS5',
+            precio:                 79.99,
+            cantidad:               15,
+            //fotoId:                 1,
+            categoriaId:            3,
+            estadoProductoId:       1,
+            usuarioId:              4
+        }
+    });
+    //6
+    await prisma.productos.create({
+        data: {
+            nombre:                 'Control DualSense Midnight Black.',
+            descripcion:            'Control oficial para la PS5',
+            precio:                 79.99,
+            cantidad:               15,
+            //fotoId:                 1,
+            categoriaId:            3,
+            estadoProductoId:       1,
+            usuarioId:              4
+        }
+    });
+    //7
+    await prisma.productos.create({
+        data: {
+            nombre:                 'Control DualSense Cosmic Red',
+            descripcion:            'Control oficial para la PS5',
+            precio:                 79.99,
+            cantidad:               15,
+            //fotoId:                 1,
+            categoriaId:            3,
+            estadoProductoId:       1,
+            usuarioId:              4
+        }
+    });
+    //8
+    await prisma.productos.create({
+        data: {
+            nombre:                 'Control DualSense Nova Pink',
+            descripcion:            'Control oficial para la PS5',
+            precio:                 79.99,
+            cantidad:               15,
+            //fotoId:                 1,
+            categoriaId:            3,
+            estadoProductoId:       1,
+            usuarioId:              4
+        }
+    });
+    //9
+    await prisma.productos.create({
+        data: {
+            nombre:                 'Control DualSense Starlight Blue',
+            descripcion:            'Control oficial para la PS5',
+            precio:                 79.99,
+            cantidad:               15,
+            //fotoId:                 1,
+            categoriaId:            3,
+            estadoProductoId:       1,
+            usuarioId:              4
+        }
+    });
+    //10
+    await prisma.productos.create({
+        data: {
+            nombre:                 'Control DualSense Galactic Purple',
+            descripcion:            'Control oficial para la PS5',
+            precio:                 79.99,
+            cantidad:               15,
+            //fotoId:                 1,
+            categoriaId:            3,
+            estadoProductoId:       1,
+            usuarioId:              4
         }
     });
     //Preguntas
@@ -189,6 +310,14 @@ async function main() {
         data: {
             pregunta:               '¿Cuáles son los beneficios de elegir una consola portátil en lugar de una de sobremesa?',
             productoId:             2,
+            usuarioId:              1
+        }
+    });
+    //4
+    await prisma.preguntas.create({
+        data: {
+            pregunta:               '¿Los audifonos se pueden usar via bluetooth?',
+            productoId:             4,
             usuarioId:              1
         }
     });
@@ -235,7 +364,8 @@ async function main() {
             pagoId:                 1,
             direccionId:            1,
             usuarioId:              1,
-            estadoPedidoId:         1
+            estadoPedidoId:         1,
+            total:                 400.00
         }
     });
     //2
@@ -244,7 +374,8 @@ async function main() {
             pagoId:                 1,
             direccionId:            1,
             usuarioId:              1,
-            estadoPedidoId:         1
+            estadoPedidoId:         1,
+            total:                 450.00
         }
     });
     //3
@@ -253,7 +384,8 @@ async function main() {
             pagoId:                 1,
             direccionId:            1,
             usuarioId:              1,
-            estadoPedidoId:         1
+            estadoPedidoId:         1,
+            total:                 500.00
         }
     });
     //Evaluacion

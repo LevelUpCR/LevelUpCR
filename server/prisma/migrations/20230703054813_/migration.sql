@@ -75,7 +75,7 @@ CREATE TABLE `CategoriaProducto` (
 -- CreateTable
 CREATE TABLE `EstadoProducto` (
     `idEstado` INTEGER NOT NULL AUTO_INCREMENT,
-    `estado` BOOLEAN NOT NULL,
+    `estado` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`idEstado`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -106,6 +106,7 @@ CREATE TABLE `Pedidos` (
     `usuarioId` INTEGER NOT NULL,
     `estadoPedidoId` INTEGER NOT NULL,
     `pagoId` INTEGER NOT NULL,
+    `precio` DECIMAL(65, 30) NOT NULL,
 
     PRIMARY KEY (`idPedido`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

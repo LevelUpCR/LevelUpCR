@@ -19,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';  
 import { MatSelectModule } from '@angular/material/select';
+import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
     ProductosDetailComponent,
     ProductosDiagComponent,
     ProductosAllComponent,
-    ProductosFormComponent
+    ProductosFormComponent,
+    ProductosVendedorComponent
   ],
   imports: [
     CommonModule,

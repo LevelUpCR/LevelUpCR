@@ -1,16 +1,42 @@
-<button mat-icon-button class="close-button" [mat-dialog-close]="true">
-    <mat-icon class="close-icon"  style="background-color: #b8000000; color: #b80000;">close</mat-icon>
-  </button>
+<div class="principal">
+  <div class="container">
+    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+      <mat-icon
+        class="close-icon"
+        style="background-color: #b8000000; color: #b80000"
+        >close</mat-icon
+      >
+    </button>
+    <h2 class="headerh1">{{ datos?.nombre }}</h2>
+  </div>
   <div *ngIf="datos">
-    <h2 mat-dialog-title>{{ datos.nombre }}</h2>
-  
-    <mat-dialog-content>
-      <p>{{ datos.descripcion }}</p>
-      <h4>{{ datos.precio | currency : "USD" }}</h4>
-      <ul *ngIf="datos.generos">
-        <li *ngFor="let item of datos.generos">{{ item.nombre }}</li>
+    <mat-dialog-content class="bodyDiag">
+      <p><strong>Descripción del artículo:</strong> {{ datos.descripcion }}</p>
+      <p><strong>Precio: </strong>{{ datos.precio | currency : "USD" }}</p>
+      <p><strong>Marca: </strong>{{ datos.usuarios?.nombre }}</p>
+      <p><strong>Categoria: </strong>{{ datos.categoria?.categoria }}</p>
+      <p><strong>Estado del producto: </strong>{{ datos.estadoProducto?.estado }}</p>
+      <strong *ngIf="datos.preguntas && datos.preguntas.length > 0"
+        >Preguntas acerca del producto:</strong
+      >
+      <strong *ngIf="!datos.preguntas || datos.preguntas.length === 0"
+        >Aún no hay preguntas para este producto.</strong
+      >
+      <ul *ngIf="datos.preguntas && datos.preguntas.length > 0">
+        <li *ngFor="let pregunta of datos.preguntas">
+          {{ pregunta.pregunta }}
+          <ul *ngIf="pregunta.respuestas && pregunta.respuestas.length > 0">
+            <li *ngFor="let respuesta of pregunta.respuestas">
+              {{ respuesta.respuesta }}
+            </li>
+          </ul>
+          <div *ngIf="!pregunta.respuestas || pregunta.respuestas.length === 0">
+            Aún no hay respuestas para esta pregunta.
+          </div>
+        </li>
       </ul>
     </mat-dialog-content>
-  
+
     <mat-dialog-actions> </mat-dialog-actions>
   </div>
+</div>

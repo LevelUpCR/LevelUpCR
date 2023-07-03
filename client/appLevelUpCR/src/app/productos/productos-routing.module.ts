@@ -4,12 +4,15 @@ import { ProductosIndexComponent } from './productos-index/productos-index.compo
 import { ProductosAllComponent } from './productos-all/productos-all.component';
 import { ProductosFormComponent } from './productos-form/productos-form.component';
 import { ProductosDetailComponent } from './productos-detail/productos-detail.component';
+import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
 
  //locahost:3000/videojuego/all
  const routes: Routes = [
   {path:'productos', component: ProductosIndexComponent}, 
 
   {path:'productos/all', component: ProductosAllComponent},
+  {path:'productos/vendedor/:id', component: ProductosVendedorComponent},
+  {path:'productos/vendedor', component: ProductosVendedorComponent},
 
   {path:'productos/create', component: ProductosFormComponent},
 

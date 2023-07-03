@@ -16,3 +16,59 @@ grid-container {
 .dashboard-card-content {
   text-align: center;
 }
+
+.mat-h1 {
+  text-align: center;
+}
+
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.dashboard-card mat-card-header,
+.dashboard-card mat-card-actions {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Ajusta el margen superior según tus necesidades */
+}
+
+.action-button {
+  margin: 0 5px; /* Ajusta el margen horizontal según tus necesidades */
+}
+
+.header{
+  font-family: 'Press Start 2P', cursive;
+  
+}
+
+.headerh1{
+  font-family: 'Press Start 2P', cursive;
+  margin-top: 2rem;
+}
+.border{
+  border-radius: 10px;
+  background-color: #a5a5a5;
+  color: #ffffff;
+  margin: 10px;
+  border: solid 5px #b80000;
+}
+.back{
+  
+  border-radius: 10px 0 ;
+  width: 10%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}

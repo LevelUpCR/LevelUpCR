@@ -1,9 +1,27 @@
+/* Fonts */
+:root{
+  --font-title:   'Kanit', sans-serif;
+  --font-default: 'Playfair Display', serif;
+}
+/* Colors */
+:root{
+  --Detalles: #a5a5a5;
+  --Primario: #b80000;
+  --Secundario: #000163;
+  --TextoSecundario: #000000;
+  --TextoPrimario: #ffffff;
+}
+
 .example-spacer {
     flex: 1 1 auto;
 }
 .header{
     background-color: #b80000;
+    display: flex;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
 }
+
 .left{
     display: flex;
   justify-content: flex-end;
@@ -16,6 +34,9 @@
 
 .logo-image {
     max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
  

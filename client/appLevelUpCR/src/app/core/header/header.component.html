@@ -4,7 +4,7 @@
     </button>
 
       <img src="./assets/images/LevelUp CR.png" class="logo-image" alt="Logo">
-      <span>Level Up CR</span>
+      <span class="header">Level Up CR</span>
 
     
     <!-- <span><a [routerLink]="['/']" routerLinkActive="mat-raised-button" >Level Up CR</a></span> -->
@@ -12,10 +12,11 @@
     <mat-menu #menu1="matMenu">
       <button mat-menu-item [routerLink]="['/']" routerLinkActive="mat-raised-button">Inicio</button>
       <button mat-menu-item [routerLink]="['/acerca-de']" routerLinkActive="mat-raised-button">Acerca de</button>
-      <button mat-menu-item [matMenuTriggerFor]="menu2" >Mantenimientos</button>
+      <button mat-menu-item [matMenuTriggerFor]="menu2" >Listados</button>
     </mat-menu>
     <mat-menu #menu2="matMenu">
       <button mat-menu-item [routerLink]="['/productos/all']" routerLinkActive="mat-raised-button">Productos</button>
+      <button mat-menu-item [routerLink]="['/productos/vendedor']" routerLinkActive="mat-raised-button">Productos Sony</button>
     </mat-menu>
     <div class="example-button-container"></div>
     <div class="example-spacer"></div>
