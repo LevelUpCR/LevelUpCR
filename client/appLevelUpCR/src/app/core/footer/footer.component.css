@@ -2,13 +2,15 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 40px;
   text-align: center;
-  margin: 0px;
-  background-color: #000163;
+  margin: 0px 0px 0px 0px;
+  background-color: #00013671;
   color: #fff;
 }
 .title-center {
   flex: 1 1 auto;
   text-align: center;
+}
+.footer-item {
+  white-space: normal;
 }

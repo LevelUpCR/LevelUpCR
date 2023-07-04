@@ -1,6 +1,8 @@
 <div class="grid-container">
-  <h1 class="mat-h1 headerh1">Productos</h1>
-  <mat-grid-list [cols]="2" rowHeight="12em" gutterSize="10px">
+  <div class="headerh1">
+    Productos
+  </div>
+  <mat-grid-list [cols]="2" rowHeight="16em" gutterSize="10px">
     <mat-grid-tile
       *ngFor="
         let item of datos.slice(
@@ -15,8 +17,8 @@
         </mat-card-header>
         <mat-divider inset></mat-divider>
         <mat-card-content>
-          <div>Precio: {{ item.precio | currency : "USD" }}</div>
-          <div>Marca: {{ item.usuarios?.nombre }}</div>
+          <div><strong>Precio: </strong>{{ item.precio | currency : "USD" }}</div>
+          <div><strong>Marca: </strong>{{ item.usuarios?.nombre }}</div>
           <mat-divider inset></mat-divider>
           <mat-card-actions>
             <div class="button-container">

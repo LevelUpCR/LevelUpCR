@@ -6,7 +6,7 @@ import { PedidosClienteComponent } from './pedidos-cliente/pedidos-cliente.compo
 
 const routes: Routes = [
   { path: 'pedidos', component: PedidosIndexComponent },
-  { path: 'pedidos/cliente/', component: PedidosClienteComponent },
+  { path: 'pedidos/cliente', component: PedidosClienteComponent },
   { path: 'pedidos/cliente/:id', component: PedidosClienteComponent},
   { path: 'pedidos/vendedor', component: PedidosVendedorComponent },
   { path: 'pedidos/vendedor/:id', component: PedidosVendedorComponent },

@@ -36,6 +36,7 @@ grid-container {
 }
 
 .pagination-controls {
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,28 +46,36 @@ grid-container {
 .action-button {
   margin: 0 5px; /* Ajusta el margen horizontal según tus necesidades */
 }
+.back{
+  padding: 10px 0 ;
+}
 
 .header{
   font-family: 'Press Start 2P', cursive;
-  
+  background-color: #000136;
+  padding: 0 1vw;
+  border-radius: 40px;
 }
 
 .headerh1{
   font-family: 'Press Start 2P', cursive;
-  margin-top: 2rem;
+  font-size: 30px;
+  margin: 1.5rem;
+  text-align: center;
+  background-color: #b80000;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 40px;
 }
 .border{
   border-radius: 10px;
-  background-color: #a5a5a5;
+  background-color: #a5a5a588;
   color: #ffffff;
-  margin: 10px;
+
+  max-height: 250px;
   border: solid 5px #b80000;
 }
-.back{
-  
-  border-radius: 10px 0 ;
-  width: 10%;
-}
+
 
 .button-container {
   display: flex;

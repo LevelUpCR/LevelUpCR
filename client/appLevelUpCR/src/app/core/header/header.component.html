@@ -15,19 +15,20 @@
       <button mat-menu-item [matMenuTriggerFor]="menu2" >Listados</button>
     </mat-menu>
     <mat-menu #menu2="matMenu">
-      <button mat-menu-item [routerLink]="['/productos/all']" routerLinkActive="mat-raised-button">Productos</button>
+      <button mat-menu-item [routerLink]="['/productos']" routerLinkActive="mat-raised-button">Productos</button>
       <button mat-menu-item [routerLink]="['/productos/vendedor']" routerLinkActive="mat-raised-button">Productos Sony</button>
+      <button mat-menu-item [routerLink]="['/pedidos/cliente']" routerLinkActive="mat-raised-button">Pedidos Cliente</button>
     </mat-menu>
     <div class="example-button-container"></div>
     <div class="example-spacer"></div>
     <div class="example-spacer left">
       <!-- Enlaces de la aplicación -->
       <!-- https://fonts.google.com/icons -->
-      <button mat-icon-button>
+      <button mat-icon-button class="mat-square-button">
         <mat-icon>shopping_cart</mat-icon>
       </button>
       <span class="mat-caption" *ngIf="isAutenticated">{{currentUser.name}}</span>
-      <button mat-icon-button [matMenuTriggerFor]="menu3">
+      <button mat-icon-button [matMenuTriggerFor]="menu3" class="mat-square-button">
         <mat-icon [ngStyle]="{'color': isAutenticated ? 'white':'#9E9E9E'}">person</mat-icon>
       </button>
       <mat-menu #menu3="matMenu">
@@ -40,5 +41,5 @@
           <span>Logout</span>
         </a>
       </mat-menu>
-    </div>
+    </div>    
   </mat-toolbar>

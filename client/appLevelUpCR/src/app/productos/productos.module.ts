@@ -20,6 +20,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';  
 import { MatSelectModule } from '@angular/material/select';
 import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ProductosVendedorComponent } from './productos-vendedor/productos-vende
     MatMenuModule,
     MatSelectModule,
     MatCardModule,
+    MatButtonToggleModule,
     ReactiveFormsModule, //Gestionar Formularios
   ]
 })

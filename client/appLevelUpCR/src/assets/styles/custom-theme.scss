@@ -1,0 +1,162 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-myprimarycolor: (
+    50 : #f6e0e0,
+    100 : #eab3b3,
+    200 : #dc8080,
+    300 : #cd4d4d,
+    400 : #c32626,
+    500 : #b80000,
+    600 : #b10000,
+    700 : #a80000,
+    800 : #a00000,
+    900 : #910000,
+    A100 : #ffbdbd,
+    A200 : #ff8a8a,
+    A400 : #ff5757,
+    A700 : #ff3d3d,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$my-primary-color: (
+    50 : #f6e0e0,
+    100 : #eab3b3,
+    200 : #dc8080,
+    300 : #cd4d4d,
+    400 : #c32626,
+    500 : #b80000,
+    600 : #b10000,
+    700 : #a80000,
+    800 : #a00000,
+    900 : #910000,
+    A100 : #ffbdbd,
+    A200 : #ff8a8a,
+    A400 : #ff5757,
+    A700 : #ff3d3d,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$my-accent-color: (
+    50 : #e0e1ec,
+    100 : #b3b3d0,
+    200 : #8080b1,
+    300 : #4d4d92,
+    400 : #26277a,
+    500 : #000163,
+    600 : #00015b,
+    700 : #000151,
+    800 : #000147,
+    900 : #000035,
+    A100 : #6d6dff,
+    A200 : #3a3aff,
+    A400 : #0707ff,
+    A700 : #0000ec,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$my-warm-color: (
+    50 : #fcf0e3,
+    100 : #f7d9b9,
+    200 : #f1bf8b,
+    300 : #eba55d,
+    400 : #e7923a,
+    500 : #e37f17,
+    600 : #e07714,
+    700 : #dc6c11,
+    800 : #d8620d,
+    900 : #d04f07,
+    A100 : #fffbfa,
+    A200 : #ffd8c7,
+    A400 : #ffb594,
+    A700 : #ffa37a,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$my-palette-primary: mat-palette($my-primary-color);
+$my-palette-accent: mat-palette($my-accent-color);
+$my-palette-warm: mat-palette($my-warm-color);
+
+$my-theme: mat-light-theme((
+    color:(
+        primary: $my-palette-primary,
+        accent: $my-palette-accent,
+        warm: $my-palette-warm
+    )
+));
+
+@include angular-material-theme($my-theme);
+
+
+
+
+
+
+
