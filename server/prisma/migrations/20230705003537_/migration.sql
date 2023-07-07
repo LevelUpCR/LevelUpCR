@@ -106,7 +106,7 @@ CREATE TABLE `Pedidos` (
     `usuarioId` INTEGER NOT NULL,
     `estadoPedidoId` INTEGER NOT NULL,
     `pagoId` INTEGER NOT NULL,
-    `precio` DECIMAL(65, 30) NOT NULL,
+    `total` DECIMAL(65, 30) NOT NULL,
 
     PRIMARY KEY (`idPedido`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -123,6 +123,7 @@ CREATE TABLE `Estado_Pedido` (
 CREATE TABLE `Pedidos_Productos` (
     `pedidoId` INTEGER NOT NULL,
     `productoId` INTEGER NOT NULL,
+    `cantidad` INTEGER NOT NULL,
 
     PRIMARY KEY (`pedidoId`, `productoId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

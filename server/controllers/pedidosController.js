@@ -58,6 +58,40 @@ module.exports.getByIdUsuario = async (request, response, next) => {
   });
   response.json(pedidos);
 };
+
+module.exports.getByProductosxIdUsuario = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  const pedidos = await prisma.pedidos.findMany({
+    where: {
+      productos: {
+        some: {
+          productos: {
+            usuarioId: id,
+          },
+        },
+      },
+    },
+    include: {
+      usuarios: true,
+      estadoPedido: true,
+      productos: {
+        include: {
+          productos: {
+            include: {
+              usuarios: true
+            }
+          }
+        },
+      },
+    },
+    orderBy: {
+      idPedido: "asc",
+    },
+  });
+  response.json(pedidos);
+};
+
+
 //Crear un usuario
 module.exports.create = async (request, response, next) => {};
 //Actualizar un usuario

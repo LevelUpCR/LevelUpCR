@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 //Obtener listado
 module.exports.get = async (request, response, next) => {
     const productos = await prisma.productos.findMany({
+      
         include:{
             usuarios:true
         },

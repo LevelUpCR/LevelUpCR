@@ -90,7 +90,7 @@ model Productos {
 
 // model Fotos_Productos { 
 //   idFoto              Int                         @id @default(autoincrement())
-//   Foto                Bytes
+//   Foto                longblob
 
 //   productos           Productos[]
 // }
@@ -163,8 +163,8 @@ model Pedidos_Productos {
 
   productoId          Int
   productos           Productos                   @relation(fields: [productoId],references: [idProducto])
-
   @@id([pedidoId,productoId])
+  cantidad            Int
 }
 
 model Evaluacion  {

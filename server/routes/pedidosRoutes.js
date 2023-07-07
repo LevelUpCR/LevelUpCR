@@ -7,8 +7,8 @@ router.get("/",pedidosController.get);
 router.get("/:id",pedidosController.getById);
 router.get("/cliente",pedidosController.getByIdUsuario);
 router.get("/cliente/:id",pedidosController.getByIdUsuario);
-//router.get("/vendedor/:id",pedidosController.getByProductosxIdUsuario);
-//router.get("/vendedor",productosController.getByProductosxIdUsuario);
+router.get("/vendedor/:id",pedidosController.getByProductosxIdUsuario);
+router.get("/vendedor",pedidosController.getByProductosxIdUsuario);
 
 
 module.exports = router;

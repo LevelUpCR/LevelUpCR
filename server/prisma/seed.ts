@@ -421,21 +421,24 @@ async function main() {
     await prisma.pedidos_Productos.create({
         data:{
             productoId:             1,
-            pedidoId:               2
+            pedidoId:               2,
+            cantidad:               1
         }
     });
     //2
     await prisma.pedidos_Productos.create({
         data:{
             productoId:             2,
-            pedidoId:               3
+            pedidoId:               3,
+            cantidad:               2
         }
     });
     //3
     await prisma.pedidos_Productos.create({
         data:{
             productoId:             3,
-            pedidoId:               1
+            pedidoId:               1,
+            cantidad:               1
         }
     });
 }
