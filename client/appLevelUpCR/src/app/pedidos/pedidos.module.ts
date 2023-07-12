@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PedidosClienteComponent } from './pedidos-cliente/pedidos-cliente.component';
+import { PedidosDiagVendedorComponent } from './pedidos-diag-vendedor/pedidos-diag-vendedor.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PedidosClienteComponent } from './pedidos-cliente/pedidos-cliente.compo
     PedidosIndexComponent,
     PedidosDiagComponent,
     PedidosVendedorComponent,
-    PedidosClienteComponent
+    PedidosClienteComponent,
+    PedidosDiagVendedorComponent
   ],
   imports: [
     CommonModule,

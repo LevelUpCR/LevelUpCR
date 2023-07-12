@@ -5,11 +5,18 @@ CREATE TABLE `Usuarios` (
     `telefono` INTEGER NOT NULL,
     `correo` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
-    `Rol` ENUM('ADMIN', 'Vendedor', 'Cliente') NOT NULL DEFAULT 'Cliente',
 
     UNIQUE INDEX `Usuarios_telefono_key`(`telefono`),
     UNIQUE INDEX `Usuarios_correo_key`(`correo`),
     PRIMARY KEY (`idUsuario`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Rol` (
+    `idRol` INTEGER NOT NULL AUTO_INCREMENT,
+    `descripcion` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`idRol`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -65,6 +72,15 @@ CREATE TABLE `Productos` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Fotos_Productos` (
+    `idFoto` INTEGER NOT NULL AUTO_INCREMENT,
+    `Foto` VARCHAR(191) NOT NULL,
+    `idProducto` INTEGER NOT NULL,
+
+    PRIMARY KEY (`idFoto`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `CategoriaProducto` (
     `idCategoria` INTEGER NOT NULL AUTO_INCREMENT,
     `categoria` VARCHAR(191) NOT NULL,
@@ -107,6 +123,7 @@ CREATE TABLE `Pedidos` (
     `estadoPedidoId` INTEGER NOT NULL,
     `pagoId` INTEGER NOT NULL,
     `total` DECIMAL(65, 30) NOT NULL,
+    `fechaCompra` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`idPedido`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -139,6 +156,15 @@ CREATE TABLE `Evaluacion` (
     PRIMARY KEY (`idEvaluacion`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `_RolToUsuarios` (
+    `A` INTEGER NOT NULL,
+    `B` INTEGER NOT NULL,
+
+    UNIQUE INDEX `_RolToUsuarios_AB_unique`(`A`, `B`),
+    INDEX `_RolToUsuarios_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `Pagos` ADD CONSTRAINT `Pagos_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -156,6 +182,9 @@ ALTER TABLE `Productos` ADD CONSTRAINT `Productos_estadoProductoId_fkey` FOREIGN
 
 -- AddForeignKey
 ALTER TABLE `Productos` ADD CONSTRAINT `Productos_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Fotos_Productos` ADD CONSTRAINT `Fotos_Productos_idProducto_fkey` FOREIGN KEY (`idProducto`) REFERENCES `Productos`(`idProducto`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Preguntas` ADD CONSTRAINT `Preguntas_productoId_fkey` FOREIGN KEY (`productoId`) REFERENCES `Productos`(`idProducto`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -189,3 +218,9 @@ ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_usuarioId_fkey` FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_pedidoId_fkey` FOREIGN KEY (`pedidoId`) REFERENCES `Pedidos`(`idPedido`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_RolToUsuarios` ADD CONSTRAINT `_RolToUsuarios_A_fkey` FOREIGN KEY (`A`) REFERENCES `Rol`(`idRol`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_RolToUsuarios` ADD CONSTRAINT `_RolToUsuarios_B_fkey` FOREIGN KEY (`B`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;

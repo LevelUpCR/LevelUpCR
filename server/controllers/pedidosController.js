@@ -38,6 +38,35 @@ module.exports.getById = async (request, response, next) => {
   });
   response.json(pedido);
 };
+
+module.exports.getPedidoById = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  let idUser = 4; // parseInt(request.params.idUser);
+  const pedido = await prisma.pedidos.findUnique({
+    where: { idPedido: id },
+    include: {
+      usuarios: true,
+      direcciones: true,
+      estadoPedido: true,
+      pagos: {
+        include: {
+          tipoPago: true,
+        },
+      },
+      productos: {
+        include: {
+          productos: {
+            include: {
+              usuarios: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  response.json(pedido);
+};
+
 //Obtener listado por IDUsuario
 module.exports.getByIdUsuario = async (request, response, next) => {
   let id = parseInt(request.params.id);

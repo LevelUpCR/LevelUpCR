@@ -1,21 +1,21 @@
-
 import { Component, Inject,OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
 
 @Component({
-  selector: 'app-pedidos-diag',
-  templateUrl: './pedidos-diag.component.html',
-  styleUrls: ['./pedidos-diag.component.css']
+  selector: 'app-pedidos-diag-vendedor',
+  templateUrl: './pedidos-diag-vendedor.component.html',
+  styleUrls: ['./pedidos-diag-vendedor.component.css']
 })
-export class PedidosDiagComponent implements OnInit{
+export class PedidosDiagVendedorComponent  implements OnInit{
   datos:any;
   datosDialog:any;
+  total: number = 1;
   destroy$:Subject<boolean>= new Subject<boolean>();
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
-    private dialogRef:MatDialogRef<PedidosDiagComponent>,
+    private dialogRef:MatDialogRef<PedidosDiagVendedorComponent>,
     private gService:GenericService
   ) { 
     this.datosDialog=data;
@@ -27,17 +27,21 @@ export class PedidosDiagComponent implements OnInit{
       this.obtenerPedido(this.datosDialog.id);
     }
   }
-  obtenerPedido(id:any){
+  sumarProductos(producto) {
+    this.total+=producto;
+    console.log('Se suma un producto:', producto);
+  }
+  obtenerPedido(id: any) {
     console.log(id);
     this.gService
-    .get('pedidos',id)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((data:any)=>{
-        this.datos=data; 
-        console.log(this.datos)
-    });
-   
+      .get('pedidos', id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        this.datos = data;
+      });
   }
+  
+  
   close(){
     //Dentro de close ()
      //this.form.value 

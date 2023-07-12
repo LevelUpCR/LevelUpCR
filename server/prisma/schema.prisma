@@ -16,15 +16,20 @@ model Usuarios {
   telefono            Int                         @unique
   correo              String                      @unique
   password            String    
-
-  Rol                 Rol                         @default(Cliente)
-
+  
+  roles               Rol[]
   pagos               Pagos[]
   direccion           Direccion[]
   productos           Productos[]
   pedidos             Pedidos[]
   evaluacion          Evaluacion[]
   preguntas           Preguntas[]
+}
+
+model Rol {
+    idRol               Int                         @id @default(autoincrement())
+    descripcion         String
+    usuarios            Usuarios[]
 }
 
 model Pagos {
@@ -77,23 +82,24 @@ model Productos {
   categoriaId         Int
   estadoProductoId    Int
   usuarioId           Int
-  // fotoId              Int
 
   categoria           CategoriaProducto           @relation(fields: [categoriaId],references: [idCategoria])
   estadoProducto      EstadoProducto              @relation(fields: [estadoProductoId],references: [idEstado])
   usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
-  // fotos               Fotos_Productos             @relation(fields: [fotoId],references: [idFoto])
-
+ 
+  fotosProductos      Fotos_Productos[]
   preguntas           Preguntas[]
   pedidos             Pedidos_Productos[]
 }
 
-// model Fotos_Productos { 
-//   idFoto              Int                         @id @default(autoincrement())
-//   Foto                longblob
+model Fotos_Productos { 
+  idFoto              Int                         @id @default(autoincrement())
+  Foto                String
+  idProducto          Int  
 
-//   productos           Productos[]
-// }
+  productos               Productos           @relation(fields: [idProducto],references: [idProducto])
+
+}
 
 model CategoriaProducto {
   idCategoria         Int                        @id @default(autoincrement())
@@ -139,7 +145,8 @@ model Pedidos {
   usuarioId           Int
   estadoPedidoId      Int
   pagoId              Int
-  total              Decimal
+  total               Decimal
+  fechaCompra         DateTime @default(now()) @updatedAt
 
   direcciones         Direccion                   @relation(fields: [direccionId],references: [idDireccion])
   usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
@@ -179,11 +186,11 @@ model Evaluacion  {
   pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
 }
 
-enum Rol {
-  ADMIN
-  Vendedor
-  Cliente
-}
+// enum Rol {
+//   ADMIN
+//   Vendedor
+//   Cliente
+// }
 
 // enum  EstadoPedido  {
 //   Recibido

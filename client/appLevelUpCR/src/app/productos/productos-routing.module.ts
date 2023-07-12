@@ -5,6 +5,7 @@ import { ProductosAllComponent } from './productos-all/productos-all.component';
 import { ProductosFormComponent } from './productos-form/productos-form.component';
 import { ProductosDetailComponent } from './productos-detail/productos-detail.component';
 import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
+import { ProductosCreateImageComponent } from './productos-create-image/productos-create-image.component';
 
  //locahost:3000/videojuego/all
  const routes: Routes = [
@@ -15,6 +16,7 @@ import { ProductosVendedorComponent } from './productos-vendedor/productos-vende
   {path:'productos/vendedor', component: ProductosVendedorComponent},
 
   {path:'productos/create', component: ProductosFormComponent},
+  {path:'productos/createFoto', component: ProductosCreateImageComponent},
 
   {path:'productos/:id', component: ProductosDetailComponent},
 

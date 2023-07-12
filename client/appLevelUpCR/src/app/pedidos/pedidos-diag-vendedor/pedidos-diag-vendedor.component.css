@@ -1,0 +1,40 @@
+.dashboard-card {
+    margin: 2%;
+  }
+  
+  .principal{
+    background-color: #000136;
+  }
+    
+  .dashboard-card-content {
+    text-align: left;
+    line-height: 1.5em;
+  }
+  
+  .headerh1{
+    font-family: 'Press Start 2P', cursive;
+    margin: 1.5rem;
+    text-align: center;
+    background-color: #b80000;
+    border-radius: 20px;
+    flex-grow: 1;
+    line-height: 2.5;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+  
+  }
+  
+  .close-button {
+    margin-left: 15px;
+  }
+  
+  .bodyDiag{
+    background-color: #888888;
+    color: #ffffff;
+    margin: 0 10px;
+    border-radius: 10px;
+  }
+  

@@ -19,6 +19,7 @@ const productosRoutes = require('./routes/productosRoutes');
 const respuestasRoutes = require('./routes/respuestasRoutes');
 const tipoPagoRoutes = require('./routes/tipoPagoRoutes');//10
 const usuariosRoutes = require('./routes/usuariosRoutes');
+const fotosproductosRoutes = require('./routes/fotosproductosRoutes');
 
 // Acceder a la configuracion del archivo .env
 dotEnv.config();
@@ -47,6 +48,7 @@ app.use("/productos/", productosRoutes);
 app.use("/respuestas/", respuestasRoutes);
 app.use("/tipopago/", tipoPagoRoutes);
 app.use("/usuarios/", usuariosRoutes);
+app.use("/fotosproductos/", fotosproductosRoutes);
 
 // Servidor
 app.listen(port, () => {

@@ -1,0 +1,36 @@
+
+
+
+<form [formGroup]="fotoForm" (ngSubmit)="subirArchivo()"  novalidate > <!--Con esta logica si el videojuego no esta creado usa la forma de crear, si ya encuentra el valor, usa la forma de actualizar, luego se puede optimizar para fusionarlos en uno solo-->
+  <input type="hidden"  formControlName="id"/><!--Esto es lo que linkea con el TS, se le tienen que ir poniendo a cada uno de los campos-->
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Foto</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput maxlength="20" placeholder="IdProducto" formControlName="idProducto">
+          </mat-form-field>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col">
+            <input type="file" formControlName="foto">
+            <div *ngIf="previsualizacion">
+              <img [src]="previsualizacion" alt="" width="200px">
+            </div>
+        </div>
+      </div>
+      
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+

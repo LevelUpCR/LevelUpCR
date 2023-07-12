@@ -5,8 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
-import { PedidosDiagComponent } from '../pedidos-diag/pedidos-diag.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PedidosDiagVendedorComponent } from '../pedidos-diag-vendedor/pedidos-diag-vendedor.component';
 
 @Component({
   selector: 'app-pedidos-vendedor',
@@ -15,6 +15,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class PedidosVendedorComponent {
   datos:any;
+  idUser:Number;
   destroy$:Subject<boolean>=new Subject<boolean>();
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -23,7 +24,7 @@ export class PedidosVendedorComponent {
   dataSource= new MatTableDataSource<any>();
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['cliente','estadopedido', 'total','acciones'];
+  displayedColumns = ['cliente','estadopedido','acciones'];
 
   constructor(private router:Router,
     private route:ActivatedRoute,
@@ -45,7 +46,9 @@ export class PedidosVendedorComponent {
   }
   listaPedidos(id:number){
     //localhost:3000/pedidos/cliente/:id
+    
     const vendedorId = 4; //Cambiarlo a id, para que ahora si pueda funcionar con todos los vendedores
+    this.idUser=vendedorId;
     this.gService.list(`pedidos/vendedor/${vendedorId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data:any)=>{
@@ -63,8 +66,9 @@ export class PedidosVendedorComponent {
     dialogConfig.disableClose = false;
     dialogConfig.data = {
       id: id,
+      idUser:this.idUser,
     };
-    this.dialog.open(PedidosDiagComponent, dialogConfig);
+    this.dialog.open(PedidosDiagVendedorComponent, dialogConfig);
   }
 
   actualizarPedido(id: number) {

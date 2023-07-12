@@ -9,7 +9,7 @@ import { ProductosAllComponent } from './productos-all/productos-all.component';
 import { ProductosFormComponent } from './productos-form/productos-form.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +21,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ProductosCreateImageComponent } from './productos-create-image/productos-create-image.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 @NgModule({
@@ -30,7 +34,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     ProductosDiagComponent,
     ProductosAllComponent,
     ProductosFormComponent,
-    ProductosVendedorComponent
+    ProductosVendedorComponent,
+    ProductosCreateImageComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +54,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatSelectModule,
     MatCardModule,
     MatButtonToggleModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatInputModule,
     ReactiveFormsModule, //Gestionar Formularios
   ]
 })
