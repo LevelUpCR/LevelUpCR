@@ -1,29 +1,99 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Level Up CR</mat-card-title>
-  </mat-card-header>
-  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="./assets/images/PS5.jpg" class="d-block w-100" alt="...">
+<div class="row">
+  <div class="col-lg-5">
+    <mat-card class="carrusel">
+      <mat-card-content class="headerCardcolor">
+        <p>Level Up CR</p>
+      </mat-card-content>
+      <div
+        id="carouselExampleAutoplaying"
+        class="carousel carousel-dark slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="./assets/images/PS5.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="./assets/images/Switch.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="./assets/images/Xbox.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <div class="carousel-item">
-        <img src="./assets/images/Switch.jpg" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="./assets/images/Xbox.jpg" class="d-block w-100" alt="...">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+      <mat-card-content class="footerCardcolor">
+        <p>La tienda que te sube de nivel</p>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <mat-card-content>
-    <p>Tu tienda que te sube de nivel</p>
-  </mat-card-content>
-</mat-card>
+  <div class="col-lg-7 margincard">
+    <div class="row">
+      <mat-card class="col-lg-4 tiles">
+        <H1>Catalogo</H1>
+
+      </mat-card>
+      <mat-card class="col-lg-4 tiles">
+        <H1>Categorias</H1>
+      </mat-card>
+      <mat-card class="col-lg-4 tiles">
+        <H1>Pedidos</H1>
+      </mat-card>
+    </div >
+    <div class="formatimage">
+      <img src="./assets/images/BannerLevelUpCR.png" />
+    </div>
+    
+  </div>
+</div>
