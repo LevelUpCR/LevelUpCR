@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { PedidosModule } from './pedidos/pedidos.module';
+import { FotosProductosModule } from './fotos-productos/fotos-productos.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { PedidosModule } from './pedidos/pedidos.module';
     ShareModule,
     HomeModule,
     UserModule,
+    FotosProductosModule,
     LevelUpCRModule,
     ProductosModule,
     PedidosModule,
@@ -49,6 +51,7 @@ import { PedidosModule } from './pedidos/pedidos.module';
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
+    
 
   ],
   providers: [],

@@ -1,0 +1,11 @@
+<div *ngFor="let foto of datos">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Imagen</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <img [src]="foto.blobUrl" alt="Imagen">
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

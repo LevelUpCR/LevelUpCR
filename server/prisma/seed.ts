@@ -7,6 +7,9 @@ import { rol } from "./seeds/rol";
 
 const prisma = new PrismaClient();
 
+const fs = require('fs');
+const imagenBytes = fs.readFileSync('Images/PS5.jpg');
+
 async function main() {
 
   //EstadoPedido
@@ -479,7 +482,19 @@ async function main() {
       cantidad: 1,
     },
   });
+
+
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: imagenBytes,
+      idProducto:1,
+    },
+  });
 }
+
+
+
+
 
 main()
   .then(async () => {
@@ -490,3 +505,6 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+
+
+

@@ -94,7 +94,7 @@ model Productos {
 
 model Fotos_Productos { 
   idFoto              Int                         @id @default(autoincrement())
-  Foto                String
+  Foto                Bytes?
   idProducto          Int  
 
   productos               Productos           @relation(fields: [idProducto],references: [idProducto])
