@@ -3,3 +3,11 @@ mat-card {
   margin: 2em auto;
   text-align: center;
 }
+.carousel-container {
+  width: 100%; /* Ancho del contenedor del carrusel */
+  height: 400px; /* Alto del contenedor del carrusel */
+}
+
+.carousel {
+  width: 100%; /* Ancho del carrusel */
+}

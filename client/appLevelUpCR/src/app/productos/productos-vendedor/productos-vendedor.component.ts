@@ -27,7 +27,7 @@ export class ProductosVendedorComponent implements AfterViewInit {
   displayedColumns = [
     'vendedor',
     'nombre',
-    'descripcion',
+    /*'descripcion',*/
     'precio',
     'cantidad',
     'acciones',
