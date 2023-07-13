@@ -108,10 +108,10 @@ async function main() {
   //1
   await prisma.direccion.create({
     data: {
-      provincia: "Alajuela",
-      canton: "Alajuela",
-      distrito: "Alajuela",
-      direccionExacta: "Alajuela",
+      provincia: "San José",
+      canton: "San José",
+      distrito: "San José",
+      direccionExacta: "Del parque de la sabana 800 mts al sur",
       codigoPostal: 20101,
       telefono: 12345678,
       usuarioId: 1,
@@ -123,7 +123,7 @@ async function main() {
       provincia: "Heredia",
       canton: "Heredia",
       distrito: "Heredia",
-      direccionExacta: "Heredia",
+      direccionExacta: "De Repuestos Gigante 200 mts al norte",
       codigoPostal: 30101,
       telefono: 12345678,
       usuarioId: 2,
@@ -132,10 +132,10 @@ async function main() {
   //3
   await prisma.direccion.create({
     data: {
-      provincia: "San José",
-      canton: "San José",
-      distrito: "San José",
-      direccionExacta: "San José",
+      provincia: "Alajuela",
+      canton: "Alajuela",
+      distrito: "Alajuela",
+      direccionExacta: "Del polideportivo de Monserrat 700 mts al oeste",
       codigoPostal: 10101,
       telefono: 12345678,
       usuarioId: 3,
@@ -146,7 +146,7 @@ async function main() {
   await prisma.pagos.create({
     data: {
       nombre: "Luis Solera",
-      usuarioId: 1,
+      usuarioId: 2,
       tipoPagoId: 1,
     },
   });
@@ -154,7 +154,7 @@ async function main() {
   await prisma.pagos.create({
     data: {
       nombre: "Israel Calvo",
-      usuarioId: 2,
+      usuarioId: 3,
       tipoPagoId: 3,
     },
   });
@@ -162,10 +162,10 @@ async function main() {
   await prisma.pagos.create({
     data: {
       numTarjeta: 111,
-      proveedor: "Banco Nacional",
+      proveedor: "Banco Promerica",
       fechaExpiracion: new Date("2023-06-30"),
       nombre: "Israel Calvo",
-      usuarioId: 1,
+      usuarioId: 3,
       tipoPagoId: 2,
     },
   });
@@ -175,7 +175,7 @@ async function main() {
       proveedor: "Grupo Mutual",
       numCuenta: 112,
       nombre: "Luis Solera",
-      usuarioId: 1,
+      usuarioId: 2,
       tipoPagoId: 4,
     },
   });
@@ -184,10 +184,9 @@ async function main() {
   await prisma.productos.create({
     data: {
       nombre: "PS5",
-      descripcion: "Consola de videojuegos",
+      descripcion: "Consola de videojuegos de Sony",
       precio: 500.0,
       cantidad: 1,
-      //fotoId:                 1,
       categoriaId: 1,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -197,10 +196,9 @@ async function main() {
   await prisma.productos.create({
     data: {
       nombre: "Nintendo Switch",
-      descripcion: "Consola de videojuegos",
+      descripcion: "Consola de videojuegos de Nintendo en su version original",
       precio: 400.0,
       cantidad: 1,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 2,
       usuarioId: 5,
@@ -210,10 +208,9 @@ async function main() {
   await prisma.productos.create({
     data: {
       nombre: "XBOX Series X",
-      descripcion: "Consola de videojuegos",
+      descripcion: "Consola de videojuegos de ultima generacion de Microsoft",
       precio: 450.0,
       cantidad: 1,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 2,
       usuarioId: 6,
@@ -226,7 +223,6 @@ async function main() {
       descripcion: "Audifonos de Sony para la PS5",
       precio: 69.99,
       cantidad: 10,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -239,7 +235,6 @@ async function main() {
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -252,7 +247,6 @@ async function main() {
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -265,7 +259,6 @@ async function main() {
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -278,7 +271,6 @@ async function main() {
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -291,7 +283,6 @@ async function main() {
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
-      //fotoId:                 1,
       categoriaId: 3,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -304,7 +295,42 @@ async function main() {
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
-      //fotoId:                 1,
+      categoriaId: 3,
+      estadoProductoId: 1,
+      usuarioId: 4,
+    },
+  });
+  //11
+  await prisma.productos.create({
+    data: {
+      nombre: "JoyCon Rojo/Azul Neón",
+      descripcion: "Mandos para la Nintendo Switch",
+      precio: 79.99,
+      cantidad: 5,
+      categoriaId: 3,
+      estadoProductoId: 1,
+      usuarioId: 4,
+    },
+  });
+  //12
+  await prisma.productos.create({
+    data: {
+      nombre: "Xbox Wirelles Controller",
+      descripcion: "Mando oficial de Xbox Series X/S",
+      precio: 79.99,
+      cantidad: 5,
+      categoriaId: 3,
+      estadoProductoId: 1,
+      usuarioId: 6,
+    },
+  });
+  //13
+  await prisma.productos.create({
+    data: {
+      nombre: "Marvel´s Spiderman Remastered",
+      descripcion: "Juego de Spiderman de PS4 remasterizado para PS5",
+      precio: 69.99,
+      cantidad: 8,
       categoriaId: 3,
       estadoProductoId: 1,
       usuarioId: 4,
@@ -391,7 +417,7 @@ async function main() {
       direccionId: 1,
       usuarioId: 1,
       estadoPedidoId: 1,
-      total: 400.0,
+      total: 529.99,
     },
   });
   //2
@@ -401,7 +427,7 @@ async function main() {
       direccionId: 1,
       usuarioId: 1,
       estadoPedidoId: 1,
-      total: 450.0,
+      total: 719.97,
     },
   });
   //3
@@ -411,7 +437,7 @@ async function main() {
       direccionId: 1,
       usuarioId: 1,
       estadoPedidoId: 1,
-      total: 500.0,
+      total: 479.99,
     },
   });
   //Evaluacion
@@ -443,7 +469,7 @@ async function main() {
     },
   });
   //Pedidos_Productos
-  //1
+  //2
   await prisma.pedidos_Productos.create({
     data: {
       productoId: 1,
@@ -461,12 +487,19 @@ async function main() {
   });
   await prisma.pedidos_Productos.create({
     data: {
-      productoId: 2,
+      productoId: 13,
       pedidoId: 2,
       cantidad: 1,
     },
   });
-  //2
+  await prisma.pedidos_Productos.create({
+    data: {
+      productoId: 12,
+      pedidoId: 2,
+      cantidad: 1,
+    },
+  });
+  //3
   await prisma.pedidos_Productos.create({
     data: {
       productoId: 2,
@@ -474,10 +507,24 @@ async function main() {
       cantidad: 2,
     },
   });
-  //3
+  await prisma.pedidos_Productos.create({
+    data: {
+      productoId: 11,
+      pedidoId: 3,
+      cantidad: 2,
+    },
+  });
+  //1
   await prisma.pedidos_Productos.create({
     data: {
       productoId: 3,
+      pedidoId: 1,
+      cantidad: 1,
+    },
+  });
+  await prisma.pedidos_Productos.create({
+    data: {
+      productoId: 12,
       pedidoId: 1,
       cantidad: 1,
     },
