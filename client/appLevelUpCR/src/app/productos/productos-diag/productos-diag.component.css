@@ -76,6 +76,21 @@
     background-color: #b80000;
     border-radius: 0 20px 20px 20px;
   }
+  .textfotos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+    text-align: center;
+    padding: 2%;
+    background-color: #75000096;
+    border-radius: 20px;
+    height: 350px;
+    margin-bottom: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 13px;
+  }
+  
   .textrespuesta {
     margin-top: 4px;
     padding: 2%;
@@ -116,5 +131,11 @@
   .carrusel{
     width: 350px;
     border-radius: 20px;
+    margin-bottom: 10px;
   }
   
+.carousel-container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
