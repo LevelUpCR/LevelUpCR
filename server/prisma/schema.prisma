@@ -12,6 +12,7 @@ datasource db {
 
 model Usuarios {
   idUsuario           Int                         @id @default(autoincrement())
+  cedula              Int
   nombre              String
   telefono            Int                         @unique
   correo              String                      @unique
@@ -94,7 +95,7 @@ model Productos {
 
 model Fotos_Productos { 
   idFoto              Int                         @id @default(autoincrement())
-  Foto                Bytes?
+  Foto                String?
   idProducto          Int  
 
   productos               Productos           @relation(fields: [idProducto],references: [idProducto])
@@ -162,16 +163,18 @@ model Estado_Pedido {
   estado                    String
 
   pedidos                   Pedidos[]
+  pedidoProductos           Pedidos_Productos[]
 }
 
 model Pedidos_Productos {
   pedidoId            Int
   pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
-
+  estadoPedidoId      Int
   productoId          Int
   productos           Productos                   @relation(fields: [productoId],references: [idProducto])
   @@id([pedidoId,productoId])
   cantidad            Int
+  estadoPedido        Estado_Pedido               @relation(fields: [estadoPedidoId],references: [idEstadoPedido])
 }
 
 model Evaluacion  {

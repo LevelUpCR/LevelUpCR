@@ -1,42 +1,117 @@
 <div class="principal">
-    <div class="container">
-      <button mat-icon-button class="close-button" [mat-dialog-close]="true">
-        <mat-icon class="close-icon" style="background-color: #b8000000; color: #b80000">close</mat-icon>
-      </button>
-      <h2 class="headerh1">Pedido #{{ datos?.idPedido }} - {{ datos.estadoPedido?.estado }}</h2>
-    </div>
-    <div *ngIf="datos">
-      <mat-dialog-content class="bodyDiag">
-        <p><strong>Pedido a nombre de:</strong> {{ datos.usuarios?.nombre }}</p>
-        <mat-divider inset></mat-divider>
-        <p><strong>Dirección del pedido: </strong></p>
-        <p><strong>Provincia: </strong>{{ datos.direcciones?.provincia }}</p>
-        <p><strong>Canton: </strong>{{ datos.direcciones?.canton }}</p>
-        <p><strong>Distrito: </strong>{{ datos.direcciones?.distrito }}</p>
-        <p><strong>Direccion Exacta: </strong>{{ datos.direcciones?.direccionExacta }}</p>
-        <p><strong>Codigo Postal: </strong>{{ datos.direcciones?.codigoPostal }}</p>
-        <mat-divider inset></mat-divider>
-        <p><strong>Telefono de contacto: </strong>{{ datos.direcciones?.telefono }}</p>
-        <mat-divider inset></mat-divider>
-        <strong *ngIf="datos.productos && datos.productos.length > 0">Productos:</strong>
-        <strong *ngIf="!datos.productos || datos.productos.length === 0">Aún no hay productos para esta compra.</strong>
-        <ul *ngIf="datos.productos && datos.productos.length > 0">
-          <li *ngFor="let producto of datos.productos">
-            <p><strong>Nombre del producto:</strong>{{ producto.productos?.nombre }}</p>
-            <p><strong>Marca del producto:</strong>{{ producto.productos?.usuarios?.nombre }}</p>
-            <!--Falta la cantidad de productos-->
-            <!--<p><strong>Cantidad:</strong>{{producto.cantidad?}}</p>-->
-            <p><strong>Monto del producto:</strong>{{ producto.productos?.precio | currency : "USD" }}</p>
-            <mat-divider inset></mat-divider>
-          </li>
-        </ul>
-        <p><strong>Monto Total: </strong>{{ datos.total | currency : "USD" }}</p>
-        <mat-divider inset></mat-divider>
-        <p><strong>Metodo de pago: </strong>{{ datos.pagos?.tipoPago?.TipoPago }}</p>
-        <mat-divider inset></mat-divider>
-      </mat-dialog-content>
-  
-      <mat-dialog-actions></mat-dialog-actions>
-    </div>
+  <div class="container">
+    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+      <mat-icon
+        class="close-icon"
+        style="background-color: #b8000000; color: #b80000"
+      >
+        close
+      </mat-icon>
+    </button>
+    <h2 class="headerh1">
+      Pedido #{{ datos?.idPedido }} - {{ datos.estadoPedido?.estado }}
+    </h2>
+    <img src="./assets/images/LevelUp CR.png" class="logo-image" alt="Logo" />
   </div>
-  
+  <div *ngIf="datos">
+    <mat-dialog-content class="bodyDiag">
+      <p>
+        <strong>Fecha del pedido:</strong>
+        {{ datos.fechaCompra | date : "dd/MM/yyyy" }}
+      </p>
+      <mat-divider inset></mat-divider>
+      <div class="row">
+        <div class="col-lg-6 border-right">
+          <h1 class="titulodiag">{{ datos.usuarios?.nombre }}</h1>
+          <p>
+            <strong>Correo Electrónico: </strong>{{ datos.usuarios?.correo }}
+          </p>
+          <p><strong>Telefono: </strong>{{ datos.direcciones?.telefono }}</p>
+
+          <p>
+            <strong>Codigo Postal: </strong
+            >{{ datos.direcciones?.codigoPostal }}
+          </p>
+          <p>
+            <strong>Metodo de pago: </strong
+            >{{ datos.pagos?.tipoPago?.TipoPago }}
+          </p>
+        </div>
+
+        <div class="col-lg-6 border-left">
+          <h1 class="titulodiag">Dirección del pedido: </h1>
+          <p><strong>Provincia: </strong>{{ datos.direcciones?.provincia }}</p>
+          <p><strong>Canton: </strong>{{ datos.direcciones?.canton }}</p>
+          <p><strong>Distrito: </strong>{{ datos.direcciones?.distrito }}</p>
+          <p>
+            <strong>Direccion Exacta: </strong
+            >{{ datos.direcciones?.direccionExacta }}
+          </p>
+        </div>
+      </div>
+      <mat-divider inset></mat-divider>
+      <!-- Table -->
+      <div class="mat-elevation-z8" *ngIf="dataSource">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="full-width-table custom-table"
+          matSort
+          aria-label="Elements"
+        >
+          <!-- Columna Vendedor-->
+          <ng-container matColumnDef="marca">
+            <th mat-header-cell *matHeaderCellDef class="thtabla">Marca</th>
+            <td mat-cell *matCellDef="let row" class="tdtabla">
+              {{ row.productos.usuarios.nombre }}
+            </td>
+          </ng-container>
+          <!-- Columna nombre -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef class="thtabla">Nombre</th>
+            <td mat-cell *matCellDef="let row" class="tdtabla">{{ row.productos.nombre }}</td>
+          </ng-container>
+          <!-- Columna descripcion -->
+          <ng-container matColumnDef="precio">
+            <th mat-header-cell *matHeaderCellDef class="thtabla">Precio</th>
+            <td mat-cell *matCellDef="let row" class="tdtabla">
+              {{ row.productos.precio | currency : "USD" }}
+            </td>
+          </ng-container>
+          <!-- Columna descripcion -->
+          <ng-container matColumnDef="impuesto">
+            <th mat-header-cell *matHeaderCellDef class="thtabla">13% IVA</th>
+            <td mat-cell *matCellDef="let row" class="tdtabla">
+              {{ row.productos.precio * 0.13 | currency : "USD" }}
+            </td>
+          </ng-container>
+          <!-- Columna descripcion -->
+          <ng-container matColumnDef="precioImpuesto">
+            <th mat-header-cell *matHeaderCellDef class="thtabla">
+              Precio con IVA Incluido
+            </th>
+            <td mat-cell *matCellDef="let row" class="tdtabla">
+              {{ row.productos.precio * 1.13 | currency : "USD" }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <!-- Table -->
+      <mat-divider inset></mat-divider>
+
+      <div class="align-right">
+        <p><strong>Subtotal: {{ datos.total | currency : "USD" }}</strong></p>
+        <p><strong>I.V.A. (13%): {{ datos.total * 0.13 | currency : "USD" }}</strong></p>
+        <p><strong>Total: {{ datos.total * 1.13 | currency : "USD" }}</strong></p>
+      </div>
+
+      <mat-divider inset></mat-divider>
+      <p class="text-center">Level Up CR - La tienda que te sube de nivel</p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions></mat-dialog-actions>
+  </div>
+</div>

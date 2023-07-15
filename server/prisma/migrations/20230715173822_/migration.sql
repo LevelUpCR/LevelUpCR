@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE `Usuarios` (
     `idUsuario` INTEGER NOT NULL AUTO_INCREMENT,
+    `cedula` INTEGER NOT NULL,
     `nombre` VARCHAR(191) NOT NULL,
     `telefono` INTEGER NOT NULL,
     `correo` VARCHAR(191) NOT NULL,
@@ -74,7 +75,7 @@ CREATE TABLE `Productos` (
 -- CreateTable
 CREATE TABLE `Fotos_Productos` (
     `idFoto` INTEGER NOT NULL AUTO_INCREMENT,
-    `Foto` LONGBLOB NULL,
+    `Foto` VARCHAR(191) NULL,
     `idProducto` INTEGER NOT NULL,
 
     PRIMARY KEY (`idFoto`)
@@ -139,6 +140,7 @@ CREATE TABLE `Estado_Pedido` (
 -- CreateTable
 CREATE TABLE `Pedidos_Productos` (
     `pedidoId` INTEGER NOT NULL,
+    `estadoPedidoId` INTEGER NOT NULL,
     `productoId` INTEGER NOT NULL,
     `cantidad` INTEGER NOT NULL,
 
@@ -212,6 +214,9 @@ ALTER TABLE `Pedidos_Productos` ADD CONSTRAINT `Pedidos_Productos_pedidoId_fkey`
 
 -- AddForeignKey
 ALTER TABLE `Pedidos_Productos` ADD CONSTRAINT `Pedidos_Productos_productoId_fkey` FOREIGN KEY (`productoId`) REFERENCES `Productos`(`idProducto`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Pedidos_Productos` ADD CONSTRAINT `Pedidos_Productos_estadoPedidoId_fkey` FOREIGN KEY (`estadoPedidoId`) REFERENCES `Estado_Pedido`(`idEstadoPedido`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -8,33 +8,101 @@
       >
     </button>
     <h2 class="headerh1">{{ datos?.nombre }}</h2>
+    <img src="./assets/images/LevelUp CR.png" class="logo-image" alt="Logo" />
   </div>
   <div *ngIf="datos">
     <mat-dialog-content class="bodyDiag">
-      <p><strong>Descripción del artículo:</strong> {{ datos.descripcion }}</p>
-      <p><strong>Precio: </strong>{{ datos.precio | currency : "USD" }}</p>
-      <p><strong>Marca: </strong>{{ datos.usuarios?.nombre }}</p>
-      <p><strong>Categoria: </strong>{{ datos.categoria?.categoria }}</p>
-      <p><strong>Estado del producto: </strong>{{ datos.estadoProducto?.estado }}</p>
-      <strong *ngIf="datos.preguntas && datos.preguntas.length > 0"
-        >Preguntas acerca del producto:</strong
-      >
-      <strong *ngIf="!datos.preguntas || datos.preguntas.length === 0"
-        >Aún no hay preguntas para este producto.</strong
-      >
-      <ul *ngIf="datos.preguntas && datos.preguntas.length > 0">
-        <li *ngFor="let pregunta of datos.preguntas">
-          {{ pregunta.pregunta }}
-          <ul *ngIf="pregunta.respuestas && pregunta.respuestas.length > 0">
-            <li *ngFor="let respuesta of pregunta.respuestas">
-              {{ respuesta.respuesta }}
-            </li>
-          </ul>
-          <div *ngIf="!pregunta.respuestas || pregunta.respuestas.length === 0">
-            Aún no hay respuestas para esta pregunta.
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-card class="carrusel" >
+            <div
+              id="carouselExampleAutoplaying"
+              class="carousel carousel-dark slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-indicators">
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleDark"
+                  data-bs-slide-to="0"
+                  class="active"
+                  aria-current="true"
+                  aria-label="Slide 1"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleDark"
+                  data-bs-slide-to="1"
+                  aria-label="Slide 2"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleDark"
+                  data-bs-slide-to="2"
+                  aria-label="Slide 3"
+                ></button>
+              </div>
+              <div class="carousel-inner">
+                <div *ngFor="let foto of datos.fotosProductos; let i = index" class="carousel-item" [class.active]="i === 0">
+                  <img [src]="'http://localhost:3000/' + foto.Foto" alt="Imagen" class="d-block w-100" >
+                </div>
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev"
+              >
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next"
+              >
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </mat-card>          
+        </div>
+        <div class="col-lg-6">
+          <p>{{ datos.categoria.categoria }}</p>
+          <p>Marca: {{ datos.usuarios?.nombre }}</p>
+          <p>{{ datos.precio | currency : "USD" }}</p>
+          <p>Stock disponible: {{ datos.cantidad }}</p>
+          <p>
+            <strong>Descripción del artículo:</strong> {{ datos.descripcion }}
+          </p>
+          <p>
+            Estado del producto: {{ datos.estadoProducto.estado }}
+          </p>
+        </div>
+      </div>
+      <mat-divider inset></mat-divider>
+      <div class="conversation">
+        <div *ngIf="datos.preguntas && datos.preguntas.length > 0">
+          <div *ngFor="let pregunta of datos.preguntas" class="message">
+
+            <div class="textpregunta">{{ pregunta.pregunta }}</div>
+            <div *ngIf="pregunta.respuestas && pregunta.respuestas.length > 0" class="responses">
+              <div *ngFor="let respuesta of pregunta.respuestas" class="response">
+
+                <div class="textrespuesta">{{ respuesta.respuesta }}</div>
+              </div>
+            </div>
+            <div *ngIf="!pregunta.respuestas || pregunta.respuestas.length === 0" class="no-response">
+              <div class="textrespuesta">Aún no hay respuestas para esta pregunta.</div>
+            </div>
           </div>
-        </li>
-      </ul>
+        </div>
+        <div *ngIf="!datos.preguntas || datos.preguntas.length === 0" class="no-response">
+          <div class="textpregunta">Aún no hay preguntas para este producto.</div>
+        </div>
+      </div>
+      
     </mat-dialog-content>
 
     <mat-dialog-actions> </mat-dialog-actions>

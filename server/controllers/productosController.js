@@ -30,7 +30,8 @@ module.exports.getById = async (request, response, next) => {
         include: {
           respuestas: true
         }
-      }
+      },
+      fotosProductos:true
     }
   });
   response.json(producto);

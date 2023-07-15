@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -25,6 +25,7 @@ export class FotosProductosAllComponent implements AfterViewInit  {
   ) {}
   datos: any;
   imageData: SafeUrl;
+  currentFolder: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
   dataSource = new MatTableDataSource<any>();
   ngAfterViewInit(): void {
@@ -35,28 +36,12 @@ export class FotosProductosAllComponent implements AfterViewInit  {
       .list('fotosProductos/')
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
-        this.datos = data.map((foto: any) => {
-          console.log(foto.Foto)
-          const blob = new Blob([foto.Foto], { type: 'image/jpg' });
-          const url = window.URL.createObjectURL(blob);
-          foto.blobUrl = this.sanitizer.bypassSecurityTrustUrl(url);
-          console.log(foto)
-          return foto;
-        });
+        
+        this.datos = data;
+        console.log(this.datos);
       });
   }
   
-
-  convertirBytesEnBlob(byteString: string): Blob {
-    const byteCharacters = atob(byteString);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: 'image/jpg' }); // Ajusta el tipo MIME según el formato de la imagen
-    console.log(blob)
-    return blob;
-  }
 }
+
+

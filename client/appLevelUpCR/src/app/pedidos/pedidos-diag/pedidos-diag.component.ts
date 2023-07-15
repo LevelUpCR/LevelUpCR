@@ -1,8 +1,11 @@
-
-import { Component, Inject,OnInit } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Component, Inject,OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { GenericService } from 'src/app/share/generic.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pedidos-diag',
@@ -13,6 +16,13 @@ export class PedidosDiagComponent implements OnInit{
   datos:any;
   datosDialog:any;
   destroy$:Subject<boolean>= new Subject<boolean>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  //@ViewChild(MatTable) table!: MatTable<ProductosAllItem>;
+  dataSource= new MatTableDataSource<any>();
+
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['nombre','marca', 'precio','impuesto','precioImpuesto'];
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
     private dialogRef:MatDialogRef<PedidosDiagComponent>,
@@ -34,7 +44,9 @@ export class PedidosDiagComponent implements OnInit{
     .pipe(takeUntil(this.destroy$))
     .subscribe((data:any)=>{
         this.datos=data; 
-        console.log(this.datos)
+        this.dataSource = new MatTableDataSource(this.datos.productos);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
     });
    
   }

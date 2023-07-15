@@ -49,7 +49,7 @@ export class ProductosVendedorComponent implements AfterViewInit {
   }
   listaProductos(id: number) {
     //localhost:3000/productos
-    const vendedorId = 4; //Cambiarlo a id, para que ahora si pueda funcionar con todos los vendedores
+    const vendedorId = 5; //Cambiarlo a id, para que ahora si pueda funcionar con todos los vendedores
     this.gService
       .list(`productos/vendedor/${vendedorId}`)
       .pipe(takeUntil(this.destroy$))

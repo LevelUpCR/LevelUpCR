@@ -7,6 +7,7 @@ const logger = require('morgan');
 const app = express();
 const prism = new PrismaClient();
 
+
 //---Archivos de rutas---
 const catProductosRoutes = require('./routes/categoriaProductoRoutes');
 const direccionRoutes = require('./routes/direccionRoutes');
@@ -20,6 +21,7 @@ const respuestasRoutes = require('./routes/respuestasRoutes');
 const tipoPagoRoutes = require('./routes/tipoPagoRoutes');//10
 const usuariosRoutes = require('./routes/usuariosRoutes');
 const fotosproductosRoutes = require('./routes/fotosproductosRoutes');
+app.use(express.static('./Images'));
 
 // Acceder a la configuracion del archivo .env
 dotEnv.config();

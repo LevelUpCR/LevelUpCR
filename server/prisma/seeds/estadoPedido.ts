@@ -1,14 +1,10 @@
 export const estadoPedido = [
     //1
     {
-        estado: "Recibido"
+        estado: "Pendiente"
     },
     //2
     {
-        estado: "En camino"
-    },
-    //3
-    {
         estado: "Entregado"
-    }
+    },
 ];

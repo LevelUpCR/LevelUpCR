@@ -37,4 +37,41 @@
     margin: 0 10px;
     border-radius: 10px;
   }
+
+  .logo-image {
+    max-height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+  }
+  .align-right {
+    margin-top: 3%;
+    text-align: right;
+  }
+  .titulodiag{
+    color: #ffffff;
+    background-color: #b80000;
+    padding: 0 5%;
+    border-radius: 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 13px;
+    margin-top: 3%;
+  }
+  
+  .custom-table {
+    background-color: #f0f0f000; /* Cambia el color de fondo según tus necesidades */
+    /*border-radius: 0 0  20px 20px ;*/
+  }
+  .thtabla{
+    background-color: #000163c0;
+    color:#ffffff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+  }
+  .tdtabla{
+    background-color: #ffffff4b;
+    color:#000000;
+  }
+  
   

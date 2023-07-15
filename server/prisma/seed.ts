@@ -7,8 +7,7 @@ import { rol } from "./seeds/rol";
 
 const prisma = new PrismaClient();
 
-const fs = require('fs');
-const imagenBytes = fs.readFileSync('Images/PS5.jpg');
+
 
 async function main() {
 
@@ -34,6 +33,7 @@ async function main() {
   //Usuarios
   await prisma.usuarios.create({
     data: {
+      cedula: 101010101,
       nombre: "Admin",
       telefono: 81818181,
       correo: "admin@admin.com",
@@ -46,6 +46,7 @@ async function main() {
   //2
   await prisma.usuarios.create({
     data: {
+      cedula: 202020202,
       nombre: "Luis Solera",
       telefono: 82828282,
       correo: "lsolera@cliente.com",
@@ -58,6 +59,7 @@ async function main() {
   //3
   await prisma.usuarios.create({
     data: {
+      cedula: 117960190,
       nombre: "Israel Calvo",
       telefono: 83838383,
       correo: "icalvo@cliente.com",
@@ -70,6 +72,7 @@ async function main() {
   //4
   await prisma.usuarios.create({
     data: {
+      cedula: 404040404,
       nombre: "Sony",
       telefono: 84848484,
       correo: "sony@vendedor.com",
@@ -82,6 +85,7 @@ async function main() {
   //5
   await prisma.usuarios.create({
     data: {
+      cedula: 505050505,
       nombre: "Nintendo",
       telefono: 85858585,
       correo: "nintendo@vendedor.com",
@@ -94,6 +98,7 @@ async function main() {
   //6
   await prisma.usuarios.create({
     data: {
+      cedula: 606060606,
       nombre: "Microsoft",
       telefono: 86868686,
       correo: "microsoft@vendedor.com",
@@ -426,7 +431,7 @@ async function main() {
       pagoId: 1,
       direccionId: 1,
       usuarioId: 1,
-      estadoPedidoId: 1,
+      estadoPedidoId: 2,
       total: 719.97,
     },
   });
@@ -475,6 +480,7 @@ async function main() {
       productoId: 1,
       pedidoId: 2,
       cantidad: 1,
+      estadoPedidoId: 2,
     },
   });
 
@@ -483,6 +489,7 @@ async function main() {
       productoId: 4,
       pedidoId: 2,
       cantidad: 1,
+      estadoPedidoId: 2,
     },
   });
   await prisma.pedidos_Productos.create({
@@ -490,6 +497,7 @@ async function main() {
       productoId: 13,
       pedidoId: 2,
       cantidad: 1,
+      estadoPedidoId: 2,
     },
   });
   await prisma.pedidos_Productos.create({
@@ -497,6 +505,7 @@ async function main() {
       productoId: 12,
       pedidoId: 2,
       cantidad: 1,
+      estadoPedidoId: 2,
     },
   });
   //3
@@ -505,6 +514,7 @@ async function main() {
       productoId: 2,
       pedidoId: 3,
       cantidad: 2,
+      estadoPedidoId: 1,
     },
   });
   await prisma.pedidos_Productos.create({
@@ -512,6 +522,7 @@ async function main() {
       productoId: 11,
       pedidoId: 3,
       cantidad: 2,
+      estadoPedidoId: 1,
     },
   });
   //1
@@ -520,6 +531,7 @@ async function main() {
       productoId: 3,
       pedidoId: 1,
       cantidad: 1,
+      estadoPedidoId: 1,
     },
   });
   await prisma.pedidos_Productos.create({
@@ -527,17 +539,37 @@ async function main() {
       productoId: 12,
       pedidoId: 1,
       cantidad: 1,
+      estadoPedidoId: 1,
     },
   });
 
 
   await prisma.fotos_Productos.create({
     data: {
-      Foto: imagenBytes,
+      Foto: "PS5.jpg",
       idProducto:1,
     },
   });
+await prisma.fotos_Productos.create({
+  data: {
+    Foto: "PS5 2.jpg",
+    idProducto:1,
+    },
+  });
+await prisma.fotos_Productos.create({
+  data: {
+    Foto: "Switch.jpg",
+    idProducto:2,
+    },
+  });
+await prisma.fotos_Productos.create({
+  data: {
+    Foto: "Xbox.jpg",
+    idProducto:3,
+    },
+  });
 }
+
 
 
 
