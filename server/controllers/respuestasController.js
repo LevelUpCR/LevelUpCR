@@ -19,9 +19,35 @@ module.exports.getById = async (request, response, next) => {
     });
     response.json(respuesta);
 };
-//Crear un usuario
+
+//Crear una respuesta
 module.exports.create = async (request, response, next) => {
+    let respuesta = request.body;
+    const newPregunta = await prisma.respuestas.create({
+        data: {
+            respuesta: respuesta.respuesta,
+            preguntaId: respuesta.preguntaId
+        },
+    });
 };
-//Actualizar un usuario
+
+/* //Actualizar una respuesta
 module.exports.update = async (request, response, next) => {
-};
+    let respuesta = request.body;
+    let idRespuesta = parseInt(request.params.id);
+
+    const respuestaViejo = await prisma.respuestas.findUnique({
+        where: { id: idRespuesta },
+    });
+
+    const newRespuesta = await prisma.respuestas.update({
+        where: {
+            id: idRespuesta
+        },
+        data: {
+            respuesta: respuesta.respuesta,
+            preguntaId: respuesta.preguntaId
+        },
+    });
+    response.json(newRespuesta);
+}; */
