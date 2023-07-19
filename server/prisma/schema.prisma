@@ -138,6 +138,14 @@ model Respuestas  {
   preguntas           Preguntas                   @relation(fields: [preguntaId], references: [idPregunta])
 }
 
+model Estado_Pedido {
+  idEstadoPedido            Int                   @id @default(autoincrement())
+  estado                    String
+
+  pedidos                   Pedidos[]
+  pedidoProductos           Pedidos_Productos[]
+}
+
 model Pedidos {
   idPedido            Int                         @id @default(autoincrement())
   //idProveedor         Int?
@@ -156,14 +164,6 @@ model Pedidos {
   
   evaluacion          Evaluacion[]
   productos           Pedidos_Productos[]
-}
-
-model Estado_Pedido {
-  idEstadoPedido            Int                   @id @default(autoincrement())
-  estado                    String
-
-  pedidos                   Pedidos[]
-  pedidoProductos           Pedidos_Productos[]
 }
 
 model Pedidos_Productos {

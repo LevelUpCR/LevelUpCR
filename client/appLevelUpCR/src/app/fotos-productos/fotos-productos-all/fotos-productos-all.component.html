@@ -1,4 +1,4 @@
-<mat-card class="carrusel" style="max-width: 200px;">
+<!-- <mat-card class="carrusel" style="max-width: 200px;">
   <mat-card-content class="headerCardcolor">
     <p>Level Up CR</p>
   </mat-card-content>
@@ -57,3 +57,21 @@
     <p>La tienda que te sube de nivel</p>
   </mat-card-content>
 </mat-card>
+ -->
+
+
+ <input type="file" (change)="onFileSelected($event)" accept="image/*">
+<button (click)="uploadImage()">Subir Imagen</button>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Column definitions -->
+  <ng-container matColumnDef="imagen">
+    <th mat-header-cell *matHeaderCellDef> Imagen </th>
+    <td mat-cell *matCellDef="let element">
+      <img [src]="element.imageUrl" width="150" height="100" alt="Imagen del producto" />
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

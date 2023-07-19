@@ -6,6 +6,8 @@ const cors = require('cors');
 const logger = require('morgan');
 const app = express();
 const prism = new PrismaClient();
+const multer = require('multer');
+const path = require('path');
 
 
 //---Archivos de rutas---
@@ -22,6 +24,21 @@ const tipoPagoRoutes = require('./routes/tipoPagoRoutes');//10
 const usuariosRoutes = require('./routes/usuariosRoutes');
 const fotosproductosRoutes = require('./routes/fotosproductosRoutes');
 app.use(express.static('./Images'));
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './Images/');
+  },
+  filename: function (req, file, cb) {
+    // Obtiene el nombre y la extensión de la imagen original
+    const ext = file.originalname.split('.').pop();
+    const fileName = `imagen-${Date.now()}.${ext}`;
+    cb(null, fileName);
+  }
+});
+
+// Crea el middleware de multer
+const upload = multer({ storage });
 
 // Acceder a la configuracion del archivo .env
 dotEnv.config();

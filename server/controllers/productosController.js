@@ -51,7 +51,7 @@ module.exports.getByIdUsuario = async (request, response, next) => {
     });
     response.json(productos);
 };
-//Crear un usuario
+//Crear un producto
 module.exports.create = async (request, response, next) => {
   let producto = request.body;
   const newProducto = await prisma.productos.create({
