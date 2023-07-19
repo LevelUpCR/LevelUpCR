@@ -53,7 +53,49 @@ module.exports.getByIdUsuario = async (request, response, next) => {
 };
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
+  let producto = request.body;
+  const newProducto = await prisma.productos.create({
+    data: {
+      nombre: producto.nombre,
+      descripcion: producto.descripcion,
+      precio: producto.precio,
+      cantidad: producto.cantidad,
+      categoriaId: producto.categoriaId,
+      estadoProductoId: producto.estadoProductoId,
+      usuarioId: usuarioId,
+      usuarios: {
+        connect: producto.usuarios
+      },
+    },
+  });
+  response.json(newProducto);
 };
+
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {
+  let producto = request.body;
+  let idProducto = parseInt(request.params.id);
+
+  const productoViejo = await prisma.productos.findUnique({
+    where: { id: idProducto }
+  });
+
+  const newProducto = await prisma.productos.update({
+    where: {
+      id: idProducto
+    },
+    data: {
+      nombre: producto.nombre,
+      descripcion: producto.descripcion,
+      precio: producto.precio,
+      cantidad: producto.cantidad,
+      categoriaId: producto.categoriaId,
+      estadoProductoId: producto.estadoProductoId,
+      usuarioId: usuarioId,
+      usuarios: {
+        connect: producto.usuarios
+      },
+    },
+  });
+  response.json(newProducto);
 };
