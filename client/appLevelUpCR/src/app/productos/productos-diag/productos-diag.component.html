@@ -14,7 +14,10 @@
     <mat-dialog-content class="bodyDiag">
       <div class="row">
         <div class="col-lg-6">
-          <div *ngIf="datos.fotosProductos && datos.fotosProductos.length > 0" class="carousel-container2">
+          <div
+            *ngIf="datos.fotosProductos && datos.fotosProductos.length > 0"
+            class="carousel-container2"
+          >
             <mat-card class="carrusel">
               <div
                 id="carouselExampleAutoplaying"
@@ -84,13 +87,11 @@
             </mat-card>
           </div>
           <div
-          *ngIf="!datos.fotosProductos || datos.fotosProductos.length === 0"
-          class="no-response"
-        >
-          <div class="textfotos">
-            Aún no hay fotos para este producto.
+            *ngIf="!datos.fotosProductos || datos.fotosProductos.length === 0"
+            class="no-response"
+          >
+            <div class="textfotos">Aún no hay fotos para este producto.</div>
           </div>
-        </div>
         </div>
         <div class="col-lg-6">
           <p>{{ datos.categoria.categoria }}</p>
