@@ -117,6 +117,14 @@ CREATE TABLE `Respuestas` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Estado_Pedido` (
+    `idEstadoPedido` INTEGER NOT NULL AUTO_INCREMENT,
+    `estado` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`idEstadoPedido`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Pedidos` (
     `idPedido` INTEGER NOT NULL AUTO_INCREMENT,
     `direccionId` INTEGER NOT NULL,
@@ -127,14 +135,6 @@ CREATE TABLE `Pedidos` (
     `fechaCompra` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`idPedido`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Estado_Pedido` (
-    `idEstadoPedido` INTEGER NOT NULL AUTO_INCREMENT,
-    `estado` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`idEstadoPedido`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable

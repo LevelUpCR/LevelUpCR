@@ -7,10 +7,7 @@ import { rol } from "./seeds/rol";
 
 const prisma = new PrismaClient();
 
-
-
 async function main() {
-
   //EstadoPedido
   await prisma.estado_Pedido.createMany({
     data: estadoPedido,
@@ -34,7 +31,7 @@ async function main() {
   await prisma.usuarios.create({
     data: {
       cedula: 101010101,
-      nombre: "Admin",
+      nombre: "Administrador",
       telefono: 81818181,
       correo: "admin@admin.com",
       password: "123456",
@@ -108,7 +105,7 @@ async function main() {
       },
     },
   });
-  
+
   //Direccion
   //1
   await prisma.direccion.create({
@@ -188,15 +185,16 @@ async function main() {
   //1
   await prisma.productos.create({
     data: {
-      nombre: "PS5",
+      nombre: "Bundle PS5 Spiderman 2",
       descripcion: "Consola de videojuegos de Sony",
-      precio: 500.0,
-      cantidad: 1,
+      precio: 600.0,
+      cantidad: 10,
       categoriaId: 1,
       estadoProductoId: 1,
       usuarioId: 4,
     },
   });
+
   //2
   await prisma.productos.create({
     data: {
@@ -236,8 +234,8 @@ async function main() {
   //5
   await prisma.productos.create({
     data: {
-      nombre: "Control DualSense Original White",
-      descripcion: "Control oficial para la PS5",
+      nombre: "Covers PS5 Marvel´s Spider-Man 2",
+      descripcion: "Covers oficiales para la PS5",
       precio: 79.99,
       cantidad: 15,
       categoriaId: 3,
@@ -248,7 +246,7 @@ async function main() {
   //6
   await prisma.productos.create({
     data: {
-      nombre: "Control DualSense Midnight Black.",
+      nombre: "Control DualSense Marvel´s Spider-Man 2",
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
@@ -260,7 +258,7 @@ async function main() {
   //7
   await prisma.productos.create({
     data: {
-      nombre: "Control DualSense Cosmic Red",
+      nombre: "Control DualSense Original White",
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
@@ -272,7 +270,7 @@ async function main() {
   //8
   await prisma.productos.create({
     data: {
-      nombre: "Control DualSense Nova Pink",
+      nombre: "Control DualSense Midnight Black.",
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
@@ -284,7 +282,7 @@ async function main() {
   //9
   await prisma.productos.create({
     data: {
-      nombre: "Control DualSense Starlight Blue",
+      nombre: "Control DualSense Cosmic Red",
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
@@ -296,7 +294,7 @@ async function main() {
   //10
   await prisma.productos.create({
     data: {
-      nombre: "Control DualSense Galactic Purple",
+      nombre: "Control DualSense Nova Pink",
       descripcion: "Control oficial para la PS5",
       precio: 79.99,
       cantidad: 15,
@@ -308,6 +306,30 @@ async function main() {
   //11
   await prisma.productos.create({
     data: {
+      nombre: "Control DualSense Starlight Blue",
+      descripcion: "Control oficial para la PS5",
+      precio: 79.99,
+      cantidad: 15,
+      categoriaId: 3,
+      estadoProductoId: 1,
+      usuarioId: 4,
+    },
+  });
+  //12
+  await prisma.productos.create({
+    data: {
+      nombre: "Control DualSense Galactic Purple",
+      descripcion: "Control oficial para la PS5",
+      precio: 79.99,
+      cantidad: 15,
+      categoriaId: 3,
+      estadoProductoId: 1,
+      usuarioId: 4,
+    },
+  });
+  //13
+  await prisma.productos.create({
+    data: {
       nombre: "JoyCon Rojo/Azul Neón",
       descripcion: "Mandos para la Nintendo Switch",
       precio: 79.99,
@@ -317,7 +339,7 @@ async function main() {
       usuarioId: 4,
     },
   });
-  //12
+  //14
   await prisma.productos.create({
     data: {
       nombre: "Xbox Wirelles Controller",
@@ -329,7 +351,31 @@ async function main() {
       usuarioId: 6,
     },
   });
-  //13
+  //15
+  await prisma.productos.create({
+    data: {
+      nombre: "Marvel´s Spiderman Remastered",
+      descripcion: "Juego de Spiderman de PS4 remasterizado para PS5",
+      precio: 69.99,
+      cantidad: 8,
+      categoriaId: 3,
+      estadoProductoId: 1,
+      usuarioId: 4,
+    },
+  });
+  //16
+  await prisma.productos.create({
+    data: {
+      nombre: "PS5",
+      descripcion: "Consola de videojuegos de Sony",
+      precio: 500.0,
+      cantidad: 1,
+      categoriaId: 1,
+      estadoProductoId: 1,
+      usuarioId: 4,
+    },
+  });
+  //17
   await prisma.productos.create({
     data: {
       nombre: "Marvel´s Spiderman Remastered",
@@ -346,8 +392,8 @@ async function main() {
   await prisma.preguntas.create({
     data: {
       pregunta: "¿Colores disponibles?",
-      productoId: 1,
-      usuarioId: 1,
+      productoId: 16,
+      usuarioId: 3,
     },
   });
   //2
@@ -365,7 +411,7 @@ async function main() {
       pregunta:
         "¿Cuáles son los beneficios de elegir una consola portátil en lugar de una de sobremesa?",
       productoId: 2,
-      usuarioId: 1,
+      usuarioId: 3,
     },
   });
   //4
@@ -373,7 +419,15 @@ async function main() {
     data: {
       pregunta: "¿Los audifonos se pueden usar via bluetooth?",
       productoId: 4,
-      usuarioId: 1,
+      usuarioId: 2,
+    },
+  });
+  //5
+  await prisma.preguntas.create({
+    data: {
+      pregunta: "¿Y hay disponibles en este momento?",
+      productoId: 3,
+      usuarioId: 2,
     },
   });
   //Respuestas
@@ -392,21 +446,15 @@ async function main() {
       preguntaId: 2,
     },
   });
+
   //3
   await prisma.respuestas.create({
     data: {
-      respuesta: "¿Y hay disponibles en este momento?",
-      preguntaId: 2,
+      respuesta: "Sí, hay disponibles de los 3.",
+      preguntaId: 5,
     },
   });
   //4
-  await prisma.respuestas.create({
-    data: {
-      respuesta: "Sí, hay disponibles de los 3.",
-      preguntaId: 2,
-    },
-  });
-  //5
   await prisma.respuestas.create({
     data: {
       respuesta:
@@ -432,7 +480,7 @@ async function main() {
       direccionId: 1,
       usuarioId: 1,
       estadoPedidoId: 2,
-      total: 719.97,
+      total: 819.97,
     },
   });
   //3
@@ -494,7 +542,7 @@ async function main() {
   });
   await prisma.pedidos_Productos.create({
     data: {
-      productoId: 13,
+      productoId: 15,
       pedidoId: 2,
       cantidad: 1,
       estadoPedidoId: 2,
@@ -502,7 +550,7 @@ async function main() {
   });
   await prisma.pedidos_Productos.create({
     data: {
-      productoId: 12,
+      productoId: 13,
       pedidoId: 2,
       cantidad: 1,
       estadoPedidoId: 2,
@@ -519,7 +567,7 @@ async function main() {
   });
   await prisma.pedidos_Productos.create({
     data: {
-      productoId: 11,
+      productoId: 13,
       pedidoId: 3,
       cantidad: 2,
       estadoPedidoId: 1,
@@ -536,44 +584,105 @@ async function main() {
   });
   await prisma.pedidos_Productos.create({
     data: {
-      productoId: 12,
+      productoId: 14,
       pedidoId: 1,
       cantidad: 1,
       estadoPedidoId: 1,
     },
   });
 
-
   await prisma.fotos_Productos.create({
     data: {
       Foto: "PS5.jpg",
-      idProducto:1,
-    },
-  });
-await prisma.fotos_Productos.create({
-  data: {
-    Foto: "PS5 2.jpg",
-    idProducto:1,
-    },
-  });
-await prisma.fotos_Productos.create({
-  data: {
-    Foto: "Switch.jpg",
-    idProducto:2,
-    },
-  });
-await prisma.fotos_Productos.create({
-  data: {
-    Foto: "Xbox.jpg",
-    idProducto:3,
-    },
-  });
+      idProducto: 16,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "PS5 2.jpg",
+      idProducto: 16,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Switch.jpg",
+      idProducto: 2,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Xbox.jpg",
+      idProducto: 3,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Bundle PS5 Spiderman 2.jpg",
+      idProducto: 1,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Bundle PS5 Spiderman 2 2.jpg",
+      idProducto: 1,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Bundle PS5 Spiderman 2 3.jpg",
+      idProducto: 1,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Bundle PS5 Spiderman 2 4.jpg",
+      idProducto: 1,
+    },
+  });
+
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Covers PS5 Spiderman 2.jpg",
+      idProducto: 5,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Covers PS5 Spiderman 2 2.jpg",
+      idProducto: 5,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "Covers PS5 Spiderman 2 3.jpg",
+      idProducto: 5,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "DualSense Spiderman 2.jpg",
+      idProducto: 6,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "DualSense Spiderman 2 2.jpg",
+      idProducto: 6,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "DualSense Spiderman 2 3.jpg",
+      idProducto: 6,
+    },
+  });
+  await prisma.fotos_Productos.create({
+    data: {
+      Foto: "DualSense Spiderman 2 4.jpg",
+      idProducto: 6,
+    },
+  });
 }
-
-
-
-
-
 
 main()
   .then(async () => {
@@ -584,6 +693,3 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
-
-
-
