@@ -1,5 +1,6 @@
 grid-container {
   margin: 20px;
+  margin-bottom: 100px;
 }
 .dashboard-card {
   position: absolute;
@@ -41,6 +42,7 @@ grid-container {
   justify-content: center;
   align-items: center;
   margin-top: 20px; /* Ajusta el margen superior según tus necesidades */
+  margin-bottom: 100px; /* Ajusta el margen superior según tus necesidades */
 }
 
 .action-button {
@@ -72,7 +74,6 @@ grid-container {
   background-color: #a5a5a588;
   color: #ffffff;
 
-  max-height: 250px;
   border: solid 5px #b80000;
 }
 
@@ -81,3 +82,22 @@ grid-container {
   display: flex;
   justify-content: flex-end;
 }
+
+
+.textfotos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  text-align: center;
+  padding: 2%;
+  background-color: #75000096;
+  border-radius: 20px;
+  height: 250px;
+  width: 250px;
+  margin-bottom: 10px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 13px;
+}
+
+

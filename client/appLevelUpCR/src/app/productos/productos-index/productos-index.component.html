@@ -1,8 +1,6 @@
 <div class="grid-container">
-  <div class="headerh1">
-    Productos
-  </div>
-  <mat-grid-list [cols]="2" rowHeight="16em" gutterSize="10px">
+  <div class="headerh1">Productos</div>
+  <mat-grid-list [cols]="2" rowHeight="25em" gutterSize="10px">
     <mat-grid-tile
       *ngFor="
         let item of datos.slice(
@@ -11,43 +9,70 @@
         )
       "
     >
-      <mat-card class="dashboard-card border">
+      <mat-card class="dashboard-card border custom-card">
         <mat-card-header class="back">
           <mat-card-title class="header">{{ item.nombre }}</mat-card-title>
         </mat-card-header>
-        <mat-divider inset></mat-divider>
-        <mat-card-content>
-          <div><strong>Precio: </strong>{{ item.precio | currency : "USD" }}</div>
-          <div><strong>Marca: </strong>{{ item.usuarios?.nombre }}</div>
-          <mat-divider inset></mat-divider>
-          <mat-card-actions>
-            <div class="button-container">
-              <button
-                mat-mini-fab
-                class="action-button"
-                color="accent"
-                matTooltip="Detalle del Producto"
-                aria-label="Detalle del Producto"
-                color="primary"
-                (click)="detalleProducto(item.idProducto)"
-                style="background-color: #000163; color: #ffffff"
-              >
-                <mat-icon class="mat-18">info</mat-icon>
-              </button>
-              <button
-                mat-mini-fab
-                class="action-button"
-                color=""
-                matTooltip="Comprar"
-                aria-label="Comprar"
-                color=""
-                style="background-color: #b80000; color: #ffffff"
-              >
-                <mat-icon class="mat-18">add_shopping_cart</mat-icon>
-              </button>
+        <div class="row">
+          <div class="col-lg-6">
+            
+            <mat-divider inset></mat-divider>
+            <mat-card-content class="expanded-content">
+              <div>
+                <strong>Precio: </strong>{{ item.precio | currency : "USD" }}
+              </div>
+              <div><strong>Marca: </strong>{{ item.usuarios?.nombre }}</div>
+              <mat-divider inset></mat-divider>
+              <mat-card-actions>
+                <div class="button-container">
+                  <button
+                    mat-mini-fab
+                    class="action-button"
+                    color="accent"
+                    matTooltip="Detalle del Producto"
+                    aria-label="Detalle del Producto"
+                    color="primary"
+                    (click)="detalleProducto(item.idProducto)"
+                    style="background-color: #000163; color: #ffffff"
+                  >
+                    <mat-icon class="mat-18">info</mat-icon>
+                  </button>
+                  <button
+                    mat-mini-fab
+                    class="action-button"
+                    color=""
+                    matTooltip="Comprar"
+                    aria-label="Comprar"
+                    color=""
+                    style="background-color: #b80000; color: #ffffff"
+                  >
+                    <mat-icon class="mat-18">add_shopping_cart</mat-icon>
+                  </button>
+                </div>
+              </mat-card-actions>
+            </mat-card-content>
+
+          </div>
+          <div class="col-lg-6">
+            <div
+            *ngIf="item.fotosProductos && item.fotosProductos.length > 0"
+            class="no-response"
+          >
+              <img
+                [src]="'http://localhost:3000/' + item.fotosProductos[0]?.Foto"
+                alt="Imagen"
+                class="d-block"
+                style="height: 250px; width: 250px; border-radius: 10px;"
+              />
             </div>
-          </mat-card-actions>
-        </mat-card-content>
+              <div
+            *ngIf="!item.fotosProductos || item.fotosProductos.length === 0"
+            class="no-response"
+          >
+            <div class="textfotos">Aún no hay fotos para este producto.</div>
+          </div>
+          </div>
+        </div>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

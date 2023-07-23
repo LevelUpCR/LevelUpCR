@@ -6,17 +6,20 @@ const app = express();
 
 //Obtener listado
 module.exports.get = async (request, response, next) => {
-    const productos = await prisma.productos.findMany({
-      
-        include:{
-            usuarios:true
-        },
-        orderBy: {
-            idProducto: 'asc'
-        }
-    });
-    response.json(productos);
+  const productos = await prisma.productos.findMany({
+      include: {
+          usuarios: true,
+          fotosProductos: {
+              take: 1 // Limitar a traer solo 1 registro de la tabla fotosProductos
+          }
+      },
+      orderBy: {
+          idProducto: 'asc'
+      }
+  });
+  response.json(productos);
 };
+
 // Obtener por Id
 module.exports.getById = async (request, response, next) => {
   let id = parseInt(request.params.id);
