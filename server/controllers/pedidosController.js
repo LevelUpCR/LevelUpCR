@@ -122,6 +122,25 @@ module.exports.getByProductosxIdUsuario = async (request, response, next) => {
 
 
 //Crear un usuario
-module.exports.create = async (request, response, next) => {};
+module.exports.create = async (request, response, next) => {
+  let infoOrden=request.body;
+  const newVideoJuego = await prisma.pedidos.create({
+    data:{
+    fechaCompra:infoOrden.fechaOrden,
+    usuarioId:1,
+    estadoPedidoId:1,
+    direccionId:1,
+    pagoId:1,
+    total:infoOrden.total,
+    productos:{
+      createMany:{
+        //[{ivedojuegoId,cantidad}]
+        data: infoOrden.productos
+      }
+    }
+    }
+  })
+  response.json(newVideoJuego);
+};
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {};

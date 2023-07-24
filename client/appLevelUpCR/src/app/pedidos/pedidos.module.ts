@@ -16,9 +16,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PedidosClienteComponent } from './pedidos-cliente/pedidos-cliente.component';
 import { PedidosDiagVendedorComponent } from './pedidos-diag-vendedor/pedidos-diag-vendedor.component';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -45,7 +46,9 @@ import { PedidosDiagVendedorComponent } from './pedidos-diag-vendedor/pedidos-di
     MatMenuModule,
     MatSelectModule,
     MatCardModule,
+    FormsModule,
     ReactiveFormsModule, //Gestionar Formularios
+    MatInputModule,
   ]
 })
 export class PedidosModule { }

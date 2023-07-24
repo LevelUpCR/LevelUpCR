@@ -65,9 +65,10 @@
   <div class="example-spacer left">
     <!-- Enlaces de la aplicación -->
     <!-- https://fonts.google.com/icons -->
-    <button mat-icon-button class="mat-square-button">
-      <mat-icon>shopping_cart</mat-icon>
-    </button>
+    <button mat-icon-button matBadgeColor="accent" [matBadge]="qtyItems.toString()" 
+       [routerLink]="'/pedidos'" [routerLinkActive]="'mat-raised-button'"  aria-label="Cantidad">
+     <mat-icon>shopping_cart</mat-icon>
+   </button> |  
     <span class="mat-caption" *ngIf="isAutenticated">{{
       currentUser.name
     }}</span>
