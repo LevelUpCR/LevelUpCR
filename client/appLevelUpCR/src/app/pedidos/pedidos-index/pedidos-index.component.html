@@ -1,13 +1,22 @@
-<mat-stepper [linear]="isLinear" #stepper  activeColor="red" inactiveColor="blue">
+<mat-stepper
+  [linear]="isLinear"
+  #stepper
+  activeColor="red"
+  inactiveColor="blue"
+>
   <mat-step class="test">
     <ng-template matStepLabel>Resumen de Orden</ng-template>
-    
 
     <mat-card class="box">
       <mat-card-content *ngIf="dataSource">
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+        <mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 custom-table"
+        >
           <ng-container matColumnDef="producto">
-            <mat-header-cell *matHeaderCellDef class="thtabla"> Producto </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Producto
+            </mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.product.nombre }}
             </mat-cell>
@@ -16,7 +25,9 @@
           </ng-container>
 
           <ng-container matColumnDef="precio">
-            <mat-header-cell *matHeaderCellDef class="thtabla"> Precio </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Precio
+            </mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.precio | currency }}
             </mat-cell>
@@ -24,7 +35,9 @@
           </ng-container>
 
           <ng-container matColumnDef="cantidad">
-            <mat-header-cell *matHeaderCellDef class="thtabla"> Cantidad </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Cantidad
+            </mat-header-cell>
             <mat-cell *matCellDef="let element">
               <mat-form-field appearance="fill">
                 <input
@@ -44,7 +57,9 @@
           </ng-container>
 
           <ng-container matColumnDef="subtotal">
-            <mat-header-cell *matHeaderCellDef class="thtabla"> Subtotal </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Subtotal
+            </mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.subtotal | currency }}
             </mat-cell>
@@ -54,10 +69,24 @@
           </ng-container>
 
           <ng-container matColumnDef="acciones">
-            <mat-header-cell *matHeaderCellDef class="thtabla"> Acciones</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Acciones</mat-header-cell
+            >
             <mat-cell *matCellDef="let element">
               <button mat-icon-button (click)="eliminarItem(element)">
                 <mat-icon>delete</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                class="action-button"
+                color="accent"
+                matTooltip="Detalle del Producto"
+                aria-label="Detalle del Producto"
+                color="primary"
+                (click)="detalleProducto(element.idItem)"
+                style="color: #212121"
+              >
+                <mat-icon class="mat-18">info</mat-icon>
               </button>
             </mat-cell>
             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
@@ -100,8 +129,8 @@
         </div>
       </div>
     </form>
-    <div *ngIf="selectedAddress">
-      <h4>Información de la dirección seleccionada:</h4>
+    <div *ngIf="selectedAddress" class="bottomDesing">
+      <h4 class="headerh1">Información de la dirección seleccionada:</h4>
       <p>Provincia: {{ selectedAddress.provincia }}</p>
       <p>Canton: {{ selectedAddress.canton }}</p>
       <p>Distrito: {{ selectedAddress.distrito }}</p>
@@ -132,8 +161,8 @@
         </div>
       </div>
     </form>
-    <div *ngIf="selectedPayment">
-      <h4>Información del pago seleccionado:</h4>
+    <div *ngIf="selectedPayment" class="bottomDesing">
+      <h4 class="headerh1">Información del pago seleccionado:</h4>
       <p>Metodo de pago: {{ selectedPayment.tipoPago.TipoPago }}</p>
       <div *ngIf="selectedPayment.proveedor">
         <p>Proveedor: {{ selectedPayment.proveedor }}</p>
@@ -141,7 +170,6 @@
       <div *ngIf="selectedPayment.numTarjeta">
         <p>Proveedor: {{ selectedPayment.numTarjeta.slice(-4) }}</p>
       </div>
-      
     </div>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
@@ -150,15 +178,120 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Revisar</ng-template>
-    <mat-card-actions align="end">
-      <button mat-flat-button style="background-color: #b80000; color: #ffffff" (click)="registrarOrden()">
-        Comprar
-        <mat-icon>shopping_bag</mat-icon>
-      </button>
-    </mat-card-actions>
+    <mat-card class="box">
+      <mat-card-actions align="end">
+        <button
+          mat-flat-button
+          style="background-color: #b80000; color: #ffffff"
+          (click)="registrarOrden()"
+        >
+          Comprar
+          <mat-icon>shopping_bag</mat-icon>
+        </button>
+      </mat-card-actions>
+      <mat-card-content *ngIf="dataSource">
+        <mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 custom-table"
+        >
+          <ng-container matColumnDef="producto">
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Producto
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.product.nombre }}
+            </mat-cell>
+
+            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="precio">
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Precio
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.precio | currency }}
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="cantidad">
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Cantidad
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.cantidad }}
+            </mat-cell>
+
+            <mat-footer-cell *matFooterCellDef class="footer-total"
+              >Total
+            </mat-footer-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="subtotal">
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Subtotal
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.subtotal | currency }}
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef class="footer-total">{{
+              total * 1.13 | currency
+            }}</mat-footer-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef class="thtabla">
+              Acciones</mat-header-cell
+            >
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="eliminarItem(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+          </ng-container>
+
+          <mat-header-row
+            *matHeaderRowDef="displayedColumns"
+            class="header"
+          ></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          <mat-footer-row
+            *matFooterRowDef="displayedColumns"
+            class="footer-row"
+          ></mat-footer-row>
+        </mat-table>
+      </mat-card-content>
+      <mat-divider inset></mat-divider>
+      <div class="row bottomDesing" *ngIf="selectedPayment || selectedAddress">
+        <div class="col-lg-6">
+          <div *ngIf="selectedAddress">
+            <h4 class="headerh1">Información de la dirección seleccionada:</h4>
+            <p>Provincia: {{ selectedAddress.provincia }}</p>
+            <p>Canton: {{ selectedAddress.canton }}</p>
+            <p>Distrito: {{ selectedAddress.distrito }}</p>
+            <p>Dirección Exacta: {{ selectedAddress.direccionExacta }}</p>
+            <p>Telefono de contacto: {{ selectedAddress.telefono }}</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div *ngIf="selectedPayment">
+            <h2 class="headerh1">Información del pago seleccionado:</h2>
+            <p>Metodo de pago: {{ selectedPayment.tipoPago.TipoPago }}</p>
+            <div *ngIf="selectedPayment.proveedor">
+              <p>Proveedor: {{ selectedPayment.proveedor }}</p>
+            </div>
+            <div *ngIf="selectedPayment.numTarjeta">
+              <p>Proveedor: {{ selectedPayment.numTarjeta.slice(-4) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button (click)="stepper.reset()">Reiniciar</button>
+      <button mat-button (click)="limpiar()">Reiniciar</button>
     </div>
   </mat-step>
 </mat-stepper>

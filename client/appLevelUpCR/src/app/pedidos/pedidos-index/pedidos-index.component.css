@@ -38,3 +38,21 @@
   .mat-mdc-form-field {
     margin-top: 16px;
   }
+  .bottomDesing {
+    margin-top: 16px;
+    background-color: #000163;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  .headerh1{
+    font-family: 'Press Start 2P', cursive;
+    margin: 1.5rem;
+    font-size: 13px;
+    text-align: center;
+    background-color: #b80000;
+    border-radius: 20px;
+    flex-grow: 1;
+    line-height: 2.5;
+  }

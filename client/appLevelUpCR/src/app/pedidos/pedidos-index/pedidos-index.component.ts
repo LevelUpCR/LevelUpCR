@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -9,6 +9,9 @@ import {
   NotificacionService,
   TipoMessage,
 } from 'src/app/share/notification.service';
+import { MatStepper } from '@angular/material/stepper';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ProductosDiagComponent } from 'src/app/productos/productos-diag/productos-diag.component';
 
 @Component({
   selector: 'app-pedidos-index',
@@ -16,6 +19,7 @@ import {
   styleUrls: ['./pedidos-index.component.css'],
 })
 export class PedidosIndexComponent implements OnInit {
+  @ViewChild(MatStepper) stepper!: MatStepper;
   destroy$: Subject<boolean> = new Subject<boolean>();
   isLinear = false;
 
@@ -46,6 +50,7 @@ export class PedidosIndexComponent implements OnInit {
     private gService: GenericService,
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.listaDirecciones(1);
     this.listaMetodos(1);
@@ -105,6 +110,7 @@ export class PedidosIndexComponent implements OnInit {
         this.total = this.cartService.getTotal();
         console.log(respuesta);
       });
+      this.limpiar();
     } else {
       this.noti.mensaje(
         'Orden',
@@ -117,13 +123,13 @@ export class PedidosIndexComponent implements OnInit {
   //Crear Formulario
   formularioReactive() {
     //[null, Validators.required]
-    this.pedidosForm=this.fb.group({
+    this.pedidosForm = this.fb.group({
       direccion: [null, Validators.required],
       metodo: [null, Validators.required],
-    })
+    });
   }
 
-  listaDirecciones(id:number) {
+  listaDirecciones(id: number) {
     const clienteId = 1;
     this.direccionList = null;
     this.gService
@@ -134,7 +140,7 @@ export class PedidosIndexComponent implements OnInit {
         this.direccionList = data;
       });
   }
-  listaMetodos(id:number) {
+  listaMetodos(id: number) {
     const clienteId = 1;
     this.metodosList = null;
     this.gService
@@ -147,12 +153,32 @@ export class PedidosIndexComponent implements OnInit {
   }
   onAddressSelected(event: any) {
     const selectedAddressId = event.value;
-    this.selectedAddress = this.direccionList.find((address: any) => address.idDireccion === selectedAddressId);
-    console.log(this.selectedAddress)
+    this.selectedAddress = this.direccionList.find(
+      (address: any) => address.idDireccion === selectedAddressId
+    );
+    console.log(this.selectedAddress);
   }
   onpaymentSelected(event: any) {
     const selectedPaymentId = event.value;
-    this.selectedPayment = this.metodosList.find((address: any) => address.idPago === selectedPaymentId);
-    console.log(this.selectedPayment)
+    this.selectedPayment = this.metodosList.find(
+      (address: any) => address.idPago === selectedPaymentId
+    );
+    console.log(this.selectedPayment);
+  }
+
+  limpiar() {
+    this.stepper.reset();
+    this.selectedPayment = null;
+    this.selectedAddress = null;
+  }
+
+  detalleProducto(id: number) {
+    console.log(id);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.data = {
+      id: id,
+    };
+    this.dialog.open(ProductosDiagComponent, dialogConfig);
   }
 }
