@@ -20,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PedidosClienteComponent } from './pedidos-cliente/pedidos-cliente.component';
 import { PedidosDiagVendedorComponent } from './pedidos-diag-vendedor/pedidos-diag-vendedor.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -49,6 +51,9 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule, //Gestionar Formularios
     MatInputModule,
+    MatStepperModule,
+    MatFormFieldModule,
+
   ]
 })
 export class PedidosModule { }

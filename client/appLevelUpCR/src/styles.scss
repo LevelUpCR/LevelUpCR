@@ -1,0 +1,8 @@
+@import "~@angular/material/core/theming/mat-core";
+
+$primary: #ff0000;
+$secondary: #00ff00;
+$accent: #0000ff;
+
+@include mat-core();
+

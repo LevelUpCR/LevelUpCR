@@ -181,6 +181,14 @@ async function main() {
       tipoPagoId: 4,
     },
   });
+  //5
+  await prisma.pagos.create({
+    data: {
+      nombre: "Administrador",
+      usuarioId: 1,
+      tipoPagoId: 1,
+    },
+  });
   //Productos
   //1
   await prisma.productos.create({

@@ -7,6 +7,23 @@ module.exports.get = async (request, response, next) => {
     const pagos = await prisma.pagos.findMany({
         orderBy: {
             idPago: 'asc'
+        },
+        include:{
+            tipoPago:true,
+        }
+    });
+    response.json(pagos);
+};
+
+module.exports.getbyUsuario = async (request, response, next) => {
+    let id = parseInt(request.params.id);
+    const pagos = await prisma.pagos.findMany({
+        where: { usuarioId: id },
+        orderBy: {
+            idPago: 'asc'
+        },
+        include:{
+            tipoPago:true,
         }
     });
     response.json(pagos);

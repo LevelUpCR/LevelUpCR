@@ -11,6 +11,17 @@ module.exports.get = async (request, response, next) => {
     });
     response.json(direcciones);
 };
+//Obtener listado por Usuario
+module.exports.getbyUsuario = async (request, response, next) => {
+    let id = parseInt(request.params.id);
+    const direcciones = await prisma.direccion.findMany({
+        where: { usuarioId: id },
+        orderBy: {
+            idDireccion: 'asc'
+        }
+    });
+    response.json(direcciones);
+};
 //Obtener por Id
 module.exports.getById = async (request, response, next) => {
     let id = parseInt(request.params.id);

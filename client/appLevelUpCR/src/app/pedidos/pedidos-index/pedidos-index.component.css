@@ -1,16 +1,40 @@
+
+
+.custom-table {
+  background-color: #f0f0f000; /* Cambia el color de fondo según tus necesidades */
+  /*border-radius: 0 0  20px 20px ;*/
+}
+
+.thtabla{
+  color:#ffffff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+}
+
+
 .footer-row {
     font-weight: bold;
+    background-color: #ffffff4b;
+  color:#000000;
   }
   .box { margin: 2em 2em; padding: 2em 2em;}
   .header{
-    background-color:#8589ff;
-    color: white;
+    background-color: #000163c0;
   }
   .footer-row{
     background-color:#e8e8e8;
     
   }
   .footer-total{
-    font-size: 1.2em;
+    font-size: 15px;
+    font-family: 'Press Start 2P', cursive;
     font-weight: bolder;
+  }
+
+  .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
   }

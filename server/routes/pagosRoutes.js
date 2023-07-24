@@ -4,6 +4,7 @@ const router = express.Router();
 const pagosController = require("../controllers/pagosController");
 
 router.get("/",pagosController.get);
+router.get("/usuario/:id",pagosController.getbyUsuario);
 
 router.get("/:id",pagosController.getById);
 
