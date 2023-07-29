@@ -10,3 +10,18 @@ body {
   background-size: cover;
   padding-bottom: 3vh;
   }
+
+  .custom-primary {
+    background-color: #b80000; /* Cambia el color a tu preferencia */
+    color: #FFFFFF;
+  }
+  
+  .custom-accent {
+    background-color: #000163; /* Cambia el color a tu preferencia */
+    color: #FFFFFF;
+  }
+  
+  .custom-warn {
+    background-color: #818181; /* Cambia el color a tu preferencia */
+    color: #FFFFFF;
+  }

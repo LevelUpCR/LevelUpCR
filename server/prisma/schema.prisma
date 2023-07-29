@@ -14,23 +14,17 @@ model Usuarios {
   idUsuario           Int                         @id @default(autoincrement())
   cedula              Int
   nombre              String
-  telefono            Int                         @unique
+  telefono            Int                         
   correo              String                      @unique
   password            String    
-  
-  roles               Rol[]
+  role                Role    @default(Cliente)
+
   pagos               Pagos[]
   direccion           Direccion[]
   productos           Productos[]
   pedidos             Pedidos[]
   evaluacion          Evaluacion[]
   preguntas           Preguntas[]
-}
-
-model Rol {
-    idRol               Int                         @id @default(autoincrement())
-    descripcion         String
-    usuarios            Usuarios[]
 }
 
 model Pagos {
@@ -189,11 +183,11 @@ model Evaluacion  {
   pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
 }
 
-// enum Rol {
-//   ADMIN
-//   Vendedor
-//   Cliente
-// }
+enum Role {
+  ADMIN
+  Vendedor
+  Cliente
+}
 
 // enum  EstadoPedido  {
 //   Recibido

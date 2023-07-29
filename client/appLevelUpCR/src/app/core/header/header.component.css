@@ -39,4 +39,9 @@
     justify-content: center;
   }
 
+ .mat-badge-content .mat-badge-active{
+    background-color: #000163 !important;
+    color:#ffffff !important;
+  }
+
  

@@ -23,12 +23,14 @@ module.exports.getById = async (request, response, next) => {
 //Crear una respuesta
 module.exports.create = async (request, response, next) => {
     let respuesta = request.body;
-    const newPregunta = await prisma.respuestas.create({
+    console.log(respuesta)
+    const newRespuesta = await prisma.respuestas.create({
         data: {
             respuesta: respuesta.respuesta,
             preguntaId: respuesta.preguntaId
         },
     });
+    response.json(newRespuesta);
 };
 
 /* //Actualizar una respuesta

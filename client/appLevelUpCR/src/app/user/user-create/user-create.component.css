@@ -1,4 +1,7 @@
-.full-width {
+mat-form-field.mat-form-field {
+    font-size: 16px;
+  }
+  .full-width {
     width: 100%;
   }
   
@@ -26,3 +29,12 @@
     margin-right: 0;
   }
   
+  .backcolor{
+    background-color: #b80000;
+    color: #ffffff !important;
+  }
+
+  .backcolor2{
+    background-color: #000136;
+    color: #ffffff !important;
+  }

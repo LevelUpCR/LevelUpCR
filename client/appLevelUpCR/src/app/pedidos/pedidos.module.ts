@@ -7,6 +7,7 @@ import { PedidosDiagComponent } from './pedidos-diag/pedidos-diag.component';
 import { PedidosVendedorComponent } from './pedidos-vendedor/pedidos-vendedor.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,9 @@ import { PedidosDiagVendedorComponent } from './pedidos-diag-vendedor/pedidos-di
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -49,10 +53,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSelectModule,
     MatCardModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule, //Gestionar Formularios
     MatInputModule,
     MatStepperModule,
     MatFormFieldModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule, 
+    
 
   ]
 })

@@ -1,9 +1,4 @@
-<mat-stepper
-  [linear]="isLinear"
-  #stepper
-  activeColor="red"
-  inactiveColor="blue"
->
+<mat-stepper [linear]="isLinear" #stepper [color]="'warn'">
   <mat-step class="test">
     <ng-template matStepLabel>Resumen de Orden</ng-template>
 
@@ -109,34 +104,109 @@
     </div>
   </mat-step>
   <mat-step [stepControl]="pedidosForm" label="Dirección de entrega">
-    <form [formGroup]="pedidosForm">
-      <div class="row">
-        <div class="col" *ngIf="direccionList">
-          <mat-form-field class="full-width">
-            <mat-select
-              placeholder="Direccion de entrega"
-              formControlName="direccion"
-              (selectionChange)="onAddressSelected($event)"
-            >
-              <mat-option
-                *ngFor="let g of direccionList"
-                [value]="g.idDireccion"
-              >
-                {{ g.provincia }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+    <div class="row">
+      <div class="col-lg-6">
+        <h4 class="headerh1">Direcciones Guardadas</h4>
+        <form [formGroup]="pedidosForm">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-select
+                  placeholder="Direccion de entrega"
+                  formControlName="direccion"
+                  (selectionChange)="onAddressSelected($event)"
+                >
+                  <mat-option
+                    *ngFor="let g of direccionList"
+                    [value]="g.idDireccion"
+                  >
+                    {{ g.provincia }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+        <div *ngIf="selectedAddress" class="bottomDesing">
+          <h4 class="headerh1">Información de la dirección seleccionada:</h4>
+          <p>Provincia: {{ selectedAddress.provincia }}</p>
+          <p>Canton: {{ selectedAddress.canton }}</p>
+          <p>Distrito: {{ selectedAddress.distrito }}</p>
+          <p>Dirección Exacta: {{ selectedAddress.direccionExacta }}</p>
+          <p>Telefono de contacto: {{ selectedAddress.telefono }}</p>
+          <!-- Agrega otras propiedades de la dirección aquí -->
         </div>
       </div>
-    </form>
-    <div *ngIf="selectedAddress" class="bottomDesing">
-      <h4 class="headerh1">Información de la dirección seleccionada:</h4>
-      <p>Provincia: {{ selectedAddress.provincia }}</p>
-      <p>Canton: {{ selectedAddress.canton }}</p>
-      <p>Distrito: {{ selectedAddress.distrito }}</p>
-      <p>Dirección Exacta: {{ selectedAddress.direccionExacta }}</p>
-      <p>Telefono de contacto: {{ selectedAddress.telefono }}</p>
-      <!-- Agrega otras propiedades de la dirección aquí -->
+      <div class="col-lg-6">
+        <h4 class="headerh1">Crear nueva direccion</h4>
+        <form [formGroup]="direccionesForm">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Provincia"
+                  formControlName="provincia"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Canton" formControlName="canton" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Distrito"
+                  formControlName="distrito"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Dirección Exacta"
+                  formControlName="direccion"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Código Postal"
+                  formControlName="codigoPostal"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Telefono"
+                  formControlName="telefono"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+
+        <button
+          mat-flat-button
+          style="background-color: #b80000; color: #ffffff"
+          (click)="registrarDireccion()"
+        >
+          Añadir
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
@@ -144,33 +214,120 @@
     </div>
   </mat-step>
   <mat-step [stepControl]="pedidosForm" label="Método de pago">
-    <form [formGroup]="pedidosForm">
-      <div class="row">
-        <div class="col" *ngIf="metodosList">
-          <mat-form-field class="full-width">
-            <mat-select
-              placeholder="Método de pago"
-              formControlName="metodo"
-              (selectionChange)="onpaymentSelected($event)"
-            >
-              <mat-option *ngFor="let g of metodosList" [value]="g.idPago">
-                {{ g.tipoPago.TipoPago }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+    <div class="row">
+      <div class="col-lg-6">
+        <form [formGroup]="pedidosForm">
+          <div class="row">
+            <div class="col" *ngIf="metodosList">
+              <mat-form-field class="full-width">
+                <mat-select
+                  placeholder="Método de pago"
+                  formControlName="metodo"
+                  (selectionChange)="onpaymentSelected($event)"
+                >
+                  <mat-option *ngFor="let g of metodosList" [value]="g.idPago">
+                    {{ g.tipoPago.TipoPago }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+
+        <div *ngIf="selectedPayment" class="bottomDesing">
+          <h4 class="headerh1">Información del pago seleccionado:</h4>
+          <p>Metodo de pago: {{ selectedPayment.tipoPago.TipoPago }}</p>
+          <div *ngIf="selectedPayment.proveedor">
+            <p>Proveedor: {{ selectedPayment.proveedor }}</p>
+          </div>
+          <div *ngIf="selectedPayment.numTarjeta">
+            <p>Proveedor: {{ selectedPayment.numTarjeta.slice(-4) }}</p>
+          </div>
         </div>
       </div>
-    </form>
-    <div *ngIf="selectedPayment" class="bottomDesing">
-      <h4 class="headerh1">Información del pago seleccionado:</h4>
-      <p>Metodo de pago: {{ selectedPayment.tipoPago.TipoPago }}</p>
-      <div *ngIf="selectedPayment.proveedor">
-        <p>Proveedor: {{ selectedPayment.proveedor }}</p>
-      </div>
-      <div *ngIf="selectedPayment.numTarjeta">
-        <p>Proveedor: {{ selectedPayment.numTarjeta.slice(-4) }}</p>
+      <div class="col-lg-6">
+        <h4 class="headerh1">Crear nuevo Metodo de pago</h4>
+        <form [formGroup]="pagosForm">
+          <div class="row">
+            
+            <div class="col">
+              <mat-form-field class="full-width">
+              <mat-select
+                placeholder="Método de pago"
+                formControlName="tipoPagoId"
+                (selectionChange)="onpaymentSelected($event)"
+              >
+                <mat-option
+                  *ngFor="let g of tiposPagoList"
+                  [value]="g.idTipoPago"
+                >
+                  {{ g.TipoPago }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Numero de Tarjeta (Opcional)"
+                  formControlName="numTarjeta"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Proveedor (Opcional)" formControlName="proveedor" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Numero de Cuenta o Telefono (Opcional)"
+                  formControlName="numCuenta"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Fecha de Expiracion"
+                  formControlName="fechaExpiracion"
+                  [matDatepicker]="picker"
+                  
+                />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Nombre"
+                  formControlName="nombre"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+
+        <button
+          mat-flat-button
+          style="background-color: #b80000; color: #ffffff"
+          (click)="registrarPago()"
+        >
+          Añadir
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
     </div>
+    
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button matStepperNext>Siguiente</button>

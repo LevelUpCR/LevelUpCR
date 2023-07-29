@@ -65,13 +65,10 @@
   <div class="example-spacer left">
     <!-- Enlaces de la aplicación -->
     <!-- https://fonts.google.com/icons -->
-    <button mat-icon-button matBadgeColor="accent" [matBadge]="qtyItems.toString()" 
+    <button mat-icon-button matBadgeColor="warn" [matBadge]="qtyItems.toString()" 
        [routerLink]="'/pedidos'" [routerLinkActive]="'mat-raised-button'"  aria-label="Cantidad">
      <mat-icon>shopping_cart</mat-icon>
-   </button> |  
-    <span class="mat-caption" *ngIf="isAutenticated">{{
-      currentUser.name
-    }}</span>
+   </button>
     <button
       mat-icon-button
       [matMenuTriggerFor]="menu3"
@@ -82,14 +79,15 @@
       >
     </button>
     <mat-menu #menu3="matMenu">
-      <a mat-menu-item *ngIf="!isAutenticated">
+      <a mat-menu-item *ngIf="!(isAutenticated)" (click)="login()">
         <mat-icon>person_add</mat-icon>
         <span>Login</span>
       </a>
-      <a mat-menu-item *ngIf="!isAutenticated">
+      <a mat-menu-item *ngIf="isAutenticated" (click)="logout()">
         <mat-icon>person_remove</mat-icon>
         <span>Logout</span>
       </a>
     </mat-menu>
   </div>
+  <span class="mat-caption" *ngIf="isAutenticated">{{currentUser.user.nombre}}</span>
 </mat-toolbar>

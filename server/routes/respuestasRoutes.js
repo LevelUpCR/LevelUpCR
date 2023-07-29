@@ -5,7 +5,7 @@ const respuestasController = require("../controllers/respuestasController");
 
 router.get("/",respuestasController.get);
 
-router.get("/",respuestasController.create);
+router.post("/",respuestasController.create);
 
 router.get("/:id",respuestasController.getById);
 

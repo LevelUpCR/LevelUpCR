@@ -56,3 +56,10 @@
     flex-grow: 1;
     line-height: 2.5;
   }
+  .mat-step-icon-selected{
+    background-color: #b80000 !important;
+  }
+
+  .full-width {
+    width: 100%;
+  }

@@ -1,36 +1,17 @@
-<!--<div class="grid-container">
-  <h1 class="mat-h1">Usuarios</h1>
-  <mat-grid-list [cols]="3" rowHeight="12em" gutterSize="10px">
-    <mat-grid-tile *ngFor="let item of datos">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title> </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div></div>
-        </mat-card-content>
-        <mat-divider inset></mat-divider>
-        <mat-card-actions>
-          <button
-            mat-mini-fab
-            color="accent"
-            matTooltip="Detalle Usuarios"
-            aria-label="Detalle Usuarios"
-            color="primary"
-          >
-            <mat-icon class="mat-18">info</mat-icon>
-          </button>
-          <button
-            mat-mini-fab
-            color="accent"
-            matTooltip="Comprar"
-            aria-label="Comprar"
-            color="primary"
-          >
-            <mat-icon class="mat-18">add_shopping_cart</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>-->
+<mat-card class="main-div">
+  <mat-card-header>
+    <mat-card-title>Usuarios</mat-card-title>
+  </mat-card-header> 
+  <mat-card-content>
+<nav mat-tab-nav-bar backgroundColor="primary" [tabPanel]="tabPanel">
+  <a mat-tab-link [routerLink]="['/usuario/login']" routerLinkActive="active-link" class="backcolor">Login</a>
+  <a mat-tab-link [routerLink]="['/usuario/registrar']" routerLinkActive="active-link" class="backcolor2">Registrarse</a>
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+<div>	
+  <router-outlet></router-outlet>	
+</div> 
+
+</mat-card-content>
+
+</mat-card>

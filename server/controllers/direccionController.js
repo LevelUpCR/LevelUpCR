@@ -32,6 +32,22 @@ module.exports.getById = async (request, response, next) => {
 };
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
+    let direccion = request.body;
+    direccion.codigoPostal=parseInt(direccion.codigoPostal)
+    direccion.telefono=parseInt(direccion.telefono)
+    console.log(direccion)
+    const newDireccion = await prisma.direccion.create({
+        data: {
+            provincia: direccion.provincia,
+            canton: direccion.canton,
+            distrito: direccion.distrito,
+            direccionExacta: direccion.direccion,
+            codigoPostal: direccion.codigoPostal,
+            telefono: direccion.telefono,
+            usuarioId: direccion.usuarioId
+        },
+    });
+    response.json(newDireccion);
 };
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {

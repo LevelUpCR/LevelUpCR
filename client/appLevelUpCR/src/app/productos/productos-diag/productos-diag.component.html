@@ -84,9 +84,63 @@
       </div>
       <mat-divider inset></mat-divider>
       <div class="conversation">
+        <div class="textpregunta" *ngIf="isCliente()">
+          <form [formGroup]="preguntaForm">
+            <div class="row">
+              <div class="col-lg-10 col-md-9">
+                <mat-form-field class="full-width">
+                  <input
+                    matInput
+                    placeholder="Escriba aqui su pregunta acerca del producto"
+                    formControlName="pregunta"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-lg-2 col-md-3 ">
+                <a
+                  mat-fab
+                  matTooltip="Crear Producto"
+                  aria-label="Crear Producto"
+                  color="primary"
+                  (click)="enviarPregunta(datos.idProducto)"
+                  style="background-color: #000163; color: #ffffff"
+                >
+                  <mat-icon>send</mat-icon>
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
         <div *ngIf="datos.preguntas && datos.preguntas.length > 0">
           <div *ngFor="let pregunta of datos.preguntas" class="message">
             <div class="textpregunta">{{ pregunta.pregunta }}</div>
+            <div class="textrespuesta" *ngIf="isVendedor()">
+              <form [formGroup]="respuestaForm">
+                <div class="row">
+                  <div class="col-lg-10 col-md-9">
+                    <mat-form-field class="full-width">
+                      <input
+                        matInput
+                        placeholder="Escriba aqui su respuesta acerca de la pregunta"
+                        formControlName="respuesta"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2 col-md-3">
+                    <a
+                      mat-fab
+                      matTooltip="Crear Producto"
+                      aria-label="Crear Producto"
+                      color="primary"
+                      (click)="enviarRespuesta(pregunta.idPregunta)"
+                      style="background-color: #b80000; color: #ffffff"
+                    >
+                      <mat-icon>send</mat-icon>
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
             <div
               *ngIf="pregunta.respuestas && pregunta.respuestas.length > 0"
               class="responses"

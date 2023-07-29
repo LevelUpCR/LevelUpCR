@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 import { tipoPago } from "./seeds/tipoPago";
 import { estadoProducto } from "./seeds/estadoProducto";
 import { categoriaProducto } from "./seeds/categoriaProducto";
@@ -12,10 +12,7 @@ async function main() {
   await prisma.estado_Pedido.createMany({
     data: estadoPedido,
   });
-  //Rol
-  await prisma.rol.createMany({
-    data: rol,
-  });
+
   //TipoPago
   await prisma.tipoPago.createMany({
     data: tipoPago,
@@ -35,9 +32,7 @@ async function main() {
       telefono: 81818181,
       correo: "admin@admin.com",
       password: "123456",
-      roles: {
-        connect: [{ idRol: 1 }, { idRol: 1 }],
-      },
+      role: Role.ADMIN,
     },
   });
   //2
@@ -48,9 +43,7 @@ async function main() {
       telefono: 82828282,
       correo: "lsolera@cliente.com",
       password: "123456",
-      roles: {
-        connect: [{ idRol: 2 }, { idRol: 2 }],
-      },
+      role: Role.Cliente,
     },
   });
   //3
@@ -61,9 +54,7 @@ async function main() {
       telefono: 83838383,
       correo: "icalvo@cliente.com",
       password: "123456",
-      roles: {
-        connect: [{ idRol: 2 }, { idRol: 2 }],
-      },
+      role: Role.Vendedor,
     },
   });
   //4
@@ -74,9 +65,7 @@ async function main() {
       telefono: 84848484,
       correo: "sony@vendedor.com",
       password: "123456",
-      roles: {
-        connect: [{ idRol: 3 }, { idRol: 3 }],
-      },
+      role: Role.Vendedor,
     },
   });
   //5
@@ -87,9 +76,7 @@ async function main() {
       telefono: 85858585,
       correo: "nintendo@vendedor.com",
       password: "123456",
-      roles: {
-        connect: [{ idRol: 3 }, { idRol: 3 }],
-      },
+      role: Role.Vendedor,
     },
   });
   //6
@@ -100,9 +87,7 @@ async function main() {
       telefono: 86868686,
       correo: "microsoft@vendedor.com",
       password: "123456",
-      roles: {
-        connect: [{ idRol: 3 }, { idRol: 3 }],
-      },
+      role: Role.Vendedor,
     },
   });
 

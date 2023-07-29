@@ -23,6 +23,7 @@ const respuestasRoutes = require('./routes/respuestasRoutes');
 const tipoPagoRoutes = require('./routes/tipoPagoRoutes');//10
 const usuariosRoutes = require('./routes/usuariosRoutes');
 const fotosproductosRoutes = require('./routes/fotosproductosRoutes');
+const rolRouter = require("./routes/rolRoutes");
 app.use(express.static('./Images'));
 
 const storage = multer.diskStorage({
@@ -67,6 +68,7 @@ app.use("/productos/", productosRoutes);
 app.use("/respuestas/", respuestasRoutes);
 app.use("/tipopago/", tipoPagoRoutes);
 app.use("/usuarios/", usuariosRoutes);
+app.use("/rol/", rolRouter); 
 app.use("/fotosproductos/", fotosproductosRoutes);
 
 // Servidor

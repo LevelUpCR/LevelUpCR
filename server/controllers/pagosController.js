@@ -32,12 +32,32 @@ module.exports.getbyUsuario = async (request, response, next) => {
 module.exports.getById = async (request, response, next) => {
     let id = parseInt(request.params.id);
     const pago = await prisma.pagos.findUnique({
-        where: { idPago: id }
+        where: { idPago: id },
+        include:{
+            tipoPago:true,
+        }
     });
     response.json(pago);
 };
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
+    let pago = request.body;
+    pago.numTarjeta=parseInt(pago.numTarjeta)
+    pago.numCuenta=parseInt(pago.numCuenta)
+    pago.telefono=parseInt(pago.telefono)
+    console.log(pago)
+    const newPagos = await prisma.pagos.create({
+        data: {
+            numTarjeta: pago.numTarjeta,
+            proveedor: pago.proveedor,
+            numCuenta: pago.numCuenta,
+            fechaExpiracion: pago.fechaExpiracion,
+            nombre: pago.nombre,
+            usuarioId: pago.usuarioId,
+            tipoPagoId: pago.tipoPagoId,
+        },
+    });
+    response.json(newPagos);
 };
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {

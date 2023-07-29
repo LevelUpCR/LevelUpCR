@@ -11,7 +11,7 @@ import { UserModule } from './user/user.module';
 import { LevelUpCRModule } from './level-up-cr/level-up-cr.module';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductosModule } from './productos/productos.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { FotosProductosModule } from './fotos-productos/fotos-productos.module';
+import { HttpErrorInterceptorService } from './share/http-error-interceptor.service';
 
 
 @NgModule({
@@ -54,7 +55,7 @@ import { FotosProductosModule } from './fotos-productos/fotos-productos.module';
     
 
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptorService, multi: true }, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

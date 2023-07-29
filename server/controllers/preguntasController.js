@@ -22,6 +22,7 @@ module.exports.getById = async (request, response, next) => {
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
     let pregunta = request.body;
+    console.log(pregunta)
     const newPregunta = await prisma.preguntas.create({
         data: {
             pregunta: pregunta.pregunta,

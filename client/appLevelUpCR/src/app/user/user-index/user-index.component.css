@@ -1,18 +1,14 @@
-.grid-container {
-    margin: 20px;
-    }
-    .dashboard-card {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    }
-    .more-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    }
-    .dashboard-card-content {
-    text-align: center;
-    }
+.main-div{
+    margin: 0 auto;
+    max-width: 80%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .backcolor{
+    background-color: #b80000;
+  }
+
+  .backcolor2{
+    background-color: #000136;
+  }

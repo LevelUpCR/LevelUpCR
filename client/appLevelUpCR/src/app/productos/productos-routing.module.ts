@@ -6,14 +6,21 @@ import { ProductosFormComponent } from './productos-form/productos-form.componen
 import { ProductosDetailComponent } from './productos-detail/productos-detail.component';
 import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
 import { ProductosCreateImageComponent } from './productos-create-image/productos-create-image.component';
+import { AuthGuard } from '../share/guards/auth.guard';
 
  //locahost:3000/videojuego/all
  const routes: Routes = [
   {path:'productos', component: ProductosIndexComponent}, 
 
   {path:'productos/all', component: ProductosAllComponent},
-  {path:'productos/vendedor/:id', component: ProductosVendedorComponent},
-  {path:'productos/vendedor', component: ProductosVendedorComponent},
+  {path:'productos/vendedor/:id', component: ProductosVendedorComponent,canActivate:[AuthGuard],
+  data:{
+    roles:['ADMIN'] //roles:['ADMIN','USER'] Iguales al enum
+  }},
+  {path:'productos/vendedor', component: ProductosVendedorComponent, canActivate:[AuthGuard],
+  data:{
+    roles:['ADMIN'] //roles:['ADMIN','USER'] Iguales al enum
+  }},
 
   {path:'productos/create', component: ProductosFormComponent},
   {path:'productos/createFoto', component: ProductosCreateImageComponent},
