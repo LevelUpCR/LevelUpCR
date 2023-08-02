@@ -7,11 +7,11 @@ const auth=require("../middleware/auth")
 
 router.get("/",productosController.get);
 
-//router.get("/",productosController.create);
+router.post("/",productosController.create);
 
 router.get("/:id",productosController.getById);
 
-//router.get("/vendedor/:id",productosController.update)
+router.put("/:id",productosController.update)
 
 router.get("/vendedor/:id",auth.grantRole(["ADMIN"]),productosController.getByIdUsuario);
 

@@ -61,14 +61,11 @@ module.exports.create = async (request, response, next) => {
     data: {
       nombre: producto.nombre,
       descripcion: producto.descripcion,
-      precio: producto.precio,
-      cantidad: producto.cantidad,
-      categoriaId: producto.categoriaId,
-      estadoProductoId: producto.estadoProductoId,
-      usuarioId: usuarioId,
-      usuarios: {
-        connect: producto.usuarios
-      },
+      precio: parseInt(producto.precio),
+      cantidad: parseInt(producto.cantidad),
+      categoriaId: parseInt(producto.categoria),
+      estadoProductoId: parseInt(producto.estado),
+      usuarioId: parseInt(producto.usuario)
     },
   });
   response.json(newProducto);
@@ -77,27 +74,37 @@ module.exports.create = async (request, response, next) => {
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {
   let producto = request.body;
-  let idProducto = parseInt(request.params.id);
+  let idProduct = parseInt(request.params.id);
 
   const productoViejo = await prisma.productos.findUnique({
-    where: { id: idProducto }
+    where: { 
+      idProducto: idProduct 
+    }, // Use idProducto as the value for the id field
+    include: {
+      usuarios: true,
+      categoria: true,
+      estadoProducto: true,
+      preguntas: {
+        include: {
+          respuestas: true
+        }
+      },
+      fotosProductos: true
+    }
   });
 
   const newProducto = await prisma.productos.update({
     where: {
-      id: idProducto
+      idProducto : idProduct
     },
     data: {
       nombre: producto.nombre,
       descripcion: producto.descripcion,
-      precio: producto.precio,
-      cantidad: producto.cantidad,
-      categoriaId: producto.categoriaId,
-      estadoProductoId: producto.estadoProductoId,
-      usuarioId: usuarioId,
-      usuarios: {
-        connect: producto.usuarios
-      },
+      precio: parseInt(producto.precio),
+      cantidad: parseInt(producto.cantidad),
+      categoriaId: parseInt(producto.categoria),
+      estadoProductoId: parseInt(producto.estado),
+      usuarioId: parseInt(producto.usuario)
     },
   });
   response.json(newProducto);

@@ -14,18 +14,24 @@ export class ProductosFormComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   //Titulo
   titleForm: string = 'Crear';
-  //Lista de generos
-  generosList: any;
+  //Guardar/Actualizar
+  titleButton: string = 'Guardar';
+  //Lista de usuarios
+  usuariosList: any;
+  //Lista de categorías
+  categoriasList: any;
+  //Lista de estados
+  estadosList: any;
   //Videojuego a actualizar
-  videojuegoInfo: any;
+  productoInfo: any;
   //Respuesta del API crear/modificar
-  respVideojuego: any;
+  respProducto: any;
   //Sí es submit
   submitted = false;
   //Nombre del formulario
-  videojuegoForm: FormGroup;
+  productoForm: FormGroup;
   //id del Videojuego
-  idVideojuego: number = 0;
+  idproducto: number = 0;
   //Sí es crear
   isCreate: boolean = true;
 
@@ -36,37 +42,43 @@ export class ProductosFormComponent implements OnInit {
     private activeRouter: ActivatedRoute
   ) {
     this.formularioReactive();
-    this.listaGeneros();
+    this.listaUsuarios();
+    this.listaCategorias();
+    this.listaEstados();
   }
   ngOnInit(): void {
     //Verificar si se envio un id por parametro para crear formulario para actualizar
     this.activeRouter.params.subscribe((params:Params)=>{
-      this.idVideojuego=params['id'];
-      if(this.idVideojuego!=undefined){
+      this.idproducto=params['id'];
+      if(this.idproducto!=undefined){
         this.isCreate=false;
         this.titleForm="Actualizar";
+        this.titleButton="Actualizar";
          //Obtener videojuego a actualizar del API
-         this.gService.get('videojuego',this.idVideojuego).pipe(takeUntil(this.destroy$))
+         this.gService.get('productos',this.idproducto).pipe(takeUntil(this.destroy$))
          .subscribe((data:any)=>{
-          this.videojuegoInfo=data;
+          this.productoInfo=data;
+          console.log(data)
           //Establecer los valores en cada una de las entradas del formulario
-          this.videojuegoForm.setValue({
-            id:this.videojuegoInfo.id,
-            nombre:this.videojuegoInfo.nombre,
-            descripcion:this.videojuegoInfo.descripcion,
-            precio:this.videojuegoInfo.precio,
-            publicar:this.videojuegoInfo.publicar,
-            generos:this.videojuegoInfo.generos.map(({id}) => id)
+          this.productoForm.setValue({
+            id:this.productoInfo.idProducto,
+            nombre:this.productoInfo.nombre,
+            descripcion:this.productoInfo.descripcion,
+            precio:this.productoInfo.precio,
+            cantidad:this.productoInfo.cantidad,
+            usuario:this.productoInfo.usuarioId,
+            categoria:this.productoInfo.categoriaId,
+            estado:this.productoInfo.estadoProductoId,
           })
          });
-      }
-
+      };
     });
   }
+
   //Crear Formulario
   formularioReactive() {
     //[null, Validators.required]
-    this.videojuegoForm=this.fb.group({
+    this.productoForm=this.fb.group({
       id:[null,null],
       nombre:[null, Validators.compose([
         Validators.required,
@@ -74,77 +86,125 @@ export class ProductosFormComponent implements OnInit {
       ])],
       descripcion: [null, Validators.required],
       precio: [null, Validators.required],
-      publicar: [true, Validators.required],
-      generos: [null, Validators.required],
+      cantidad: [null, Validators.required],
+      usuario: [null, Validators.required],
+      categoria: [null, Validators.required],
+      estado: [null, Validators.required],
     })
   }
-  listaGeneros() {
-    this.generosList = null;
+
+  listaUsuarios() {
+    this.usuariosList = null;
     this.gService
-      .list('genero')
+      .list('usuarios')
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         // console.log(data);
-        this.generosList = data;
+        this.usuariosList = data;
+      });
+  }
+
+  listaCategorias() {
+    this.categoriasList = null;
+    this.gService
+      .list('categoriaproductos')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        // console.log(data);
+        this.categoriasList = data;
+      });
+  }
+
+  listaEstados() {
+    this.estadosList = null;
+    this.gService
+      .list('estadoproducto')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        // console.log(data);
+        this.estadosList = data;
       });
   }
 
   public errorHandling = (control: string, error: string) => {
-    return this.videojuegoForm.controls[control].hasError(error);
+    return this.productoForm.controls[control].hasError(error);
   };
-  //Crear Videojueogo
-  crearVideojuego(): void {
+
+  //Crear Producto
+  crearProducto(): void {
     //Establecer submit verdadero
     this.submitted = true;
     //Verificar validación
-    if(this.videojuegoForm.invalid){
+    if(this.productoForm.invalid){
       return;
     }
     //Obtener id Generos del Formulario y Crear arreglo con {id: value}
-    let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x}))
+    //let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x}))
+    
+    let cFormat:any=this.productoForm.get('categoria').value;
+    let uFormat:any=this.productoForm.get('usuario').value;
+    let eFormat:any=this.productoForm.get('estado').value;
+
     //Asignar valor al formulario
-    this.videojuegoForm.patchValue({generos: gFormat});
-    console.log(this.videojuegoForm.value);
+    //this.videojuegoForm.patchValue({generos: gFormat});
+
+    this.productoForm.patchValue({usuario: uFormat});
+    this.productoForm.patchValue({categoria: cFormat});
+    this.productoForm.patchValue({estado: eFormat});
+
+    console.log(this.productoForm.value);
     //Accion API create enviando toda la informacion del formulario
-    this.gService.create('videojuego',this.videojuegoForm.value)
-    .pipe(takeUntil(this.destroy$)) .subscribe((data: any) => {
+    
+    this.gService.create('productos',this.productoForm.value)
+    .pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
       //Obtener respuesta
-      this.respVideojuego=data;
-      this.router.navigate(['/videojuego/all'],{
+      this.respProducto=data;
+      this.router.navigate(['/productos/all'],{
         queryParams: {create:'true'}
       });
     });
   }
   //Actualizar Videojuego
-  actualizarVideojuego() {
+  actualizarProducto() {
     //Establecer submit verdadero
     this.submitted=true;
     //Verificar validación
-    if(this.videojuegoForm.invalid){
+    if(this.productoForm.invalid){
       return;
     }
     
     //Obtener id Generos del Formulario y Crear arreglo con {id: value}
-    let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x }));
-    //Asignar valor al formulario 
-    this.videojuegoForm.patchValue({ generos:gFormat});
-    console.log(this.videojuegoForm.value);
+    //let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x }));
+    
+    let cFormat:any=this.productoForm.get('categoria').value;
+    let uFormat:any=this.productoForm.get('usuario').value;
+    let eFormat:any=this.productoForm.get('estado').value;
+
+    //Asignar valor al formulario
+    //this.videojuegoForm.patchValue({generos: gFormat});
+
+    this.productoForm.patchValue({usuario: uFormat});
+    this.productoForm.patchValue({categoria: cFormat});
+    this.productoForm.patchValue({estado: eFormat});
+
+    console.log(this.productoForm.value);
     //Accion API create enviando toda la informacion del formulario
-    this.gService.update('videojuego',this.videojuegoForm.value)
+    this.gService.update('productos',this.productoForm.value)
     .pipe(takeUntil(this.destroy$)) .subscribe((data: any) => {
       //Obtener respuesta
-      this.respVideojuego=data;
-      this.router.navigate(['/videojuego/all'],{
+      this.respProducto=data;
+      this.router.navigate(['/productos/all'],{
         queryParams: {update:'true'}
       });
     });
   }
+
   onReset() {
     this.submitted = false;
-    this.videojuegoForm.reset();
+    this.productoForm.reset();
   }
   onBack() {
-    this.router.navigate(['/videojuego/all']);
+    this.router.navigate(['/productos/all']);
   }
   ngOnDestroy() {
     this.destroy$.next(true);
