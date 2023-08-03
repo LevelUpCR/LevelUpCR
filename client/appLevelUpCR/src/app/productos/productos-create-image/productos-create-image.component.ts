@@ -36,7 +36,6 @@ export class ProductosCreateImageComponent implements OnInit, OnDestroy {
 
   formularioReactive(): void {
     this.fotoForm = this.fb.group({
-      id: [null],
       foto: [null],
       idProducto: [null],
     });

@@ -22,6 +22,7 @@ module.exports.get = async (request, response, next) => {
 //Guardar Imagenes
 module.exports.createFoto= async (request, response, next) =>{
   try {
+    console.log(request.body);
     if (!request.file) {
       return response.status(400).send('No se ha seleccionado una imagen');
     }

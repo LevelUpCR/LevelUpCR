@@ -8,10 +8,9 @@ import { GenericService } from 'src/app/share/generic.service';
 @Component({
   selector: 'app-productos-form',
   templateUrl: './productos-form.component.html',
-  styleUrls: ['./productos-form.component.css']
+  styleUrls: ['./productos-form.component.css'],
 })
 export class ProductosFormComponent implements OnInit {
-  
   destroy$: Subject<boolean> = new Subject<boolean>();
   //Titulo
   titleForm: string = 'Crear';
@@ -43,70 +42,60 @@ export class ProductosFormComponent implements OnInit {
     private gService: GenericService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-    private authService: AuthenticationService,
+    private authService: AuthenticationService
   ) {
     this.formularioReactive();
-    this.listaUsuarios();
     this.listaCategorias();
     this.listaEstados();
   }
   ngOnInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     //Verificar si se envio un id por parametro para crear formulario para actualizar
-    this.activeRouter.params.subscribe((params:Params)=>{
-      this.idproducto=params['id'];
-      if(this.idproducto!=undefined){
-        this.isCreate=false;
-        this.titleForm="Actualizar";
-        this.titleButton="Actualizar";
-         //Obtener videojuego a actualizar del API
-         this.gService.get('productos',this.idproducto).pipe(takeUntil(this.destroy$))
-         .subscribe((data:any)=>{
-          this.productoInfo=data;
-          console.log(data)
-          //Establecer los valores en cada una de las entradas del formulario
-          this.productoForm.setValue({
-            id:this.productoInfo.idProducto,
-            nombre:this.productoInfo.nombre,
-            descripcion:this.productoInfo.descripcion,
-            precio:this.productoInfo.precio,
-            cantidad:this.productoInfo.cantidad,
-            usuario:this.productoInfo.usuarioId,
-            categoria:this.productoInfo.categoriaId,
-            estado:this.productoInfo.estadoProductoId,
-          })
-         });
-      };
+    this.activeRouter.params.subscribe((params: Params) => {
+      this.idproducto = params['id'];
+      if (this.idproducto != undefined) {
+        this.isCreate = false;
+        this.titleForm = 'Actualizar';
+        this.titleButton = 'Actualizar';
+        //Obtener videojuego a actualizar del API
+        this.gService
+          .get('productos', this.idproducto)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((data: any) => {
+            this.productoInfo = data;
+            console.log(data);
+            //Establecer los valores en cada una de las entradas del formulario
+            this.productoForm.setValue({
+              id: this.productoInfo.idProducto,
+              nombre: this.productoInfo.nombre,
+              descripcion: this.productoInfo.descripcion,
+              precio: this.productoInfo.precio,
+              cantidad: this.productoInfo.cantidad,
+              usuario: this.productoInfo.usuarioId,
+              categoria: this.productoInfo.categoriaId,
+              estado: this.productoInfo.estadoProductoId,
+            });
+          });
+      }
     });
   }
 
   //Crear Formulario
   formularioReactive() {
     //[null, Validators.required]
-    this.productoForm=this.fb.group({
-      id:[null,null],
-      nombre:[null, Validators.compose([
-        Validators.required,
-        Validators.minLength(3)
-      ])],
+    this.productoForm = this.fb.group({
+      id: [null, null],
+      nombre: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ],
       descripcion: [null, Validators.required],
       precio: [null, Validators.required],
       cantidad: [null, Validators.required],
       usuario: [null, Validators.required],
       categoria: [null, Validators.required],
       estado: [null, Validators.required],
-    })
-  }
-
-  listaUsuarios() {
-    this.usuariosList = null;
-    this.gService
-      .list('usuarios')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data: any) => {
-        // console.log(data);
-        this.usuariosList = data;
-      });
+    });
   }
 
   listaCategorias() {
@@ -139,77 +128,76 @@ export class ProductosFormComponent implements OnInit {
   crearProducto(): void {
     //Establecer submit verdadero
     this.submitted = true;
-    //Verificar validación
-    if(this.productoForm.invalid){
-      return;
-    }
+
     //Obtener id Generos del Formulario y Crear arreglo con {id: value}
     //let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x}))
-    
-    let cFormat:any=this.productoForm.get('categoria').value;
-    let uFormat:any=this.productoForm.get('usuario').value;
-    let eFormat:any=this.productoForm.get('estado').value;
+
+    let cFormat: any = this.productoForm.get('categoria').value;
+    let eFormat: any = this.productoForm.get('estado').value;
 
     //Asignar valor al formulario
     //this.videojuegoForm.patchValue({generos: gFormat});
-
-    this.productoForm.patchValue({usuario: uFormat});
-    this.productoForm.patchValue({categoria: cFormat});
-    this.productoForm.patchValue({estado: eFormat});
+    console.log(this.currentUser.user.idUsuario);
+    this.productoForm.patchValue({ categoria: cFormat });
+    this.productoForm.patchValue({ estado: eFormat });
+    this.productoForm.patchValue({ usuario: this.currentUser.user.idUsuario });
 
     console.log(this.productoForm.value);
     //Accion API create enviando toda la informacion del formulario
-    
-    this.gService.create('productos',this.productoForm.value)
-    .pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-      //Obtener respuesta
-      this.respProducto=data;
-      this.router.navigate(['/productos/all'],{
-        queryParams: {create:'true'}
+    //Verificar validación
+    if (this.productoForm.invalid) {
+      return;
+    }
+    this.gService
+      .create('productos', this.productoForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        //Obtener respuesta
+        this.respProducto = data;
+        this.router.navigate(['/productos/vendedor'], {
+          queryParams: { create: 'true' },
+        });
       });
-    });
   }
   //Actualizar Videojuego
   actualizarProducto() {
     //Establecer submit verdadero
-    this.submitted=true;
+    this.submitted = true;
     //Verificar validación
-    if(this.productoForm.invalid){
+    if (this.productoForm.invalid) {
       return;
     }
-    
+
     //Obtener id Generos del Formulario y Crear arreglo con {id: value}
     //let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x }));
-    
-    let cFormat:any=this.productoForm.get('categoria').value;
-    let uFormat:any=this.productoForm.get('usuario').value;
-    let eFormat:any=this.productoForm.get('estado').value;
+
+    let cFormat: any = this.productoForm.get('categoria').value;
+    let eFormat: any = this.productoForm.get('estado').value;
 
     //Asignar valor al formulario
     //this.videojuegoForm.patchValue({generos: gFormat});
 
-    this.productoForm.patchValue({usuario: uFormat});
-    this.productoForm.patchValue({categoria: cFormat});
-    this.productoForm.patchValue({estado: eFormat});
+    this.productoForm.patchValue({ categoria: cFormat });
+    this.productoForm.patchValue({ estado: eFormat });
+    this.productoForm.patchValue({ usuario: this.currentUser.user.idUsuario });
 
     console.log(this.productoForm.value);
     //Accion API create enviando toda la informacion del formulario
-    this.gService.update('productos',this.productoForm.value)
-    .pipe(takeUntil(this.destroy$)) .subscribe((data: any) => {
-      //Obtener respuesta
-      this.respProducto=data;
-      this.router.navigate(['/productos/all'],{
-        queryParams: {update:'true'}
+    this.gService
+      .update('productos', this.productoForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        //Obtener respuesta
+        this.respProducto = data;
+        this.router.navigate(['/productos/vendedor'], {
+          queryParams: { update: 'true' },
+        });
       });
-    });
   }
 
   onReset() {
     this.submitted = false;
     this.productoForm.reset();
-  }
-  onBack() {
-    this.router.navigate(['/productos/all']);
   }
   ngOnDestroy() {
     this.destroy$.next(true);
@@ -217,4 +205,3 @@ export class ProductosFormComponent implements OnInit {
     this.destroy$.unsubscribe();
   }
 }
-

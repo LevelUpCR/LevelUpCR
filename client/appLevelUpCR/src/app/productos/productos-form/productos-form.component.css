@@ -1,10 +1,21 @@
 .full-width {
     width: 100%;
+    
   }
-  
+  .headerh1{
+    font-family: 'Press Start 2P', cursive;
+    font-size: large;
+    margin: 1.5rem;
+    
+    background-color: #b80000;
+    color: #ffffff;
+    padding: 0.3rem 1rem;
+    border-radius: 40px;
+  }
   .shipping-card {
     min-width: 120px;
     margin: 20px auto;
+    background-color: #ffffff49;
   }
   
   .mat-radio-button {
@@ -25,4 +36,6 @@
   .col:last-child {
     margin-right: 0;
   }
+
+
   

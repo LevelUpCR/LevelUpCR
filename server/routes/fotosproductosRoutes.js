@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 
   const upload = multer({ storage });
 
-  router.post('/upload', upload.single('image'), fotosproductosController.createFoto);
+  router.post('/crearFoto', upload.single('image'), fotosproductosController.createFoto);
 
 router.get("/",fotosproductosController.get);
 
