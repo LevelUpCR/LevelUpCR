@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class ProductosCreateImageComponent implements OnInit, OnDestroy {
   submitted = false;
   previsualizacion: SafeUrl | null = null;
   loading = false;
+  imagePreview: string;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -42,11 +43,23 @@ export class ProductosCreateImageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    image: new FormControl(null, { validators: [Validators.required]})
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  onImagePicked(event: Event){
+    const file = (event.target as HTMLInputElement).files[0];
+    this.fotoForm.patchValue({image:file});
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   capturarFile(event: any): void {
