@@ -19,7 +19,7 @@ import { AuthGuard } from '../share/guards/auth.guard';
   }},
   {path:'productos/vendedor', component: ProductosVendedorComponent, canActivate:[AuthGuard],
   data:{
-    roles:['ADMIN'] //roles:['ADMIN','USER'] Iguales al enum
+    roles:['Vendedor'] //roles:['ADMIN','USER'] Iguales al enum
   }},
 
   {path:'productos/create', component: ProductosFormComponent},

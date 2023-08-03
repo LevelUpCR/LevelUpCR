@@ -30,8 +30,9 @@ export class ProductosDiagComponent implements OnInit{
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) data,
     private dialogRef:MatDialogRef<ProductosDiagComponent>,
-    private dialog: MatDialog,private gService:GenericService,private router: Router,private authService: AuthenticationService,
-    private activeRouter: ActivatedRoute
+    private dialog: MatDialog,private gService:GenericService,private router: Router,
+    private activeRouter: ActivatedRoute,
+    private authService: AuthenticationService,
   ) { 
     this.datosDialog=data;
     this.formularioReactive1();

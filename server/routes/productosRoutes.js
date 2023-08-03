@@ -13,8 +13,8 @@ router.get("/:id",productosController.getById);
 
 router.put("/:id",productosController.update)
 
-router.get("/vendedor/:id",auth.grantRole(["ADMIN"]),productosController.getByIdUsuario);
+router.get("/vendedor/:id",auth.grantRole(["Vendedor"]),productosController.getByIdUsuario);
 
-router.get("/vendedor",auth.grantRole(["ADMIN"]),productosController.getByIdUsuario);
+router.get("/vendedor",auth.grantRole(["Vendedor"]),productosController.getByIdUsuario);
 
 module.exports = router;

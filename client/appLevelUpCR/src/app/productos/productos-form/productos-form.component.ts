@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
 
 @Component({
@@ -35,11 +36,14 @@ export class ProductosFormComponent implements OnInit {
   //Sí es crear
   isCreate: boolean = true;
 
+  currentUser: any;
+
   constructor(
     private fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private authService: AuthenticationService,
   ) {
     this.formularioReactive();
     this.listaUsuarios();
@@ -47,6 +51,7 @@ export class ProductosFormComponent implements OnInit {
     this.listaEstados();
   }
   ngOnInit(): void {
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     //Verificar si se envio un id por parametro para crear formulario para actualizar
     this.activeRouter.params.subscribe((params:Params)=>{
       this.idproducto=params['id'];

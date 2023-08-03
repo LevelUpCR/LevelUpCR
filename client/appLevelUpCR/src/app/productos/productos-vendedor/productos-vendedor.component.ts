@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
 import { ProductosDiagComponent } from '../productos-diag/productos-diag.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 
 @Component({
   selector: 'app-productos-vendedor',
@@ -16,6 +17,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class ProductosVendedorComponent implements AfterViewInit {
   datos: any;
+  currentUser: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -37,10 +39,14 @@ export class ProductosVendedorComponent implements AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private gService: GenericService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthenticationService,
+
   ) {}
 
   ngAfterViewInit(): void {
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
     if (!isNaN(Number(id))) {
@@ -49,7 +55,7 @@ export class ProductosVendedorComponent implements AfterViewInit {
   }
   listaProductos(id: number) {
     //localhost:3000/productos
-    const vendedorId = 5; //Cambiarlo a id, para que ahora si pueda funcionar con todos los vendedores
+    const vendedorId = this.currentUser.user.idUsuario; //Cambiarlo a id, para que ahora si pueda funcionar con todos los vendedores
     this.gService
       .list(`productos/vendedor/${vendedorId}`)
       .pipe(takeUntil(this.destroy$))
