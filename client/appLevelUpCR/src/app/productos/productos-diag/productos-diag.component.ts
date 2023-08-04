@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
+import { tap } from 'rxjs/operators';
 
 
 @Component({
@@ -43,9 +44,9 @@ export class ProductosDiagComponent implements OnInit{
   formularioReactive1() {
     //[null, Validators.required]
     this.preguntaForm=this.fb.group({
-      pregunta: [null, null],
-      productoId: [null, null],
-      usuarioId: [null, null],
+      pregunta: [null, Validators.compose([Validators.required, Validators.minLength(3)])],
+      productoId: [null, Validators.required],
+      usuarioId: [null, Validators.required],
     })
   }
 
@@ -53,8 +54,8 @@ export class ProductosDiagComponent implements OnInit{
   formularioReactive2() {
     //[null, Validators.required]
     this.respuestaForm=this.fb.group({
-      respuesta: [null, null],
-      preguntaId: [null, null],
+      respuesta: [null, Validators.compose([Validators.required, Validators.minLength(3)])],
+      preguntaId: [null, Validators.required],
     })
   }
 
@@ -93,37 +94,58 @@ export class ProductosDiagComponent implements OnInit{
     this.submitted1 = true;
     this.preguntaForm.patchValue({productoId: id});
     this.preguntaForm.patchValue({usuarioId: this.currentUser.user.idUsuario});
+    if (this.preguntaForm.invalid) {
+      return;
+    }
     console.log(this.preguntaForm.value);
     //Accion API create enviando toda la informacion del formulario
     this.gService.create('preguntas',this.preguntaForm.value)
-    .pipe(takeUntil(this.destroy$)) .subscribe((data: any) => {
+    .pipe(takeUntil(this.destroy$),
+    tap((data: any) => {
+      // Obtener respuesta
+      this.respPregunta = data;
+      // Volver a obtener las preguntas para actualizar la lista
+      this.obtenerProducto(this.datosDialog.id);
+    })
+    )
+     .subscribe((data: any) => {
       //Obtener respuesta
       this.respPregunta=data;
-      this.router.navigate(['/productos'],{
-        queryParams: {create:'true'}
-      });
+      
     });
-    this.close();
   }
+  public errorHandling1 = (control: string, error: string) => {
+    return this.preguntaForm.controls[control].hasError(error);
+  };
   
-
-  //Enviar Pregunta
+  public errorHandling2 = (control: string, error: string) => {
+    return this.respuestaForm.controls[control].hasError(error);
+  };
+  //Enviar Respuesta
   enviarRespuesta(id: number): void {
     //Establecer submit verdadero
     this.submitted2 = true;
     console.log(id);
-    this.respuestaForm.patchValue({preguntaId: id});
+    this.respuestaForm.patchValue({ preguntaId: id });
     console.log(this.respuestaForm.value);
+    if (this.respuestaForm.invalid) {
+      return;
+    }
     //Accion API create enviando toda la informacion del formulario
-    this.gService.create('respuestas',this.respuestaForm.value)
-    .pipe(takeUntil(this.destroy$)) .subscribe((data: any) => {
-      //Obtener respuesta
-      this.respRespuesta=data;
-      this.router.navigate(['/productos'],{
-        queryParams: {create:'true'}
+    this.gService
+      .create('respuestas', this.respuestaForm.value)
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((data: any) => {
+          // Obtener respuesta
+          this.respRespuesta = data;
+          // Volver a obtener las preguntas para actualizar la lista
+          this.obtenerProducto(this.datosDialog.id);
+        })
+      )
+      .subscribe((data: any) => {
+        
       });
-    });
-    this.close();
   }
   close(){
     //Dentro de close ()

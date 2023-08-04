@@ -31,7 +31,7 @@ async function main() {
       nombre: "Administrador",
       telefono: 81818181,
       correo: "admin@admin.com",
-      password: "123456",
+      password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       role: Role.ADMIN,
     },
   });
@@ -42,7 +42,7 @@ async function main() {
       nombre: "Luis Solera",
       telefono: 82828282,
       correo: "lsolera@cliente.com",
-      password: "123456",
+      password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       role: Role.Cliente,
     },
   });
@@ -53,7 +53,7 @@ async function main() {
       nombre: "Israel Calvo",
       telefono: 83838383,
       correo: "icalvo@cliente.com",
-      password: "123456",
+      password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       role: Role.Vendedor,
     },
   });
@@ -64,7 +64,7 @@ async function main() {
       nombre: "Sony",
       telefono: 84848484,
       correo: "sony@vendedor.com",
-      password: "123456",
+      password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       role: Role.Vendedor,
     },
   });
@@ -75,7 +75,7 @@ async function main() {
       nombre: "Nintendo",
       telefono: 85858585,
       correo: "nintendo@vendedor.com",
-      password: "123456",
+      password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       role: Role.Vendedor,
     },
   });
@@ -86,7 +86,7 @@ async function main() {
       nombre: "Microsoft",
       telefono: 86868686,
       correo: "microsoft@vendedor.com",
-      password: "123456",
+      password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       role: Role.Vendedor,
     },
   });

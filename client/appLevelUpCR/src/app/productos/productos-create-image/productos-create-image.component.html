@@ -38,16 +38,16 @@
       <mat-card-title>Foto</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <!-- <div class="row">
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput maxlength="20" placeholder="IdProducto" formControlName="idProducto">
           </mat-form-field>
         </div>
-      </div> -->
+      </div>
 
       <div>
-        <button mat-stroked-button type="button" (click)="filePicker.click()">Seleccione imagen</button>
+        <button mat-stroked-button type="button" (click)="filePicker.click()">Seleccione una imagen</button>
         <input type="file" #filePicker (change)="onImagePicked($event)">
       </div>
 
@@ -65,8 +65,8 @@
       </div>-->
       
     </mat-card-content>
-    <!-- <mat-card-actions>
+    <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Guardar</button>
-    </mat-card-actions> -->
+    </mat-card-actions>
   </mat-card>
 </form>

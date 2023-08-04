@@ -94,6 +94,12 @@
                     placeholder="Escriba aqui su pregunta acerca del producto"
                     formControlName="pregunta"
                   />
+                  <mat-error *ngIf="errorHandling1('pregunta','required')">
+                    Pregunta es <strong>requerida</strong>
+                  </mat-error>
+                  <mat-error *ngIf="errorHandling1('pregunta','minlength')">
+                    Pregunta debe tener <strong>3 caracteres mínimo</strong>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-lg-2 col-md-3 ">
@@ -124,6 +130,12 @@
                         placeholder="Escriba aqui su respuesta acerca de la pregunta"
                         formControlName="respuesta"
                       />
+                      <mat-error *ngIf="errorHandling2('respuesta','required')">
+                        Respuesta es <strong>requerida</strong>
+                      </mat-error>
+                      <mat-error *ngIf="errorHandling2('respuesta','minlength')">
+                        Respuesta debe tener <strong>3 caracteres mínimo</strong>
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-lg-2 col-md-3">

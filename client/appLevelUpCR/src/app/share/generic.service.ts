@@ -30,6 +30,24 @@ export class GenericService {
   create(endopoint: string, objCreate: any | any): Observable<any | any[]> {
     return this.http.post<any | any[]>(this.urlAPI + endopoint, objCreate);
   }
+
+  // Crear (with file upload support)
+  createfoto(endopoint: string, objCreate: any | any, files?: File): Observable<any | any[]> {
+    const formData: FormData = new FormData();
+
+    console.log(objCreate);
+    // Add the object to be created in the request body
+    formData.append('body', objCreate );
+
+    
+
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+    return this.http.post<any | any[]>(this.urlAPI + endopoint, formData);
+  }
+
   // actualizar
   update(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
     return this.http.put<any | any[]>(

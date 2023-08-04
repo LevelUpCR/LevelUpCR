@@ -1,5 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -37,13 +42,13 @@ export class ProductosCreateImageComponent implements OnInit, OnDestroy {
 
   formularioReactive(): void {
     this.fotoForm = this.fb.group({
-      foto: [null],
-      idProducto: [null],
+      foto: [null, null],
+      idProducto: [null, null],
     });
   }
 
   ngOnInit() {
-    image: new FormControl(null, { validators: [Validators.required]})
+    image: new FormControl(null, { validators: [Validators.required] });
   }
 
   ngOnDestroy(): void {
@@ -51,9 +56,17 @@ export class ProductosCreateImageComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  onImagePicked(event: Event){
+  onFileChange(event: any): void {
+    const files: FileList = event.target.files;
+    if (files.length > 0) {
+      // Aquí puedes realizar el envío de los archivos al servidor de Node.js, por ejemplo, usando un servicio HTTP.
+      // Asegúrate de configurar tu servidor de Node.js para recibir y guardar las imágenes en la carpeta deseada.
+    }
+  }
+
+  onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.fotoForm.patchValue({image:file});
+    this.fotoForm.patchValue({ foto: file });
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result as string;
@@ -100,9 +113,10 @@ export class ProductosCreateImageComponent implements OnInit, OnDestroy {
       }
     });
 
-  subirArchivo(): void {
+  /* subirArchivo(): void {
     try {
       this.submitted = true;
+      console.log(this.fotoForm.value)
       if (this.fotoForm.invalid) {
         return;
       }
@@ -119,5 +133,24 @@ export class ProductosCreateImageComponent implements OnInit, OnDestroy {
     } catch (e) {
       console.log('ERROR', e);
     }
+  } */
+
+  subirArchivo(): void {
+
+      this.submitted = true;
+      if (this.fotoForm.invalid) {
+        return;
+      }
+
+      console.log(this.fotoForm.value)
+      this.gService
+        .create('fotosproductos/crearFoto', this.fotoForm.value)
+        .subscribe((data: any) => {
+          // Manejar la respuesta del servidor aquí si es necesario
+          this.respFoto = data;
+          this.router.navigate(['/productos'], {
+            queryParams: { create: 'true' },
+          });
+        });
   }
 }

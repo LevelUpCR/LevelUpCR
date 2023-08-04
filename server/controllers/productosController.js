@@ -100,7 +100,7 @@ module.exports.update = async (request, response, next) => {
     data: {
       nombre: producto.nombre,
       descripcion: producto.descripcion,
-      precio: parseInt(producto.precio),
+      precio: parseFloat(producto.precio),
       cantidad: parseInt(producto.cantidad),
       categoriaId: parseInt(producto.categoria),
       estadoProductoId: parseInt(producto.estado),
