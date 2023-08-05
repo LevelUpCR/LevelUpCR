@@ -1,0 +1,29 @@
+<div class="principal">
+    <div class="container">
+      <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+        <mat-icon
+          class="close-icon"
+          style="background-color: #b8000000; color: #b80000"
+          >close</mat-icon
+        >
+      </button>
+      <h2 class="headerh1">{{ datos?.nombre }}</h2>
+      <img src="./assets/images/LevelUp CR.png" class="logo-image" alt="Logo" />
+    </div>
+    <div *ngIf="datos">
+      <mat-dialog-content class="bodyDiag">
+        <div class="row">
+          
+          <div class="col-lg-6">
+            <p>{{ datos.cedula }}</p>
+            <p>Teléfono: {{datos.telefono}}</p>
+            <p>Correo: {{ datos.correo }}</p>
+            <p>Rol de Usuario: {{ datos.role }}</p>
+          </div>
+        </div>
+      </mat-dialog-content>
+  
+      <mat-dialog-actions> </mat-dialog-actions>
+    </div>
+  </div>
+  

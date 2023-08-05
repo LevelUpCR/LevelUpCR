@@ -8,13 +8,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { tap } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-productos-diag',
   templateUrl: './productos-diag.component.html',
   styleUrls: ['./productos-diag.component.css']
 })
-export class ProductosDiagComponent implements OnInit{
+export class ProductosDiagComponent  implements OnInit{
   datos:any;
   datosDialog:any;
   destroy$:Subject<boolean>= new Subject<boolean>();
