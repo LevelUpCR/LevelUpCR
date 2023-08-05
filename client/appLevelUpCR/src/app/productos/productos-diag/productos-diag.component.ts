@@ -110,7 +110,7 @@ export class ProductosDiagComponent  implements OnInit{
      .subscribe((data: any) => {
       //Obtener respuesta
       this.respPregunta=data;
-      
+      this.respuestaForm.reset();
     });
   }
   public errorHandling1 = (control: string, error: string) => {
