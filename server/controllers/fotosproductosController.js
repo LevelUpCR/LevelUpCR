@@ -21,17 +21,20 @@ module.exports.get = async (request, response, next) => {
 
 //Guardar Imagenes
 module.exports.createFoto= async (request, response, next) =>{
-  try {
-    console.log(request.body);
-    if (!request.file) {
-      return response.status(400).send('No se ha seleccionado una imagen');
-    }
-
-    const imageUrl = path.join('/Images/', request.file.filename);
-    return response.status(200).json({ imageUrl });
-  } catch (error) {
-    console.error('Error al subir la imagen:', error);
-    return response.status(500).send('Error al subir la imagen');
+  /* let producto = request.body;
+  const imagenes = request.files;
+   // Guardar imágenes y crear registros de fotos
+   if (imagenes && imagenes.length > 0) {
+    const imagenesData = imagenes.map((url) => ({
+      Foto: url.filename,
+      idProducto: producto.idProducto,
+    }));
+    await prisma.foto.createMany({
+      data: imagenesData,
+    });
   }
+
+    response.json(newFoto); */
+  
 }
 

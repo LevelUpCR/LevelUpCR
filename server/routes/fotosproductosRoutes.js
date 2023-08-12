@@ -56,9 +56,11 @@ router.post("", multer(storage).single("image"), (req, res, next) => {
 
 const upload = multer({ storage });
 
-router.post('/crearFoto', upload.single('image'), fotosproductosController.createFoto);
+
 
 router.get("/",fotosproductosController.get);
+
+router.post('/',fotosproductosController.createFoto);
 
 
 //Ruta Post, siempre poner despues del get

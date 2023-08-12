@@ -25,6 +25,7 @@ import { ProductosCreateImageComponent } from './productos-create-image/producto
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { FotosProductosAllComponent } from '../fotos-productos/fotos-productos-all/fotos-productos-all.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatRadioModule } from '@angular/material/radio';
     ProductosAllComponent,
     ProductosFormComponent,
     ProductosVendedorComponent,
-    ProductosCreateImageComponent
+    ProductosCreateImageComponent,
+
   ],
   imports: [
     CommonModule,

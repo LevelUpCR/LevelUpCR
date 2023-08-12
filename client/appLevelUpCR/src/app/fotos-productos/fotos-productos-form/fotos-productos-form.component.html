@@ -1,0 +1,64 @@
+<div class="grid-container">
+  <form [formGroup]="fotoForm" (ngSubmit)="crearFotos()" novalidate>
+    <mat-card class="producto-card">
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                formControlName="idProducto"
+                placeholder="ID del Producto"
+              />
+              <mat-error *ngIf="errorHandling('idProducto', 'required')">
+                El ID es requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <input
+              type="file"
+              formControlName="myFile"
+              accept="image/*"
+              (change)="onFileChange($event)"
+              multiple
+            />
+            Seleccione hasta 5 imágenes
+            <mat-error *ngIf="errorHandling('myFile', 'required')"
+              >La foto es requerida</mat-error
+            >
+            <mat-error *ngIf="countSelectedImages() > 5"
+              >No puede seleccionar más de 5 fotos</mat-error
+            >
+          </div>
+        </div>
+        <div
+          class="row"
+          *ngIf="
+          selectedFiles &&
+          selectedFiles > 0
+          "
+        >
+          <div class="col">
+            <strong>Archivos seleccionados:</strong>
+            <ul>
+              <li *ngFor="let file of selectedFiles">
+                {{ file.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button aria-label="Crear Fotos" type="submit">
+          Añadir Fotos
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

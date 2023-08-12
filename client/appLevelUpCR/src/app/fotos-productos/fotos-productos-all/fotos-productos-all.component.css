@@ -1,0 +1,33 @@
+.photo-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: 40px;
+    margin-right: 50px;
+    background-color: #b80000;
+  }
+  
+  /* Style the button */
+  button {
+    margin: 10px 0;
+  }
+  
+  /* Style the file input */
+  input[type="file"] {
+    display: none;
+  }
+  
+  /* Add a custom style to the file input's label */
+  label {
+    display: inline-block;
+    border: 2px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  label:hover {
+    background-color: #f0f0f0;
+  }

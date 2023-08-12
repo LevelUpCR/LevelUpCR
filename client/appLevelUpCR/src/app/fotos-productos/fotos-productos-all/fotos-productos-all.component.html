@@ -60,11 +60,11 @@
  -->
 
 
- <input type="file" (change)="onFileSelected($event)" accept="image/*">
+ <!-- <input type="file" (change)="onFileSelected($event)" accept="image/*">
 <button (click)="uploadImage()">Subir Imagen</button>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!-- Column definitions -->
+
   <ng-container matColumnDef="imagen">
     <th mat-header-cell *matHeaderCellDef> Imagen </th>
     <td mat-cell *matCellDef="let element">
@@ -74,4 +74,23 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+</table> -->
+
+<div class="photo-selector">
+  <h1>{{datos?.nombre}}</h1>
+  <button mat-raised-button color="primary" (click)="fileInput.click()">
+    Seleccionar Fotos
+  </button>
+  <input
+    hidden
+    type="file"
+    #fileInput
+    (change)="onFilesSelected(fileInput)"
+    multiple
+  />
+  <button mat-raised-button style="color:#000136 !important" (click)="createFotografia()">Guardar Fotos</button>
+</div>
+<!-- <form id="imageForm">
+  <input type="file" id="imageInput" accept="image/*" (change)="onImageSelected($event)">
+  <button type="button" (click)="uploadImage(selectedFiles[0])">Upload Image</button>
+  </form> -->
