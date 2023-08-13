@@ -62,6 +62,7 @@ import { FotosProductosAllComponent } from '../fotos-productos/fotos-productos-a
     MatRadioModule,
     MatInputModule,
     ReactiveFormsModule, //Gestionar Formularios
+    
   ]
 })
 export class ProductosModule { }

@@ -8,9 +8,34 @@
       <div class="col">
         <mat-form-field class="full-width">
           <mat-label>Cedúla</mat-label>
-          <input matInput type="text" placeholder="Cedúla usuario" formControlName="cedula" />
-         <mat-error *ngIf="errorHandling('cedula', 'required')">
-          Cedúla es <strong>requerida</strong>
+          <input matInput #ced type="text" placeholder="Cedúla usuario" formControlName="cedula" />
+          <mat-hint align="end">{{ ced.value.length }} / 9</mat-hint>
+          <mat-error *ngIf="errorHandling('cedula', 'required')">
+            Cedúla es <strong>requerida</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              errorHandling('cedula', 'pattern') &&
+              !errorHandling('cedula', 'required')
+            "
+          >
+            <strong>Admite solo números, ej:101110111</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              errorHandling('cedula', 'minlength') &&
+              !errorHandling('cedula', 'pattern')
+            "
+          >
+            Debe tener <strong>9 digitos, ej:101110111</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              errorHandling('cedula', 'maxlength') &&
+              !errorHandling('cedula', 'pattern')
+            "
+          >
+            Debe tener <strong>9 digitos, ej:101110111</strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -19,9 +44,14 @@
       <div class="col">
         <mat-form-field class="full-width">
           <mat-label>Nombre</mat-label>
-          <input matInput type="text" placeholder="Nombre usuario" formControlName="nombre" />
-         <mat-error *ngIf="errorHandling('nombre', 'required')">
+          <input matInput #nom type="text" placeholder="Nombre usuario" formControlName="nombre" />
+          <mat-hint align="end"> {{ nom.value.length }} / 3 </mat-hint>
+          <mat-error *ngIf="errorHandling('nombre', 'required')">
             Nombre es <strong>requerido</strong>
+          </mat-error>
+
+          <mat-error *ngIf="errorHandling('nombre', 'minlength')">
+            Debe tener minimo <strong>3 caracteres</strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -30,9 +60,34 @@
       <div class="col">
         <mat-form-field class="full-width">
           <mat-label>Teléfono</mat-label>
-          <input matInput type="text" placeholder="Teléfono usuario" formControlName="telefono" />
-         <mat-error *ngIf="errorHandling('telefono', 'required')">
-          Teléfono es <strong>requerido</strong>
+          <input matInput #tel type="text" placeholder="Teléfono usuario" formControlName="telefono" />
+          <mat-hint align="end">{{ tel.value.length }} / 8</mat-hint>
+          <mat-error *ngIf="errorHandling('telefono', 'required')">
+            Teléfono es <strong>requerido</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              errorHandling('telefono', 'pattern') &&
+              !errorHandling('telefono', 'required')
+            "
+          >
+            <strong>Admite solo números, ej:85888588</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              errorHandling('telefono', 'minlength') &&
+              !errorHandling('telefono', 'pattern')
+            "
+          >
+            Debe tener <strong>8 digitos, ej:85888588</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              errorHandling('telefono', 'maxlength') &&
+              !errorHandling('telefono', 'pattern')
+            "
+          >
+            Debe tener <strong>8 digitos, ej:85888588</strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -42,8 +97,11 @@
         <mat-form-field class="full-width">
           <mat-label>Correo</mat-label>
           <input matInput type="text" placeholder="Correo usuario" formControlName="correo" />
-         <mat-error *ngIf="errorHandling('correo', 'required')">
-          Correo es <strong>requerido</strong>
+          <mat-error *ngIf="errorHandling('correo', 'required')">
+            Correo es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('correo', 'email')">
+            <strong>Debe tener formato de correo</strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -71,6 +129,9 @@
                 {{ r.nombre }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="errorHandling('role', 'required')">
+              El rol es <strong>requerido</strong>
+            </mat-error>
           </mat-form-field>
       </div>
     </div>

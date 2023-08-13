@@ -5,7 +5,7 @@ import { GenericService } from 'src/app/share/generic.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NotificacionService } from 'src/app/share/notification.service';
+import { NotificacionService, TipoMessage } from 'src/app/share/notification.service';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 
 @Component({
@@ -43,19 +43,42 @@ export class UserFormComponent implements OnInit {
     private gService: GenericService,
     private authService: AuthenticationService,
     private activeRouter: ActivatedRoute,
+    private noti: NotificacionService,
   ) {
     this.reactiveForm();
   }
 
   reactiveForm() {
     this.formCreate = this.fb.group({
-      id: ['', [Validators.required]],
-      cedula: ['', [Validators.required]],
-      nombre: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      correo: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      role: ['', [Validators.required]],
+      id: ['', Validators.required],
+      cedula: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]+$'), // Validar números enteros
+          Validators.minLength(9),
+          Validators.maxLength(9)
+        ]),
+      ],
+      nombre: [null, Validators.compose([Validators.required, Validators.minLength(3)]),],
+      telefono: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]+$'), // Validar números enteros
+          Validators.minLength(9),
+          Validators.maxLength(9)
+        ]),
+      ],
+      correo: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.email, // Utiliza Validators.email para validar el formato de correo electrónico
+        ]),
+      ],
+      password: [null, Validators.required],
+      role: [null, Validators.required],
     });
     this.getRoles();
   }
@@ -137,6 +160,11 @@ export class UserFormComponent implements OnInit {
     //Accion API create enviando toda la informacion del formulario
     //Verificar validación
     if (this.formCreate.invalid) {
+      this.noti.mensaje(
+        'Usuarios',
+        'Complete todos los campos para crear un usuario',
+        TipoMessage.warning
+      );
       return;
     }
     this.gService
@@ -156,6 +184,11 @@ export class UserFormComponent implements OnInit {
     this.submitted = true;
     //Verificar validación
     if (this.formCreate.invalid) {
+      this.noti.mensaje(
+        'Usuarios',
+        'Complete todos los campos para crear un usuario',
+        TipoMessage.warning
+      );
       return;
     }
 

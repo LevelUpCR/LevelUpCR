@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
+import { NotificacionService, TipoMessage } from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-productos-form',
@@ -40,7 +41,7 @@ export class ProductosFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private gService: GenericService,
-    private router: Router,
+    private router: Router,private noti: NotificacionService,
     private activeRouter: ActivatedRoute,
     private authService: AuthenticationService
   ) {
@@ -146,6 +147,11 @@ export class ProductosFormComponent implements OnInit {
     //Accion API create enviando toda la informacion del formulario
     //Verificar validación
     if (this.productoForm.invalid) {
+      this.noti.mensaje(
+        'Productos',
+        'Complete todos los campos para crear el producto',
+        TipoMessage.warning
+      );
       return;
     }
     this.gService

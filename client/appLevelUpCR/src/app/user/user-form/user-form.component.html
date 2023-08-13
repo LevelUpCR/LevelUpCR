@@ -1,79 +1,187 @@
-<form [formGroup]="formCreate"  (ngSubmit)="isCreate ? crearUsuario(): actualizarUsuario()" novalidate>
-    <mat-card class="shipping-card">
-      <mat-card-header>
-        <h1 class="headerh1">{{titleForm}} Usuario </h1>
-      </mat-card-header> 
-      <mat-card-content>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Cedúla</mat-label>
-              <input matInput type="text" placeholder="Cedúla usuario" formControlName="cedula" />
-             <mat-error *ngIf="errorHandling('cedula', 'required')">
+<form
+  [formGroup]="formCreate"
+  (ngSubmit)="isCreate ? crearUsuario() : actualizarUsuario()"
+  novalidate
+>
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <h1 class="headerh1">{{ titleForm }} Usuario</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Cedúla</mat-label>
+            <input
+              matInput
+              #ced
+              type="text"
+              placeholder="Cedúla usuario"
+              formControlName="cedula"
+            />
+            <mat-hint align="end">{{ ced.value.length }} / 9</mat-hint>
+            <mat-error *ngIf="errorHandling('cedula', 'required')">
               Cedúla es <strong>requerida</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Nombre</mat-label>
-              <input matInput type="text" placeholder="Nombre usuario" formControlName="nombre" />
-             <mat-error *ngIf="errorHandling('nombre', 'required')">
-                Nombre es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
+            </mat-error>
+            <mat-error
+              *ngIf="
+                errorHandling('cedula', 'pattern') &&
+                !errorHandling('cedula', 'required')
+              "
+            >
+              La cedúla debe contener
+              <strong>solo números, ej:101110111</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="
+                errorHandling('cedula', 'minlength') &&
+                !errorHandling('cedula', 'pattern')
+              "
+            >
+              La cedúla debe tener <strong>9 digitos, ej:101110111</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="
+                errorHandling('cedula', 'maxlength') &&
+                !errorHandling('cedula', 'pattern')
+              "
+            >
+              La cedúla debe tener <strong>9 digitos, ej:101110111</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Teléfono</mat-label>
-              <input matInput type="text" placeholder="Teléfono usuario" formControlName="telefono" />
-             <mat-error *ngIf="errorHandling('telefono', 'required')">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              #nom
+              type="text"
+              placeholder="Nombre usuario"
+              formControlName="nombre"
+            />
+            <mat-hint align="end"> {{ nom.value.length }} / 3 </mat-hint>
+            <mat-error *ngIf="errorHandling('nombre', 'required')">
+              Nombre es <strong>requerido</strong>
+            </mat-error>
+
+            <mat-error *ngIf="errorHandling('nombre', 'minlength')">
+              El nombre debe tener minimo <strong>3 caracteres</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Teléfono</mat-label>
+            <input
+              matInput
+              #tel
+              type="text"
+              placeholder="Teléfono usuario"
+              formControlName="telefono"
+            />
+            <mat-hint align="end">{{ tel.value.length }} / 8</mat-hint>
+            <mat-error *ngIf="errorHandling('telefono', 'required')">
               Teléfono es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Correo</mat-label>
-              <input matInput type="text" placeholder="Correo usuario" formControlName="correo" />
-             <mat-error *ngIf="errorHandling('correo', 'required')">
+            </mat-error>
+            <mat-error
+              *ngIf="
+                errorHandling('telefono', 'pattern') &&
+                !errorHandling('telefono', 'required')
+              "
+            >
+              El teléfono debe contener
+              <strong>solo números, ej:85888588</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="
+                errorHandling('telefono', 'minlength') &&
+                !errorHandling('telefono', 'pattern')
+              "
+            >
+              El teléfono debe tener <strong>9 digitos, ej:85888588</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="
+                errorHandling('telefono', 'maxlength') &&
+                !errorHandling('telefono', 'pattern')
+              "
+            >
+              El teléfono debe tener <strong>9 digitos, ej:85888588</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Correo</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Correo usuario"
+              formControlName="correo"
+            />
+            <mat-error *ngIf="errorHandling('correo', 'required')">
               Correo es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('correo', 'email')">
+              <strong
+                >Este campo debe tener formato de correo:
+                nombre@dominio.com</strong
+              >
+            </mat-error>
+          </mat-form-field>
         </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>{{titlePass}}</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" placeholder={{titlePass}} formControlName="password" />
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-             <mat-error *ngIf="errorHandling('password', 'required')">
-                Password es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          
-          <div class="col">
-            <mat-form-field  class="full-width">
-              <mat-label>Rol</mat-label>
-                <mat-select placeholder="Rol" formControlName="role">
-                  <mat-option *ngFor="let r of roles" [value]="r.id">
-                    {{ r.nombre }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{ titlePass }}</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              placeholder="{{ titlePass }}"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="errorHandling('password', 'required')">
+              Password es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-      </mat-card-content>
-      <mat-card-actions class="d-flex justify-content-center">
-        <button mat-raised-button style="background-color: #000136; color:#ffffff;" type="submit">{{titleButton}}</button>
-      </mat-card-actions>
-    </mat-card>
-    </form>
-    
-    
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Rol</mat-label>
+            <mat-select placeholder="Rol" formControlName="role">
+              <mat-option *ngFor="let r of roles" [value]="r.id">
+                {{ r.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('role', 'required')">
+              El rol es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="d-flex justify-content-center">
+      <button
+        mat-raised-button
+        style="background-color: #000136; color: #ffffff"
+        type="submit"
+      >
+        {{ titleButton }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
