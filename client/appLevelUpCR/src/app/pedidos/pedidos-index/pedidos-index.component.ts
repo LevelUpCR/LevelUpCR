@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -30,6 +30,7 @@ export class PedidosIndexComponent implements OnInit {
   metodosList: any;
   selectedAddress: any;
   selectedPayment: any;
+  selectedPaymentType: any;
   selectedProvince: any;
   provinces: any;
   currentUser: any;
@@ -104,6 +105,15 @@ export class PedidosIndexComponent implements OnInit {
       let itemsCarrito = this.cartService.getItems;
       //Armar la estructura de la tabla intermedia
       //[{videojuegoId:valor,cantidad:valor}]
+      if (this.pedidosForm.invalid) {
+
+        this.noti.mensaje(
+          'Orden',
+          'Complete la direccion y el metodo de pago antes de registrar una orden',
+          TipoMessage.warning
+        );
+        return;
+      }
       console.log(itemsCarrito);
       let detalles = itemsCarrito.map(
         (x) => ({
@@ -144,6 +154,14 @@ export class PedidosIndexComponent implements OnInit {
   registrarDireccion() {
     this.direccionesForm.patchValue({ usuarioId: this.currentUser.user.idUsuario });
     console.log(this.direccionesForm.value);
+    if (this.direccionesForm.invalid) {
+      this.noti.mensaje(
+        'Direcciones',
+        'Complete los campos faltantes',
+        TipoMessage.warning
+      );
+      return;
+    }
 
     this.gService.create('direccion', this.direccionesForm.value).subscribe((respuesta: any) => {
         this.noti.mensaje(
@@ -180,6 +198,14 @@ registrarPago() {
   this.pagosForm.patchValue({ usuarioId: this.currentUser.user.idUsuario });
   console.log(this.pagosForm.value);
 
+  if (this.pagosForm.invalid) {
+    this.noti.mensaje(
+      'Pagos',
+      'Complete los campos faltantes',
+      TipoMessage.warning
+    );
+    return;
+  }
   this.gService.create('pagos', this.pagosForm.value).subscribe((respuesta: any) => {
     this.noti.mensaje(
       'Pago',
@@ -206,6 +232,7 @@ registrarPago() {
         console.log(this.selectedPayment);
       });
   });
+  this.pagosForm.reset();
 }
 
 
@@ -228,26 +255,119 @@ registrarPago() {
       provincia: [null, Validators.required],
       canton: [null, Validators.required],
       distrito: [null, Validators.required],
-      direccion: [null, Validators.required],
-      codigoPostal: [null, Validators.required],
-      telefono: [null, Validators.required],
+      direccion: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ],
+      codigoPostal: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]+$'), // Validar números enteros
+          Validators.minLength(5),
+          Validators.maxLength(5)
+        ]),
+      ],
+      telefono: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]+$'), // Validar números enteros
+          Validators.minLength(8),
+          Validators.maxLength(8)
+        ]),
+      ],
       usuarioId: [null, Validators.required],
     });
+  }
+
+  getcuentaValidators(): any {
+    return (control: AbstractControl) => {
+      if (this.selectedPaymentType?.idTipoPago === 1) {
+        return Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]+$'),
+          Validators.minLength(8),
+          Validators.maxLength(8),
+        ])(control);
+      } else {
+        if (this.selectedPaymentType?.idTipoPago === 4) {
+          return Validators.compose([
+            Validators.required,
+            Validators.pattern('^[0-9]+$'),
+            Validators.minLength(8),
+            Validators.maxLength(20),
+          ])(control);
+        } else{
+        return null; // No aplicar validaciones si no se cumple la condición
+        }
+      }
+    };
+  }
+  getproveedorValidators(): any {
+    return (control: AbstractControl) => {
+      if (this.selectedPaymentType?.idTipoPago === 2) {
+        return Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+        ])(control);
+      } else {
+        return null; // No aplicar validaciones si no se cumple la condición
+      }
+    };
+  }
+  getcardValidators(): any {
+    return (control: AbstractControl) => {
+      if (this.selectedPaymentType?.idTipoPago === 2) {
+        return Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]+$'),
+          Validators.minLength(16),
+          Validators.maxLength(16),
+        ])(control);
+      } else {
+        return null; // No aplicar validaciones si no se cumple la condición
+      }
+    };
+  }
+  
+
+  getfechaValidators(): any {
+    return (control: AbstractControl) => {
+      if (this.selectedPaymentType?.idTipoPago === 2) {
+        return Validators.compose([
+          Validators.required,
+        ])(control);
+      } else {
+        return null; // No aplicar validaciones si no se cumple la condición
+      }
+    };
   }
 
   //Crear Formulario
   formularioReactive3() {
     //[null, Validators.required]
     this.pagosForm = this.fb.group({
-      numTarjeta: [null, null],
-      proveedor: [null, null],
-      numCuenta: [null, null],
-      fechaExpiracion: [null, null],
-      nombre: [null, Validators.required],
-      usuarioId: [null, Validators.required],
       tipoPagoId: [null, Validators.required],
+      numTarjeta: [null,this.getcardValidators()],
+      proveedor: [null,this.getproveedorValidators()],
+      numCuenta: [null,this.getcuentaValidators()],
+      fechaExpiracion: [null,this.getfechaValidators()],
+      nombre: [null,Validators.compose([Validators.required, Validators.minLength(3)])],
+      usuarioId: [null, Validators.required],
     });
   }
+
+  public errorHandling1 = (control: string, error: string) => {
+    return this.direccionesForm.controls[control].hasError(error);
+  };
+  
+  public errorHandling2 = (control: string, error: string) => {
+    return this.pagosForm.controls[control].hasError(error);
+  };
+  public errorHandling = (control: string, error: string) => {
+    return this.pedidosForm.controls[control].hasError(error);
+  };
 
   listaDirecciones(id: number) {
     const clienteId = this.currentUser.user.idUsuario;
@@ -283,9 +403,25 @@ registrarPago() {
   onpaymentSelected(event: any) {
     const selectedPaymentId = event.value;
     this.selectedPayment = this.metodosList.find(
-      (address: any) => address.idPago === selectedPaymentId
+      (payment: any) => payment.idPago === selectedPaymentId
     );
     console.log(this.selectedPayment);
+  }
+  onpaymentTypeSelected(event: any) {
+    const selectedTypePaymentId = event.value;
+    this.selectedPaymentType = this.tiposPagoList.find(
+      (payment: any) => payment.idTipoPago === selectedTypePaymentId
+    );
+    this.pagosForm.controls['numCuenta'].setValidators(this.getcuentaValidators());
+    this.pagosForm.controls['numCuenta'].updateValueAndValidity();
+    this.pagosForm.controls['numTarjeta'].setValidators(this.getcardValidators());
+    this.pagosForm.controls['numTarjeta'].updateValueAndValidity();
+    this.pagosForm.controls['proveedor'].setValidators(this.getproveedorValidators());
+    this.pagosForm.controls['proveedor'].updateValueAndValidity();
+    this.pagosForm.controls['fechaExpiracion'].setValidators(this.getfechaValidators());
+    this.pagosForm.controls['fechaExpiracion'].updateValueAndValidity();
+    const proveedorControl = this.pagosForm.get('numTarjeta');
+    console.log('Validaciones para fechaExpiracion:', proveedorControl.errors);
   }
 
   listaTiposPago() {

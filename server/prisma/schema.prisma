@@ -29,9 +29,9 @@ model Usuarios {
 
 model Pagos {
   idPago              Int                         @id @default(autoincrement())
-  numTarjeta          Int?                        @unique
+  numTarjeta          Int?                        @unique//Quitarlo
   proveedor           String?
-  numCuenta           Int?                        @unique
+  numCuenta           Int?                        @unique//Quitarlo
   fechaExpiracion     DateTime?                   @default(now())
   nombre              String
   

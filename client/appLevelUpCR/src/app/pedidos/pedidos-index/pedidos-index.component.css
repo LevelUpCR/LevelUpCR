@@ -63,3 +63,7 @@
   .full-width {
     width: 100%;
   }
+
+  .paddingClass{
+    margin:   10px 0 !important;
+  }

@@ -120,9 +120,13 @@
                     *ngFor="let g of direccionList"
                     [value]="g.idDireccion"
                   >
-                    {{ g.provincia }}
+                    {{ g.direccionExacta }}
                   </mat-option>
                 </mat-select>
+
+                <mat-error *ngIf="errorHandling('direccion', 'required')">
+                  <strong>Debe de escoger al menos una de las direcciones en la lista o crear una</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -148,11 +152,18 @@
                   placeholder="Provincia"
                   formControlName="provincia"
                 />
+
+                <mat-error *ngIf="errorHandling1('provincia', 'required')">
+                  Provincia es <strong>requerida</strong>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col">
               <mat-form-field class="full-width">
                 <input matInput placeholder="Canton" formControlName="canton" />
+                <mat-error *ngIf="errorHandling1('canton', 'required')">
+                  Canton es <strong>requerida</strong>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col">
@@ -162,6 +173,9 @@
                   placeholder="Distrito"
                   formControlName="distrito"
                 />
+                <mat-error *ngIf="errorHandling1('distrito', 'required')">
+                  Distrito es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -173,6 +187,12 @@
                   placeholder="Dirección Exacta"
                   formControlName="direccion"
                 />
+                <mat-error *ngIf="errorHandling1('direccion', 'required')">
+                  La direccion es <strong>requerida</strong>
+                </mat-error>
+                <mat-error *ngIf="errorHandling1('direccion', 'minlength')">
+                  La direccion debe tener <strong>mas de 3 caracteres</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -183,7 +203,36 @@
                   matInput
                   placeholder="Código Postal"
                   formControlName="codigoPostal"
+                  #codigo
                 />
+                <mat-hint align="end">{{ codigo.value.length }} / 5</mat-hint>
+                <mat-error *ngIf="errorHandling1('codigoPostal', 'required')">
+                  El código Postal es <strong>requerido</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling1('codigoPostal', 'pattern') &&
+                    !errorHandling1('codigoPostal', 'required')
+                  "
+                >
+                  El código Postal debe contener <strong>solo números.</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling1('codigoPostal', 'minlength') &&
+                    !errorHandling1('codigoPostal', 'pattern')
+                  "
+                >
+                  El código Postal debe tener <strong>5 números</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling1('codigoPostal', 'maxlength') &&
+                    !errorHandling1('codigoPostal', 'pattern')
+                  "
+                >
+                  El código Postal debe tener <strong>5 números</strong>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col">
@@ -192,7 +241,37 @@
                   matInput
                   placeholder="Telefono"
                   formControlName="telefono"
+                  #tel
                 />
+                <mat-hint align="end">{{ tel.value.length }} / 8</mat-hint>
+
+                <mat-error *ngIf="errorHandling1('telefono', 'required')">
+                  El telefono es <strong>requerido</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling1('telefono', 'pattern') &&
+                    !errorHandling1('telefono', 'required')
+                  "
+                >
+                  El telefono debe contener <strong>solo números.</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling1('telefono', 'minlength') &&
+                    !errorHandling1('telefono', 'pattern')
+                  "
+                >
+                  El telefono debe tener <strong>8 numeros</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling1('telefono', 'maxlength') &&
+                    !errorHandling1('telefono', 'pattern')
+                  "
+                >
+                  El telefono debe tener <strong>8 numeros</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -227,9 +306,12 @@
                   (selectionChange)="onpaymentSelected($event)"
                 >
                   <mat-option *ngFor="let g of metodosList" [value]="g.idPago">
-                    {{ g.tipoPago.TipoPago }}
+                    {{ g.tipoPago.TipoPago }} - {{ g.nombre }}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="errorHandling('metodo', 'required')">
+                  <strong>Debe de escoger al menos uno de los metodos en la lista o crear uno</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -238,11 +320,35 @@
         <div *ngIf="selectedPayment" class="bottomDesing">
           <h4 class="headerh1">Información del pago seleccionado:</h4>
           <p>Metodo de pago: {{ selectedPayment.tipoPago.TipoPago }}</p>
+          <p>Nombre: {{ selectedPayment.nombre }}</p>
           <div *ngIf="selectedPayment.proveedor">
             <p>Proveedor: {{ selectedPayment.proveedor }}</p>
           </div>
           <div *ngIf="selectedPayment.numTarjeta">
-            <p>Proveedor: {{ selectedPayment.numTarjeta.slice(-4) }}</p>
+            <p>
+              Numero de Tarjeta: ####-####-####-{{
+                selectedPayment.numTarjeta.toString().slice(-4)
+              }}
+            </p>
+          </div>
+          <div
+            *ngIf="
+              selectedPayment.numCuenta &&
+              selectedPayment.tipoPago.idTipoPago === 1
+            "
+          >
+            <p>
+              El telefono para la transferencia es:
+              {{ selectedPayment.numCuenta }}
+            </p>
+          </div>
+          <div
+            *ngIf="
+              selectedPayment.numCuenta &&
+              selectedPayment.tipoPago.idTipoPago === 4
+            "
+          >
+            <p>El numero de cuenta es: {{ selectedPayment.numCuenta }}</p>
           </div>
         </div>
       </div>
@@ -250,48 +356,164 @@
         <h4 class="headerh1">Crear nuevo Metodo de pago</h4>
         <form [formGroup]="pagosForm">
           <div class="row">
-            
             <div class="col">
               <mat-form-field class="full-width">
-              <mat-select
-                placeholder="Método de pago"
-                formControlName="tipoPagoId"
-                (selectionChange)="onpaymentSelected($event)"
-              >
-                <mat-option
-                  *ngFor="let g of tiposPagoList"
-                  [value]="g.idTipoPago"
+                <mat-select
+                  placeholder="Método de pago"
+                  formControlName="tipoPagoId"
+                  (selectionChange)="onpaymentTypeSelected($event)"
+                  #tipoPago
                 >
-                  {{ g.TipoPago }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+                  <mat-option
+                    *ngFor="let g of tiposPagoList"
+                    [value]="g.idTipoPago"
+                  >
+                    {{ g.TipoPago }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="errorHandling2('tipoPagoId', 'required')">
+                  <strong>Debe de escoger un metodo de pago</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div class="col">
+
+            <div class="col" *ngIf="tipoPago.value === 2">
               <mat-form-field class="full-width">
                 <input
                   matInput
-                  placeholder="Numero de Tarjeta (Opcional)"
+                  placeholder="Numero de Tarjeta"
                   formControlName="numTarjeta"
+                  #tar
                 />
+                <mat-hint align="end"> {{ tar.value.length }} / 16 </mat-hint>
+
+                <mat-error *ngIf="errorHandling2('numTarjeta', 'required')">
+                  El numero de tarjeta<strong> es requerido</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling2('numTarjeta', 'pattern') &&
+                    !errorHandling2('numTarjeta', 'required')
+                  "
+                >
+                  El numero de tarjeta debe contener
+                  <strong>solo números.</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling2('numTarjeta', 'minlength') &&
+                    !errorHandling2('numTarjeta', 'pattern')
+                  "
+                >
+                  El numero de tarjeta debe tener <strong>16 numeros</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling2('numCuenta', 'maxlength') &&
+                    !errorHandling2('numCuenta', 'pattern')
+                  "
+                >
+                  El numero de tarjeta debe tener <strong>16 numeros</strong>
+                </mat-error>
               </mat-form-field>
             </div>
-            <div class="col">
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Proveedor (Opcional)" formControlName="proveedor" />
-              </mat-form-field>
-            </div>
-            <div class="col">
+            <div
+              class="col"
+              *ngIf="tipoPago.value === 1 || tipoPago.value === 4"
+            >
               <mat-form-field class="full-width">
                 <input
                   matInput
-                  placeholder="Numero de Cuenta o Telefono (Opcional)"
+                  [placeholder]="
+                    tipoPago.value === 1
+                      ? 'Numero de Telefono'
+                      : 'Numero de Cuenta'
+                  "
                   formControlName="numCuenta"
+                  #tel2
                 />
+                <mat-hint align="end">
+                  {{ tel2.value.length }} / {{ tipoPago.value === 4 ? 20 : 8 }}
+                </mat-hint>
+
+                <mat-error
+                  *ngIf="errorHandling2('numCuenta', 'required')"
+                  class="nomargin"
+                >
+                  {{ tipoPago.value === 1 ? "El teléfono es" : "La cuenta es" }}
+                  <strong>{{
+                    tipoPago.value === 1 ? "requerido" : "requerida"
+                  }}</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling2('numCuenta', 'pattern') &&
+                    !errorHandling2('numCuenta', 'required')
+                  "
+                >
+                  {{
+                    tipoPago.value === 1
+                      ? "El teléfono debe contener"
+                      : "La cuenta debe contener"
+                  }}
+                  <strong>solo números.</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling2('numCuenta', 'minlength') &&
+                    !errorHandling2('numCuenta', 'pattern')
+                  "
+                >
+                  {{
+                    tipoPago.value === 1
+                      ? "El telefono debe tener "
+                      : "La cuenta debe tener minimo"
+                  }}
+                  <strong>8 numeros</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    errorHandling2('numCuenta', 'maxlength') &&
+                    !errorHandling2('numCuenta', 'pattern')
+                  "
+                >
+                  {{
+                    tipoPago.value === 1
+                      ? "El telefono debe tener"
+                      : "La cuenta debe tener maximo"
+                  }}
+                  <strong>{{
+                    tipoPago.value === 1 ? "8 numeros" : "20 numeros"
+                  }}</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
-          <div class="row">
+
+          <div class="row" *ngIf="tipoPago.value === 2">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Proveedor"
+                  formControlName="proveedor"
+                  #proveedorlength
+                />
+
+                <mat-hint align="end">
+                  {{ proveedorlength.value.length }} / 3
+                </mat-hint>
+
+                <mat-error *ngIf="errorHandling2('proveedor', 'required')">
+                  El proveedor es <strong>requerido</strong>
+                </mat-error>
+
+                <mat-error *ngIf="errorHandling2('proveedor', 'minlength')">
+                  El proveedor debe tener minimo <strong>3 caracteres</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
             <div class="col">
               <mat-form-field class="full-width">
                 <input
@@ -299,20 +521,41 @@
                   placeholder="Fecha de Expiracion"
                   formControlName="fechaExpiracion"
                   [matDatepicker]="picker"
-                  
                 />
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+
+                <mat-error
+                  *ngIf="errorHandling2('fechaExpiracion', 'required')"
+                >
+                  La fecha es <strong>requerida</strong>
+                </mat-error>
               </mat-form-field>
             </div>
-            
+          </div>
+
+          <div class="row">
             <div class="col">
               <mat-form-field class="full-width">
                 <input
                   matInput
+                  #nombrelength
                   placeholder="Nombre"
                   formControlName="nombre"
                 />
+                <mat-hint align="end">
+                  {{ nombrelength.value.length }} / 3
+                </mat-hint>
+                <mat-error *ngIf="errorHandling2('nombre', 'required')">
+                  El nombre es <strong>requerido</strong>
+                </mat-error>
+
+                <mat-error *ngIf="errorHandling2('nombre', 'minlength')">
+                  El nombre debe tener minimo <strong>3 caracteres</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -328,7 +571,7 @@
         </button>
       </div>
     </div>
-    
+
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button matStepperNext>Siguiente</button>
@@ -337,16 +580,41 @@
   <mat-step>
     <ng-template matStepLabel>Revisar</ng-template>
     <mat-card class="box">
-      <mat-card-actions align="end">
-        <button
-          mat-flat-button
-          style="background-color: #b80000; color: #ffffff"
-          (click)="registrarOrden()"
+      <mat-card-content class="paddingClass">
+        <div
+          class="row bottomDesing"
+          *ngIf="selectedPayment || selectedAddress"
         >
-          Comprar
-          <mat-icon>shopping_bag</mat-icon>
-        </button>
-      </mat-card-actions>
+          <div class="col-lg-6">
+            <div *ngIf="selectedAddress">
+              <h4 class="headerh1">
+                Información de la dirección seleccionada:
+              </h4>
+              <p>Provincia: {{ selectedAddress.provincia }}</p>
+              <p>Canton: {{ selectedAddress.canton }}</p>
+              <p>Distrito: {{ selectedAddress.distrito }}</p>
+              <p>Dirección Exacta: {{ selectedAddress.direccionExacta }}</p>
+              <p>Telefono de contacto: {{ selectedAddress.telefono }}</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div *ngIf="selectedPayment">
+              <h2 class="headerh1">Información del pago seleccionado:</h2>
+              <p>Metodo de pago: {{ selectedPayment.tipoPago.TipoPago }}</p>
+              <div *ngIf="selectedPayment.proveedor">
+                <p>Proveedor: {{ selectedPayment.proveedor }}</p>
+              </div>
+              <div *ngIf="selectedPayment.numTarjeta">
+                <p>
+                  Numero de Tarjeta: ####-####-####-{{
+                    selectedPayment.numTarjeta.toString().slice(-4)
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
       <mat-card-content *ngIf="dataSource">
         <mat-table
           [dataSource]="dataSource"
@@ -403,8 +671,17 @@
               Acciones</mat-header-cell
             >
             <mat-cell *matCellDef="let element">
-              <button mat-icon-button (click)="eliminarItem(element)">
-                <mat-icon>delete</mat-icon>
+              <button
+                mat-icon-button
+                class="action-button"
+                color="accent"
+                matTooltip="Detalle del Producto"
+                aria-label="Detalle del Producto"
+                color="primary"
+                (click)="detalleProducto(element.idItem)"
+                style="color: #212121"
+              >
+                <mat-icon class="mat-18">info</mat-icon>
               </button>
             </mat-cell>
             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
@@ -421,31 +698,17 @@
           ></mat-footer-row>
         </mat-table>
       </mat-card-content>
-      <mat-divider inset></mat-divider>
-      <div class="row bottomDesing" *ngIf="selectedPayment || selectedAddress">
-        <div class="col-lg-6">
-          <div *ngIf="selectedAddress">
-            <h4 class="headerh1">Información de la dirección seleccionada:</h4>
-            <p>Provincia: {{ selectedAddress.provincia }}</p>
-            <p>Canton: {{ selectedAddress.canton }}</p>
-            <p>Distrito: {{ selectedAddress.distrito }}</p>
-            <p>Dirección Exacta: {{ selectedAddress.direccionExacta }}</p>
-            <p>Telefono de contacto: {{ selectedAddress.telefono }}</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div *ngIf="selectedPayment">
-            <h2 class="headerh1">Información del pago seleccionado:</h2>
-            <p>Metodo de pago: {{ selectedPayment.tipoPago.TipoPago }}</p>
-            <div *ngIf="selectedPayment.proveedor">
-              <p>Proveedor: {{ selectedPayment.proveedor }}</p>
-            </div>
-            <div *ngIf="selectedPayment.numTarjeta">
-              <p>Proveedor: {{ selectedPayment.numTarjeta.slice(-4) }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <mat-card-actions align="end">
+        <button
+          mat-flat-button
+          style="background-color: #b80000; color: #ffffff"
+          (click)="registrarOrden()"
+        >
+          Comprar
+          <mat-icon>shopping_bag</mat-icon>
+        </button>
+      </mat-card-actions>
     </mat-card>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
