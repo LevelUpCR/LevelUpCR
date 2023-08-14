@@ -69,12 +69,31 @@ grid-container {
   padding: 1rem;
   border-radius: 40px;
 }
+
+.headerh3{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 15px;
+  text-align: center;
+  background-color: #b80000;
+  color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+
 .border{
   border-radius: 10px;
   background-color: #a5a5a588;
   color: #ffffff;
 
   border: solid 5px #b80000;
+}
+.border2{
+  border-radius: 10px;
+  background-color: #a5a5a588;
+  color: #ffffff;
+  margin: 1rem;
+  border: solid 1px #b80000;
 }
 
 
@@ -100,4 +119,7 @@ grid-container {
   font-size: 13px;
 }
 
+.full-width {
+  width: 100%;
+}
 

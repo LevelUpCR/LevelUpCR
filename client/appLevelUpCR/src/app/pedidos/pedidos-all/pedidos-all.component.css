@@ -1,0 +1,26 @@
+.full-width-table {
+    width: 100%;
+  }
+  .headerh1{
+    font-family: 'Press Start 2P', cursive;
+    font-size: large;
+    margin: 1.5rem;
+  
+    background-color: #b80000;
+    color: #ffffff;
+    padding: 0.3rem 1rem;
+    border-radius: 40px;
+  }
+
+  .mat-header-centered {
+    text-align: center;
+  }
+  
+  .custom-table {
+    background-color: #f0f0f046; /* Cambia el color de fondo según tus necesidades */
+    /*border-radius: 0 0  20px 20px ;*/
+  }
+  .custom-paginator {
+    background-color: #c9c9c9c5; /* Cambia el color de fondo según tus necesidades */
+    /*border-radius: 0 0  20px 20px ;*/
+  }

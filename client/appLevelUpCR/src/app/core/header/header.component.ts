@@ -49,4 +49,15 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['inicio']);
   }
+
+  isCliente(): boolean {
+    return this.currentUser?.user.role == "Cliente";
+  }
+
+  isVendedor(): boolean {
+    return this.currentUser?.user.role == "Vendedor";
+  }
+  isAdmin(): boolean {
+    return this.currentUser?.user.role == "ADMIN";
+  }
 }

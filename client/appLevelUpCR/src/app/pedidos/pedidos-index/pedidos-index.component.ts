@@ -103,6 +103,7 @@ export class PedidosIndexComponent implements OnInit {
   registrarOrden() {
     if (this.cartService.getItems != null) {
       let itemsCarrito = this.cartService.getItems;
+      this.pedidosForm.patchValue({ usuarioId: this.currentUser.user.idUsuario });
       //Armar la estructura de la tabla intermedia
       //[{videojuegoId:valor,cantidad:valor}]
       if (this.pedidosForm.invalid) {
@@ -245,6 +246,7 @@ registrarPago() {
     this.pedidosForm = this.fb.group({
       direccion: [null, Validators.required],
       metodo: [null, Validators.required],
+      usuarioId: [null, Validators.required],
     });
   }
 

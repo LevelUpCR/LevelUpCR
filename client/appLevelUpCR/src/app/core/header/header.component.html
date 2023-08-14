@@ -19,18 +19,78 @@
       [routerLink]="['/']"
       routerLinkActive="mat-raised-button"
     >
-      Inicio
+    <mat-icon>home</mat-icon>Inicio
     </button>
     <button
       mat-menu-item
       [routerLink]="['/acerca-de']"
       routerLinkActive="mat-raised-button"
     >
-      Acerca de
+    <mat-icon>info</mat-icon>Acerca de
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="menu2">Listados</button>
+    
+      <!-- <button
+      mat-menu-item
+      [routerLink]="['/productos']"
+      routerLinkActive="mat-raised-button"
+    >
+    <mat-icon>shopping_bag</mat-icon>Productos
+    </button> -->
+    <ng-container *ngIf="isCliente()||currentUser?.user.role == null">
+      <button mat-menu-item [routerLink]="['/productos']" routerLinkActive="mat-raised-button">
+        <mat-icon>shopping_bag</mat-icon>Productos
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isVendedor()">
+      <button mat-menu-item [routerLink]="['/productos/vendedor']" routerLinkActive="mat-raised-button">
+        <mat-icon>shopping_bag</mat-icon>Productos
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isAdmin()">
+      <button mat-menu-item [routerLink]="['/productos/all']" routerLinkActive="mat-raised-button">
+        <mat-icon>shopping_bag</mat-icon>Productos
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isCliente()">
+    <button
+      mat-menu-item
+      [routerLink]="['/pedidos/cliente']"
+      routerLinkActive="mat-raised-button"
+    >
+    <mat-icon>shopping_basket</mat-icon>Pedidos
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isVendedor()">
+    <button
+      mat-menu-item
+      [routerLink]="['/pedidos/vendedor']"
+      routerLinkActive="mat-raised-button"
+    >
+    <mat-icon>shopping_basket</mat-icon>Pedidos
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isAdmin()">
+    <button
+      mat-menu-item
+      [routerLink]="['/pedidos/all']"
+      routerLinkActive="mat-raised-button"
+    >
+    <mat-icon>shopping_basket</mat-icon>Pedidos
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isAdmin()">
+    <button
+      mat-menu-item
+      [routerLink]="['usuarios/all']"
+      routerLinkActive="mat-raised-button"
+    >
+    <mat-icon>person</mat-icon>Usuarios
+    </button>
+  </ng-container>
+    <!-- <button mat-menu-item [matMenuTriggerFor]="menu2">Listados</button> -->
+    
   </mat-menu>
-  <mat-menu #menu2="matMenu">
+  <!-- <mat-menu #menu2="matMenu">
     <button
       mat-menu-item
       [routerLink]="['/productos']"
@@ -45,30 +105,19 @@
     >
       Productos Vendedor
     </button>
-    <button
-      mat-menu-item
-      [routerLink]="['/pedidos/cliente']"
-      routerLinkActive="mat-raised-button"
-    >
-      Pedidos Cliente
-    </button>
-    <button
-      mat-menu-item
-      [routerLink]="['/pedidos/vendedor']"
-      routerLinkActive="mat-raised-button"
-    >
-      Pedidos Vendedor
-    </button>
-  </mat-menu>
+    
+  </mat-menu> -->
   <div class="example-button-container"></div>
   <div class="example-spacer"></div>
   <div class="example-spacer left">
     <!-- Enlaces de la aplicación -->
     <!-- https://fonts.google.com/icons -->
+    <ng-container *ngIf="isCliente()">
     <button mat-icon-button matBadgeColor="warn" [matBadge]="qtyItems.toString()" 
        [routerLink]="'/pedidos'" [routerLinkActive]="'mat-raised-button'"  aria-label="Cantidad">
      <mat-icon>shopping_cart</mat-icon>
    </button>
+  </ng-container>
     <button
       mat-icon-button
       [matMenuTriggerFor]="menu3"

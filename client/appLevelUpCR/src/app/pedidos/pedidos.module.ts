@@ -26,6 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PedidosAllComponent } from './pedidos-all/pedidos-all.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     PedidosDiagComponent,
     PedidosVendedorComponent,
     PedidosClienteComponent,
-    PedidosDiagVendedorComponent
+    PedidosDiagVendedorComponent,
+    PedidosAllComponent
   ],
   imports: [
     CommonModule,

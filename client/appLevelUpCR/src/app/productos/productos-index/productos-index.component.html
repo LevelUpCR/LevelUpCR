@@ -1,9 +1,57 @@
 <div class="grid-container">
   <div class="headerh1">Productos</div>
+  <mat-card class="border2">
+   
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-card-header><h1 class="headerh3">Buscar por nombre</h1></mat-card-header>
+          <mat-form-field class="full-width" [color]="'warn'">
+            <mat-label>Nombre del producto</mat-label>
+            <input matInput #texto (keyup)="filterProductos(texto.value)" />
+            <button
+              mat-icon-button
+              matSuffix
+              color="warn"
+              (click)="filterProductos(texto.value)"
+            >
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-card-header><h1 class="headerh3">Buscar por categoria</h1></mat-card-header>
+          <mat-form-field class="full-width" [color]="'warn'">
+            <mat-select placeholder="Categoría del Producto" [(ngModel)]="selectedCategoryId" (selectionChange)="filterCategoria($event.value)">
+              <mat-option *ngFor="let c of categoriasList" [value]="c.idCategoria">
+                {{ c.categoria }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="col">
+          <mat-card-header><h1 class="headerh3">Ordenar</h1></mat-card-header>
+          <mat-form-field class="full-width" [color]="'warn'">
+            <mat-select placeholder="Ordenar Productos por"  (selectionChange)="filterOrdenes($event.value)">
+              <mat-option *ngFor="let c of ordenesList" [value]="c.idOrden">
+                {{ c.Orden }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+      
+
+      
+    </mat-card-content>
+  </mat-card>
   <mat-grid-list [cols]="2" rowHeight="25em" gutterSize="10px">
     <mat-grid-tile
       *ngFor="
-        let item of datos.slice(
+        let item of filterDatos?.slice(
           (paginaActual - 1) * tarjetasPorPagina,
           paginaActual * tarjetasPorPagina
         )
@@ -15,7 +63,6 @@
         </mat-card-header>
         <div class="row">
           <div class="col-lg-6">
-            
             <mat-divider inset></mat-divider>
             <mat-card-content class="expanded-content">
               <div>
@@ -38,6 +85,7 @@
                     <mat-icon class="mat-18">info</mat-icon>
                   </button>
                   <button
+                  *ngIf="isCliente()"
                     mat-mini-fab
                     class="action-button"
                     color=""
@@ -52,26 +100,25 @@
                 </div>
               </mat-card-actions>
             </mat-card-content>
-
           </div>
           <div class="col-lg-6">
             <div
-            *ngIf="item.fotosProductos && item.fotosProductos.length > 0"
-            class="no-response"
-          >
+              *ngIf="item.fotosProductos && item.fotosProductos.length > 0"
+              class="no-response"
+            >
               <img
                 [src]="'http://localhost:3000/' + item.fotosProductos[0]?.Foto"
                 alt="Imagen"
                 class="d-block"
-                style="height: 250px; width: 250px; border-radius: 10px;"
+                style="height: 250px; width: 250px; border-radius: 10px"
               />
             </div>
-              <div
-            *ngIf="!item.fotosProductos || item.fotosProductos.length === 0"
-            class="no-response"
-          >
-            <div class="textfotos">Aún no hay fotos para este producto.</div>
-          </div>
+            <div
+              *ngIf="!item.fotosProductos || item.fotosProductos.length === 0"
+              class="no-response"
+            >
+              <div class="textfotos">Aún no hay fotos para este producto.</div>
+            </div>
           </div>
         </div>
       </mat-card>
@@ -90,7 +137,7 @@
     <span>{{ paginaActual }}</span>
     <button
       mat-icon-button
-      [disabled]="paginaActual * tarjetasPorPagina >= datos.length"
+      [disabled]="paginaActual * tarjetasPorPagina >= datos?.length"
       (click)="paginaActual = paginaActual + 1"
     >
       <mat-icon>keyboard_arrow_right</mat-icon>

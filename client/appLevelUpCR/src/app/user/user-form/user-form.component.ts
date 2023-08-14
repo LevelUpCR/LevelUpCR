@@ -50,7 +50,7 @@ export class UserFormComponent implements OnInit {
 
   reactiveForm() {
     this.formCreate = this.fb.group({
-      id: [null, null],
+      id: [null,null],
       cedula: [
         null,
         Validators.compose([
