@@ -6,6 +6,8 @@ CREATE TABLE `Usuarios` (
     `telefono` INTEGER NOT NULL,
     `correo` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `compania` VARCHAR(191) NULL,
+    `habilitado` BOOLEAN NOT NULL DEFAULT true,
     `role` ENUM('ADMIN', 'Vendedor', 'Cliente') NOT NULL DEFAULT 'Cliente',
 
     UNIQUE INDEX `Usuarios_correo_key`(`correo`),

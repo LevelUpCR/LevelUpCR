@@ -17,7 +17,9 @@ model Usuarios {
   telefono            Int                         
   correo              String                      @unique
   password            String    
-  role                Role    @default(Cliente)
+  compania            String?
+  habilitado          Boolean                     @default(true)
+  role                Role                        @default(Cliente)
 
   pagos               Pagos[]
   direccion           Direccion[]

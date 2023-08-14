@@ -32,6 +32,7 @@ async function main() {
       telefono: 81818181,
       correo: "admin@admin.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
+      habilitado: true,
       role: Role.ADMIN,
     },
   });
@@ -43,6 +44,7 @@ async function main() {
       telefono: 82828282,
       correo: "lsolera@cliente.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
+      habilitado: true,
       role: Role.Cliente,
     },
   });
@@ -54,6 +56,7 @@ async function main() {
       telefono: 83838383,
       correo: "icalvo@cliente.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
+      habilitado: true,
       role: Role.Vendedor,
     },
   });
@@ -65,6 +68,8 @@ async function main() {
       telefono: 84848484,
       correo: "sony@vendedor.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
+      compania: "Sony",
+      habilitado: true,
       role: Role.Vendedor,
     },
   });
@@ -76,6 +81,8 @@ async function main() {
       telefono: 85858585,
       correo: "nintendo@vendedor.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
+      compania: "Nintendo",
+      habilitado: true,
       role: Role.Vendedor,
     },
   });
@@ -87,6 +94,8 @@ async function main() {
       telefono: 86868686,
       correo: "microsoft@vendedor.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
+      compania: "Microsoft",
+      habilitado: true,
       role: Role.Vendedor,
     },
   });

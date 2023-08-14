@@ -42,6 +42,8 @@ module.exports.register = async (request, response, next) => {
             telefono: usuario.telefono,
             correo: usuario.correo,
             password: hash,
+            compania: usuario.compania,
+            habilitado: true,
             role: Role[usuario.role]
         },
     });
@@ -76,6 +78,8 @@ module.exports.update = async (request, response, next) => {
             telefono: usuario.telefono,
             correo: usuario.correo,
             password: hash,
+            compania: usuario.compania,
+            habilitado: usuario.habilitado,
             role: Role[usuario.role]
         },
     });
