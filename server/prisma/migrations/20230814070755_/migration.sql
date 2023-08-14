@@ -25,8 +25,6 @@ CREATE TABLE `Pagos` (
     `usuarioId` INTEGER NOT NULL,
     `tipoPagoId` INTEGER NOT NULL,
 
-    UNIQUE INDEX `Pagos_numTarjeta_key`(`numTarjeta`),
-    UNIQUE INDEX `Pagos_numCuenta_key`(`numCuenta`),
     PRIMARY KEY (`idPago`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
