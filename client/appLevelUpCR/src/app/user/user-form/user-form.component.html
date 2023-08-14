@@ -11,17 +11,17 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-label>Cedúla</mat-label>
+            <mat-label>Cédula</mat-label>
             <input
               matInput
               #ced
               type="text"
-              placeholder="Cedúla usuario"
+              placeholder="Cédula usuario"
               formControlName="cedula"
             />
             <mat-hint align="end">{{ ced.value.length }} / 9</mat-hint>
             <mat-error *ngIf="errorHandling('cedula', 'required')">
-              Cedúla es <strong>requerida</strong>
+              Cédula es <strong>requerida</strong>
             </mat-error>
             <mat-error
               *ngIf="
@@ -29,7 +29,7 @@
                 !errorHandling('cedula', 'required')
               "
             >
-              La cedúla debe contener
+              La cédula debe contener
               <strong>solo números, ej:101110111</strong>
             </mat-error>
             <mat-error
@@ -38,7 +38,7 @@
                 !errorHandling('cedula', 'pattern')
               "
             >
-              La cedúla debe tener <strong>9 digitos, ej:101110111</strong>
+              La cédula debe tener <strong>9 digitos, ej:101110111</strong>
             </mat-error>
             <mat-error
               *ngIf="
@@ -46,7 +46,7 @@
                 !errorHandling('cedula', 'pattern')
               "
             >
-              La cedúla debe tener <strong>9 digitos, ej:101110111</strong>
+              La cédula debe tener <strong>9 digitos, ej:101110111</strong>
             </mat-error>
           </mat-form-field>
         </div>

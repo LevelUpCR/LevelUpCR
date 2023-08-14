@@ -8,38 +8,82 @@ import { ProductosVendedorComponent } from './productos-vendedor/productos-vende
 import { ProductosCreateImageComponent } from './productos-create-image/productos-create-image.component';
 import { AuthGuard } from '../share/guards/auth.guard';
 
- //locahost:3000/videojuego/all
- const routes: Routes = [
-  {path:'productos', component: ProductosIndexComponent}, 
+//locahost:3000/videojuego/all
+const routes: Routes = [
+  {
+    path: 'productos',
+    component: ProductosIndexComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+    },
+  },
 
-  {path:'productos/all', component: ProductosAllComponent},
-  {path:'productos/vendedor/:id', component: ProductosVendedorComponent,canActivate:[AuthGuard],
-  data:{
-    roles:['ADMIN'] //roles:['ADMIN','USER'] Iguales al enum
-  }},
-  {path:'productos/vendedor', component: ProductosVendedorComponent, canActivate:[AuthGuard],
-  data:{
-    roles:['Vendedor'] //roles:['ADMIN','USER'] Iguales al enum
-  }},
+  {
+    path: 'productos/all',
+    component: ProductosAllComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+    },
+  },
+  {
+    path: 'productos/vendedor/:id',
+    component: ProductosVendedorComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles: ['ADMIN'], //roles:['ADMIN','USER'] Iguales al enum
+    },
+  },
+  {
+    path: 'productos/vendedor',
+    component: ProductosVendedorComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles: ['Vendedor'], //roles:['ADMIN','USER'] Iguales al enum
+    },
+  },
 
-  {path:'productos/create', component: ProductosFormComponent},
-  {path:'productos/createFoto', component: ProductosCreateImageComponent},
+  {
+    path: 'productos/create',
+    component: ProductosFormComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+    },
+  },
+  {
+    path: 'productos/createFoto',
+    component: ProductosCreateImageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+    },
+  },
 
-  {path:'productos/:id', component: ProductosDetailComponent},
+  {
+    path: 'productos/:id',
+    component: ProductosDetailComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+    },
+  },
 
-  {path:'productos/update/:id', component: ProductosFormComponent},
-  
+  {
+    path: 'productos/update/:id',
+    component: ProductosFormComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProductosRoutingModule { }
-
-
-
-
-
-
-
+export class ProductosRoutingModule {}

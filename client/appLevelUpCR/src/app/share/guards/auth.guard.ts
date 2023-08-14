@@ -32,7 +32,31 @@ export class AuthGuard implements CanActivate {
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
     if (this.isAuthenticated) {
       const userRole = this.currentUser.user.role;
-      //roles.length && roles.indexOf(verify.role)===-1 Linea para adaptar tablas intermedias
+      console.log(route.data);
+      //roles.length && roles.indexOf(verify.role)===-1
+      if(route.data['habilitado']){
+        if(!(route.data['roles'] === undefined)){
+          if(route.data['roles'].length && !route.data['roles'].includes(userRole)){ 
+            this.router.navigate(['/usuario/login'], {
+              //Parametro para mostrar mensaje en login
+              queryParams: { auth: 'no' }
+            });
+            return false;
+          }
+        }
+      }
+      return true;
+    } 
+
+    this.router.navigate(['/usuario/login'], {
+      queryParams: { auth: 'no'}
+    });
+    return false;
+  }
+  /*checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
+    if (this.isAuthenticated) {
+      const userRole = this.currentUser.user.role;
+      //roles.length && roles.indexOf(verify.role)===-1
       if(route.data['roles'].length && !route.data['roles'].includes(userRole)){ 
         this.router.navigate(['/usuario/login'], {
           //Parametro para mostrar mensaje en login
@@ -47,5 +71,5 @@ export class AuthGuard implements CanActivate {
       queryParams: { auth: 'no'}
     });
     return false;
-  }
+  } */
 }

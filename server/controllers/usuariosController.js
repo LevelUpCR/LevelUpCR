@@ -86,10 +86,6 @@ module.exports.update = async (request, response, next) => {
     response.json(newUsuario);
 };
 
-
-
-
-
 module.exports.login = async (request, response, next) => {
   let userReq = request.body;
   //Buscar el usuario según el email dado

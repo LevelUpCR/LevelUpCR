@@ -42,7 +42,12 @@ export class UserCreateComponent implements OnInit {
           Validators.maxLength(9)
         ]),
       ],
-      nombre: [null, Validators.compose([Validators.required, Validators.minLength(3)]),],
+      nombre: [null, 
+        Validators.compose([
+          Validators.required, 
+          Validators.minLength(3)
+        ]),
+      ],
       telefono: [
         null,
         Validators.compose([
