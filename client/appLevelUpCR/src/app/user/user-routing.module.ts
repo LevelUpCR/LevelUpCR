@@ -5,6 +5,7 @@ import { UserCreateComponent } from './user-create/user-create.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserAllComponent } from './user-all/user-all.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { AuthGuard } from '../share/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,9 +17,26 @@ const routes: Routes = [
     ],
   },
 
-  {path:'usuarios/all', component: UserAllComponent},
-  {path:'usuarios/create', component: UserFormComponent},
-  {path:'usuarios/update/:id', component: UserFormComponent},
+  {path:'usuarios/all', 
+    component: UserAllComponent,
+    canActivate:[AuthGuard],
+    data:{
+      habilitado: [true],
+      roles:['ADMIN']
+    }
+  },
+  {path:'usuarios/create', component: UserFormComponent,
+  canActivate:[AuthGuard],
+  data:{
+    habilitado: [true],
+    roles:['ADMIN']
+  }},
+  {path:'usuarios/update/:id', component: UserFormComponent,
+  canActivate:[AuthGuard],
+  data:{
+    habilitado: [true],
+    roles:['ADMIN']
+  }},
 ];
 
 @NgModule({
