@@ -32,7 +32,7 @@ export class UserCreateComponent implements OnInit {
 
   reactiveForm() {
     this.formCreate = this.fb.group({
-      id: ['', Validators.required],
+      id: [null,null],
       cedula: [
         null,
         Validators.compose([
@@ -48,8 +48,8 @@ export class UserCreateComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.pattern('^[0-9]+$'), // Validar números enteros
-          Validators.minLength(9),
-          Validators.maxLength(9)
+          Validators.minLength(8),
+          Validators.maxLength(8)
         ]),
       ],
       correo: [

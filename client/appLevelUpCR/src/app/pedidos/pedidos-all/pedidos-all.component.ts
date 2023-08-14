@@ -7,22 +7,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
 import { PedidosDiagComponent } from '../pedidos-diag/pedidos-diag.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AuthenticationService } from 'src/app/share/authentication.service';
 
 @Component({
-  selector: 'app-pedidos-cliente',
-  templateUrl: './pedidos-cliente.component.html',
-  styleUrls: ['./pedidos-cliente.component.css']
+  selector: 'app-pedidos-all',
+  templateUrl: './pedidos-all.component.html',
+  styleUrls: ['./pedidos-all.component.css']
 })
-export class PedidosClienteComponent implements AfterViewInit{
-  datos:any;
-  currentUser: any;
+export class PedidosAllComponent  implements AfterViewInit{
+
+  datos: any;
+  dataSource = new MatTableDataSource<any>();
   destroy$:Subject<boolean>=new Subject<boolean>();
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   //@ViewChild(MatTable) table!: MatTable<ProductosAllItem>;
-  dataSource= new MatTableDataSource<any>();
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cliente','estadopedido', 'total','acciones'];
@@ -30,30 +29,29 @@ export class PedidosClienteComponent implements AfterViewInit{
   constructor(private router:Router,
     private route:ActivatedRoute,
     private gService:GenericService
-    , private dialog: MatDialog, private authService: AuthenticationService,) {
+    , private dialog: MatDialog) {
       
   }
 
 
 
   ngAfterViewInit(): void {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    console.log(this.currentUser)
+    
     this.listaPedidos();
+   
   }
-  listaPedidos(){
-    //localhost:3000/pedidos/cliente/:id
-    const clienteId = this.currentUser.user.idUsuario;
-    this.gService.list(`pedidos/cliente/${clienteId}`)
+  listaPedidos() {
+    //localhost:3000/productos
+    this.gService
+      .list('pedidos/')
       .pipe(takeUntil(this.destroy$))
       .subscribe((data:any)=>{
         console.log(data);
-        this.datos=data;
+        this.datos = data;
         this.dataSource = new MatTableDataSource(this.datos);
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;        
-      });   
-      console.log(this.datos);
+        this.dataSource.paginator = this.paginator;
+      });
   }
   detalle(id:number){
     console.log(id);
@@ -65,23 +63,10 @@ export class PedidosClienteComponent implements AfterViewInit{
     this.dialog.open(PedidosDiagComponent, dialogConfig);
   }
 
-  actualizarPedido(id: number) {
-    this.router.navigate(['/pedidos/update', id], {
-      relativeTo: this.route,
-    });
-  }
 
-  crearPedido() {
-    this.router.navigate(['/pedidos/create'], {
-      relativeTo: this.route,
-    });
-  }
 
   ngOnDestroy(){
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
 }
-
-
-

@@ -4,12 +4,21 @@ const prisma = new PrismaClient();
 
 //Obtener listado
 module.exports.get = async (request, response, next) => {
-  const pedidos = await prisma.pedidos.findMany({
+  const productos = await prisma.pedidos.findMany({
+    include: {
+      usuarios: true,
+      estadoPedido: true,
+      productos: {
+        include: {
+          productos: true,
+        },
+      },
+    },
     orderBy: {
       idPedido: "asc",
     },
   });
-  response.json(pedidos);
+  response.json(productos);
 };
 //Obtener por Id
 module.exports.getById = async (request, response, next) => {
@@ -127,7 +136,7 @@ module.exports.create = async (request, response, next) => {
   const newVideoJuego = await prisma.pedidos.create({
     data:{
     fechaCompra:infoOrden.fechaOrden,
-    usuarioId:1,
+    usuarioId:infoOrden.otros.usuarioId,
     estadoPedidoId:1,
     direccionId:infoOrden.otros.direccion,
     pagoId:infoOrden.otros.metodo,
