@@ -54,14 +54,20 @@ export class HeaderComponent implements OnInit {
   }
 
   isCliente(): boolean {
-    return this.currentUser?.user.role == "Cliente";
+  
+    const roles = this.currentUser?.user.role || [];
+    
+    return roles.some(role => role.idRol === 2);
   }
+  
 
   isVendedor(): boolean {
-    return this.currentUser?.user.role == "Vendedor";
+    const roles = this.currentUser?.user.role || [];
+    return roles.some(role => role.idRol === 3);
   }
   isAdmin(): boolean {
-    return this.currentUser?.user.role == "ADMIN";
+    const roles = this.currentUser?.user.role || [];
+    return roles.some(role => role.idRol === 1);
   }
 
   detalle() {
