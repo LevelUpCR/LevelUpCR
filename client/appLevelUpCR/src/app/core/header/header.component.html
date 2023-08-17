@@ -87,6 +87,7 @@
     <mat-icon>person</mat-icon>Usuarios
     </button>
   </ng-container>
+  
     <!-- <button mat-menu-item [matMenuTriggerFor]="menu2">Listados</button> -->
     
   </mat-menu>
@@ -136,6 +137,16 @@
         <mat-icon>person_remove</mat-icon>
         <span>Logout</span>
       </a>
+
+      <ng-container *ngIf="isAdmin()||isCliente()||isVendedor()">
+        <button
+          mat-menu-item
+          (click)="detalle()"
+          routerLinkActive="mat-raised-button"
+        >
+        <mat-icon>manage_accounts</mat-icon>Mi Perfil
+        </button>
+      </ng-container>
     </mat-menu>
   </div>
   <span class="mat-caption" *ngIf="isAutenticated">{{currentUser.user.nombre}}</span>

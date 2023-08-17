@@ -142,4 +142,12 @@
   .full-width {
     width: 100%;
   }
+
+  .bottomDesing {
+    margin-top: 16px;
+    background-color: #000163;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 10px;
+  }
   
