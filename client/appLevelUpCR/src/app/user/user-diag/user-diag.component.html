@@ -22,7 +22,11 @@
 
           <div class="col">
             <p>Correo: {{ datos.correo }}</p>
-            <p>Rol de Usuario: {{ datos.role }}</p>
+            <p>Rol de Usuario: <ng-container *ngFor="let role of datos.role">
+              {{ role.tipoRol }}
+            </ng-container></p>
+
+            
           </div>
           
         </div>
