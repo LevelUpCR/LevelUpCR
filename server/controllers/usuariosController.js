@@ -65,27 +65,26 @@ module.exports.register = async (request, response, next) => {
       });
 };
 
-//Actualizar un usuario
+//Deshabulitar un usuario
 module.exports.disabled = async (request, response, next) => {
   let idUser = parseInt(request.params.id);
- 
-console.log(idUser)
+  const usuarioViejo = await prisma.usuarios.findUnique({
+    where: { idUsuario: idUser },
+    });
   const newUsuario = await prisma.usuarios.update({
       where: {
         idUsuario: idUser
       },
       data: {
-          
-          habilitado: false,
-
+        habilitado: usuarioViejo.habilitado ? false: true,
       },
   });
   response.json(newUsuario);
 };
+
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {
     let usuario = request.body;
-    console.log(request.body)
     let idUsuario = parseInt(request.params.id);
     //Salt es una cadena aleatoria.
     //"salt round" factor de costo controla cuánto tiempo se necesita para calcular un solo hash de BCrypt
@@ -98,7 +97,7 @@ module.exports.update = async (request, response, next) => {
         include:{
           role:{
             select:{
-              id:true
+              idRol:true
             }
           }
         }
@@ -118,7 +117,7 @@ module.exports.update = async (request, response, next) => {
             habilitado: usuario.habilitado,
             role: {
               disconnect: usuarioViejo.role,
-              connect: usuario.role
+              connect: usuario.role,
             }
         },
     });

@@ -16,6 +16,7 @@ import { UserDiagComponent } from '../user-diag/user-diag.component';
 })
 export class UserAllComponent implements AfterViewInit {
   datos: any;
+  respUsuario: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
   usuarioInfo: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -58,7 +59,6 @@ export class UserAllComponent implements AfterViewInit {
       });
   }
   detalle(id: number) {
-    
     console.log(id);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -79,9 +79,18 @@ export class UserAllComponent implements AfterViewInit {
     });
   }
 
-  deshabilitarUsuario(id: number) {
-
-
+  deshabilitarUsuario(id: any) {
+    //Accion API create enviando toda la informacion del formulario
+    this.gService
+      .disable('usuarios/disable', id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        //Obtener respuesta
+        this.respUsuario = data;
+        this.router.navigate(['/usuarios/all'], {
+          queryParams: { update: 'true' },
+        });
+      });
   }
 
   ngOnDestroy() {
@@ -89,4 +98,3 @@ export class UserAllComponent implements AfterViewInit {
     this.destroy$.unsubscribe();
   }
 }
-

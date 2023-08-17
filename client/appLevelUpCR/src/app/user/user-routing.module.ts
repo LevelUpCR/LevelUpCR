@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     data:{
       habilitado: [true],
-      //roles:['ADMIN']
+      roles:['ADMIN']
     }
   },
   {path:'usuarios/disabled', 
@@ -38,13 +38,13 @@ const routes: Routes = [
   canActivate:[AuthGuard],
   data:{
     habilitado: [true],
-    //roles:['ADMIN']
+    roles:['ADMIN']
   }},
   {path:'usuarios/update/:id', component: UserFormComponent,
   canActivate:[AuthGuard],
   data:{
     habilitado: [true],
-    //roles:['ADMIN']
+    roles:['ADMIN']
   }},
 ];
 
