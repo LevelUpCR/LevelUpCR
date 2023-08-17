@@ -6,6 +6,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { UserAllComponent } from './user-all/user-all.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { AuthGuard } from '../share/guards/auth.guard';
+import { UserDisabledComponent } from './user-disabled/user-disabled.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,14 @@ const routes: Routes = [
     data:{
       habilitado: [true],
       //roles:['ADMIN']
+    }
+  },
+  {path:'usuarios/disabled', 
+    component: UserDisabledComponent,
+    canActivate:[AuthGuard],
+    data:{
+      habilitado: [true],
+      roles:['ADMIN']
     }
   },
   {path:'usuarios/create', component: UserFormComponent,

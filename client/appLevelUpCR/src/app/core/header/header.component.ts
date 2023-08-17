@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/share/cart.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { UserDiagComponent } from 'src/app/user/user-diag/user-diag.component';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +16,7 @@ export class HeaderComponent implements OnInit {
   qtyItems: Number = 0;
   constructor(
     private cartService: CartService,
+    private dialog: MatDialog,
     private authService: AuthenticationService,
     private router: Router
   ) {
@@ -59,5 +62,16 @@ export class HeaderComponent implements OnInit {
   }
   isAdmin(): boolean {
     return this.currentUser?.user.role == "ADMIN";
+  }
+
+  detalle() {
+    console.log(this.currentUser.user.idUsuario)
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.data = {
+      id: this.currentUser.user.idUsuario,
+    };
+    this.dialog.open(UserDiagComponent, dialogConfig);
   }
 }

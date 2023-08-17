@@ -26,6 +26,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { UserFormComponent } from './user-form/user-form.component';
+import { UserDisabledComponent } from './user-disabled/user-disabled.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 
@@ -36,7 +39,8 @@ import { UserFormComponent } from './user-form/user-form.component';
     UserCreateComponent,
     UserAllComponent,
     UserDiagComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserDisabledComponent
   ],
   imports: [
     CommonModule,
@@ -61,6 +65,8 @@ import { UserFormComponent } from './user-form/user-form.component';
     FormsModule,
     MatFormFieldModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule, 
   ]
 })
 export class UserModule { }

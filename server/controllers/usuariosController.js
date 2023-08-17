@@ -29,6 +29,8 @@ module.exports.getById = async (request, response, next) => {
     response.json(usuario);
 };
 
+
+
 //Crear nuevo usuario
 module.exports.register = async (request, response, next) => {
     let usuario = request.body;
@@ -61,6 +63,24 @@ module.exports.register = async (request, response, next) => {
         message: "Usuario creado",
         data: newUsuario,
       });
+};
+
+//Actualizar un usuario
+module.exports.disabled = async (request, response, next) => {
+  let idUser = parseInt(request.params.id);
+ 
+console.log(idUser)
+  const newUsuario = await prisma.usuarios.update({
+      where: {
+        idUsuario: idUser
+      },
+      data: {
+          
+          habilitado: false,
+
+      },
+  });
+  response.json(newUsuario);
 };
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {

@@ -10,6 +10,7 @@ router.post("/",usuariosController.register);
 router.get("/:id",usuariosController.getById);
 
 router.put("/:id",usuariosController.update);
+router.put("/:id",usuariosController.disabled);
 
 router.post("/login", usuariosController.login);
 
