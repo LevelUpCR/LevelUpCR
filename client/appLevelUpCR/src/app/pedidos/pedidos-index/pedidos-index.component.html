@@ -145,8 +145,66 @@
         <h4 class="headerh1">Crear nueva direccion</h4>
         <form [formGroup]="direccionesForm">
           <div class="row">
-            
 
+            <mat-form-field class="full-width">
+              <mat-select
+                placeholder="Provincias"
+                formControlName="provincia"
+                (selectionChange)="onProvinciaSelected(pro.value)"
+                #pro
+              >
+                <mat-option
+                  *ngFor="let g of apiResponse"
+                  [value]="g.nombre"
+                >
+                  {{ g.nombre }}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="errorHandling1('provincia', 'required')">
+                Provincia es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field class="full-width">
+              <mat-select
+                placeholder="Canton"
+                formControlName="canton"
+                (selectionChange)="onCantonSelected(pro.value,can.value)"
+                #can
+              >
+                <mat-option
+                  *ngFor="let g of apiResponse2"
+                  [value]="g.nombre"
+                >
+                  {{ g.nombre }}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="errorHandling1('canton', 'required')">
+                Canton es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-select
+                placeholder="Distrito"
+                formControlName="distrito"
+                
+                #dis
+              >
+                <mat-option
+                  *ngFor="let g of apiResponse3"
+                  [value]="g.nombre"
+                >
+                  {{ g.nombre }}
+                </mat-option>
+              </mat-select>
+
+
+              <mat-error *ngIf="errorHandling1('canton', 'required')">
+                Canton es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
             <!-- <div class="col">
               <mat-form-field class="full-width">
                 <input
