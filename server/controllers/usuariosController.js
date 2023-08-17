@@ -113,6 +113,7 @@ module.exports.login = async (request, response, next) => {
     where: {
       correo: userReq.email,
     },
+
   });
   //Sino lo encuentra según su email
   if (!user) {
