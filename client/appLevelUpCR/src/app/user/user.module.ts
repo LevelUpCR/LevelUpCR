@@ -26,6 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { UserFormComponent } from './user-form/user-form.component';
+import { UserDisabledComponent } from './user-disabled/user-disabled.component';
 
 
 
@@ -36,7 +37,8 @@ import { UserFormComponent } from './user-form/user-form.component';
     UserCreateComponent,
     UserAllComponent,
     UserDiagComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserDisabledComponent
   ],
   imports: [
     CommonModule,

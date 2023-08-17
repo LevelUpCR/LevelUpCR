@@ -3,21 +3,21 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Subject, takeUntil } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserDiagComponent } from '../user-diag/user-diag.component';
 
-
 @Component({
-  selector: 'app-user-all',
-  templateUrl: './user-all.component.html',
-  styleUrls: ['./user-all.component.css']
+  selector: 'app-user-disabled',
+  templateUrl: './user-disabled.component.html',
+  styleUrls: ['./user-disabled.component.css']
 })
-export class UserAllComponent implements AfterViewInit {
+export class UserDisabledComponent implements AfterViewInit {
   datos: any;
-  destroy$: Subject<boolean> = new Subject<boolean>();
   usuarioInfo: any;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   //@ViewChild(MatTable) table!: MatTable<ProductosAllItem>;
@@ -38,7 +38,7 @@ export class UserAllComponent implements AfterViewInit {
     private route: ActivatedRoute,
     private gService: GenericService,
     private dialog: MatDialog,
-    private activeRouter: ActivatedRoute,
+    private activeRouter: ActivatedRoute
   ) {}
 
   ngAfterViewInit(): void {
@@ -51,12 +51,16 @@ export class UserAllComponent implements AfterViewInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         console.log(data);
-        this.datos = data;
+  
+        // Filtrar los elementos donde la propiedad 'habilitado' sea igual a false
+        this.datos = data.filter((item: any) => item.habilitado === false);
+  
         this.dataSource = new MatTableDataSource(this.datos);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
   }
+  
   detalle(id: number) {
     
     console.log(id);
@@ -79,14 +83,10 @@ export class UserAllComponent implements AfterViewInit {
     });
   }
 
-  deshabilitarUsuario(id: number) {
-
-
-  }
-
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
 }
+
 
