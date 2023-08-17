@@ -79,6 +79,7 @@ export class UserFormComponent implements OnInit {
       ],
       password: [null, Validators.required],
       role: [null, Validators.required],
+      compania: [null, null]
     });
     this.getRoles();
   }
@@ -107,8 +108,8 @@ export class UserFormComponent implements OnInit {
               telefono: this.usuarioInfo.telefono,
               correo: this.usuarioInfo.correo,
               password: "",
-
               role: this.usuarioInfo.role,
+              compania: this.usuarioInfo.compania,
             });
           });
       }

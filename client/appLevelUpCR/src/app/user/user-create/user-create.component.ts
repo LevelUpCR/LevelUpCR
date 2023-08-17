@@ -66,6 +66,7 @@ export class UserCreateComponent implements OnInit {
       ],
       password: [null, Validators.required],
       role: [null, Validators.required],
+      compania: [null, null]
     });
     this.getRoles();
   }
@@ -81,6 +82,13 @@ export class UserCreateComponent implements OnInit {
       );
       return;
     }
+
+    let uFormat: any = this.formCreate.get('role').value.map(x=>({['idRol']:x}));
+
+    this.formCreate.patchValue({role:uFormat});
+
+    console.log(this.formCreate.value);
+
     this.authService.createUser(this.formCreate.value)
     .subscribe((respuesta:any)=>{
       this.usuario=respuesta;
@@ -99,10 +107,10 @@ export class UserCreateComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         this.roles = data;
-
+        
   
         // Filtrar y eliminar el rol 'ADMIN' si existe en la lista
-        this.roles = this.roles.filter(role => role.id !== 'ADMIN');
+        this.roles = this.roles.filter(role => role.tipoRol !== 'ADMIN');
         console.log(this.roles);
       });
   }

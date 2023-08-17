@@ -124,15 +124,29 @@
       <div class="col">
         <mat-form-field  class="full-width">
           <mat-label>Rol</mat-label>
-            <mat-select placeholder="Rol" formControlName="role">
-              <mat-option *ngFor="let r of roles" [value]="r.id">
-                {{ r.nombre }}
+            <mat-select placeholder="Rol" formControlName="role" multiple>
+              <mat-option *ngFor="let r of roles" [value]="r.idRol">
+                {{ r.tipoRol }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="errorHandling('role', 'required')">
               El rol es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Compañía</mat-label>
+          <input matInput type="text" placeholder="Compañía" formControlName="compania" />
+          <!-- <mat-error *ngIf="errorHandling('correo', 'required')">
+            Correo es <strong>requerido</strong>
+          </mat-error> 
+          <mat-error *ngIf="errorHandling('correo', 'email')">
+            <strong>Debe tener formato de correo</strong>
+          </mat-error>-->
+        </mat-form-field>
       </div>
     </div>
   </mat-card-content>

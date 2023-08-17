@@ -19,14 +19,22 @@ model Usuarios {
   password            String    
   compania            String?
   habilitado          Boolean                     @default(true)
-  role                Role                        @default(Cliente)
-
+  
+  
+  role                Role[]                      //@default(Cliente)
   pagos               Pagos[]
   direccion           Direccion[]
   productos           Productos[]
   pedidos             Pedidos[]
   evaluacion          Evaluacion[]
   preguntas           Preguntas[]
+}
+
+model Role {
+  idRol               Int                         @id @default(autoincrement())
+  tipoRol             String
+  
+  usuarios            Usuarios[]
 }
 
 model Pagos {
@@ -37,7 +45,7 @@ model Pagos {
   fechaExpiracion     DateTime?                   @default(now())
   nombre              String
   
-  usuarioId              Int
+  usuarioId           Int
   tipoPagoId          Int
   
   usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
@@ -185,11 +193,11 @@ model Evaluacion  {
   pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
 }
 
-enum Role {
-  ADMIN
-  Vendedor
-  Cliente
-}
+// enum Role {
+//   ADMIN
+//   Vendedor
+//   Cliente
+// }
 
 // enum  EstadoPedido  {
 //   Recibido

@@ -31,8 +31,9 @@ export class AuthGuard implements CanActivate {
   //con alguno de los indicados
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
     if (this.isAuthenticated) {
-      const userRole = this.currentUser.user.role;
-      console.log(route.data);
+      //console.log(this.authService.getUserRoles());
+      const userRole = route.data['roles'];
+      console.log(this.currentUser.user.role);
       //roles.length && roles.indexOf(verify.role)===-1
       if(route.data['habilitado']){
         if(!(route.data['roles'] === undefined)){
@@ -53,23 +54,4 @@ export class AuthGuard implements CanActivate {
     });
     return false;
   }
-  /*checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
-    if (this.isAuthenticated) {
-      const userRole = this.currentUser.user.role;
-      //roles.length && roles.indexOf(verify.role)===-1
-      if(route.data['roles'].length && !route.data['roles'].includes(userRole)){ 
-        this.router.navigate(['/usuario/login'], {
-          //Parametro para mostrar mensaje en login
-          queryParams: { auth: 'no' }
-        });
-        return false;
-      }
-      return true;
-    } 
-
-    this.router.navigate(['/usuario/login'], {
-      queryParams: { auth: 'no'}
-    });
-    return false;
-  } */
 }

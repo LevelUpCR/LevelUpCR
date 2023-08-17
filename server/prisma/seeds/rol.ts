@@ -2,16 +2,16 @@ export const rol = [
     //1
     {
       
-      descripcion: "Administrador",
+      tipoRol: "ADMIN",
     },
     //2
     {
     
-      descripcion: "Cliente",
+      tipoRol: "Cliente",
     },
     //3
     {
       
-      descripcion: "Vendedor",
+      tipoRol: "Vendedor",
     },
   ];

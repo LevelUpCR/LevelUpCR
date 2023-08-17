@@ -63,8 +63,6 @@ import { PedidosAllComponent } from './pedidos-all/pedidos-all.component';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule, 
-    
-
   ]
 })
 export class PedidosModule { }

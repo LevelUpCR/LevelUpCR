@@ -9,4 +9,6 @@ router.get("/usuario/:id",direccionController.getbyUsuario);
 
 router.get("/:id",direccionController.getById);
 
+router.get("/",direccionController.getProvincia)
+
 module.exports = router;

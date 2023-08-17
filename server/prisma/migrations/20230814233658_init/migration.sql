@@ -8,10 +8,17 @@ CREATE TABLE `Usuarios` (
     `password` VARCHAR(191) NOT NULL,
     `compania` VARCHAR(191) NULL,
     `habilitado` BOOLEAN NOT NULL DEFAULT true,
-    `role` ENUM('ADMIN', 'Vendedor', 'Cliente') NOT NULL DEFAULT 'Cliente',
 
     UNIQUE INDEX `Usuarios_correo_key`(`correo`),
     PRIMARY KEY (`idUsuario`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Role` (
+    `idRol` INTEGER NOT NULL AUTO_INCREMENT,
+    `tipoRol` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`idRol`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -152,6 +159,15 @@ CREATE TABLE `Evaluacion` (
     PRIMARY KEY (`idEvaluacion`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `_RoleToUsuarios` (
+    `A` INTEGER NOT NULL,
+    `B` INTEGER NOT NULL,
+
+    UNIQUE INDEX `_RoleToUsuarios_AB_unique`(`A`, `B`),
+    INDEX `_RoleToUsuarios_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `Pagos` ADD CONSTRAINT `Pagos_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -208,3 +224,9 @@ ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_usuarioId_fkey` FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_pedidoId_fkey` FOREIGN KEY (`pedidoId`) REFERENCES `Pedidos`(`idPedido`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_RoleToUsuarios` ADD CONSTRAINT `_RoleToUsuarios_A_fkey` FOREIGN KEY (`A`) REFERENCES `Role`(`idRol`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_RoleToUsuarios` ADD CONSTRAINT `_RoleToUsuarios_B_fkey` FOREIGN KEY (`B`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;

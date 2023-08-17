@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const axios = require('axios');
 
 const prisma = new PrismaClient();
 
@@ -52,3 +53,16 @@ module.exports.create = async (request, response, next) => {
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {
 };
+
+module.exports.getProvincia = async (request, response, next) => {
+    
+      const apiUrl = 'https://levelupcr.github.io/APIProvinciasCR/CRAPI.json'; // Reemplaza con la URL de la API externa
+  
+      // Realizar una solicitud GET a la API externa utilizando axios
+      const apiResponse = await axios.get(apiUrl);
+  
+      // Obtener los datos de la respuesta de la API
+      const dataFromApi = apiResponse.data;
+  
+      response.json(dataFromApi);
+  };

@@ -10,6 +10,9 @@ module.exports.get = async (request, response, next) => {
     const usuarios = await prisma.usuarios.findMany({
         orderBy: {
             nombre: 'asc'
+        },
+        include:{
+          role:true
         }
     });
     response.json(usuarios);
@@ -18,7 +21,10 @@ module.exports.get = async (request, response, next) => {
 module.exports.getById = async (request, response, next) => {
     let id = parseInt(request.params.id);
     const usuario = await prisma.usuarios.findUnique({
-        where: { idUsuario: id }
+        where: { idUsuario: id },
+        include:{
+          role: true
+        }
     });
     response.json(usuario);
 };
@@ -44,7 +50,10 @@ module.exports.register = async (request, response, next) => {
             password: hash,
             compania: usuario.compania,
             habilitado: true,
-            role: Role[usuario.role]
+            //role: Role[usuario.role]
+            role:{
+              connect:usuario.role
+            }
         },
     });
     response.status(200).json({
@@ -66,6 +75,13 @@ module.exports.update = async (request, response, next) => {
     let hash=bcrypt.hashSync(usuario.password,salt)
     const usuarioViejo = await prisma.usuarios.findUnique({
         where: { idUsuario: idUsuario },
+        include:{
+          role:{
+            select:{
+              id:true
+            }
+          }
+        }
     });
 
     const newUsuario = await prisma.usuarios.update({
@@ -80,7 +96,10 @@ module.exports.update = async (request, response, next) => {
             password: hash,
             compania: usuario.compania,
             habilitado: usuario.habilitado,
-            role: Role[usuario.role]
+            role: {
+              disconnect: usuarioViejo.role,
+              connect: usuario.role
+            }
         },
     });
     response.json(newUsuario);
@@ -93,6 +112,9 @@ module.exports.login = async (request, response, next) => {
     where: {
       correo: userReq.email,
     },
+      include:{
+        role:true
+    }
   });
   //Sino lo encuentra según su email
   if (!user) {
@@ -116,6 +138,7 @@ module.exports.login = async (request, response, next) => {
       email: user.correo,
       role: user.role
     }
+      console.log(user);
     //Crear Token
     const token= jwt.sign(payload,process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE

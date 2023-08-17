@@ -21,9 +21,14 @@ async function main() {
   await prisma.estadoProducto.createMany({
     data: estadoProducto,
   });
+  //CategoriaProducto
   await prisma.categoriaProducto.createMany({
     data: categoriaProducto,
   });
+  //Rol
+  await prisma.role.createMany({
+    data: rol,
+  })
   //Usuarios
   await prisma.usuarios.create({
     data: {
@@ -33,7 +38,9 @@ async function main() {
       correo: "admin@admin.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       habilitado: true,
-      role: Role.ADMIN,
+      role: {
+        connect: [{idRol:1}]
+      },
     },
   });
   //2
@@ -45,7 +52,9 @@ async function main() {
       correo: "lsolera@cliente.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       habilitado: true,
-      role: Role.Cliente,
+      role: {
+        connect: [{idRol:2}, {idRol:3}]
+      }
     },
   });
   //3
@@ -57,7 +66,9 @@ async function main() {
       correo: "icalvo@cliente.com",
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       habilitado: true,
-      role: Role.Vendedor,
+      role: {
+        connect: [{idRol:3}]
+      },
     },
   });
   //4
@@ -70,7 +81,9 @@ async function main() {
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       compania: "Sony",
       habilitado: true,
-      role: Role.Vendedor,
+      role: {
+        connect: [{idRol:3}]
+      },
     },
   });
   //5
@@ -83,7 +96,9 @@ async function main() {
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       compania: "Nintendo",
       habilitado: true,
-      role: Role.Vendedor,
+      role: {
+        connect: [{idRol:3}]
+      },
     },
   });
   //6
@@ -96,7 +111,9 @@ async function main() {
       password: "$10$oM7pTS4oY02SeNOkiR9Poumop/v4Np0.XFTJUVyJxB5wYBSTm78Q.",
       compania: "Microsoft",
       habilitado: true,
-      role: Role.Vendedor,
+      role: {
+        connect: [{idRol:3}]
+      },
     },
   });
 

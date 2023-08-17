@@ -3,7 +3,7 @@ const { PrismaClient, Role } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports.get = async (request, response, next) => {
-  let listRoles = [];
+  /* let listRoles = [];
   for (let element in Role) {
     switch (element) {
       case Role.ADMIN:
@@ -30,10 +30,20 @@ module.exports.get = async (request, response, next) => {
     }
   }
 
-  response.json(listRoles);
+  response.json(listRoles); */
+
+  const roles = await prisma.role.findMany({
+    orderBy: {
+        tipoRol: 'asc'
+    },
+    include:{
+      usuarios:true
+    }
+});
+response.json(roles);
 };
 module.exports.getById = async (request, response, next) => {
-  let id = request.params.id;
+  /* let id = request.params.id;
   let nombre = "";
   switch (Role[id]) {
     case Role.ADMIN:
@@ -50,5 +60,14 @@ module.exports.getById = async (request, response, next) => {
       break;
   }
   let rol = { ["id"]: Role[id], ["nombre"]: nombre };
-  response.json(rol);
+  response.json(rol); */
+
+  let id = parseInt(request.params.id);
+    const rol = await prisma.role.findUnique({
+        where: { idRol: id },
+        include:{
+          usuarios:true
+        }
+    });
+    response.json(rol);
 };

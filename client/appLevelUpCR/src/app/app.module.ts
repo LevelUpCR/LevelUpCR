@@ -52,8 +52,6 @@ import { HttpErrorInterceptorService } from './share/http-error-interceptor.serv
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    
-
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptorService, multi: true }, ],
   bootstrap: [AppComponent]
