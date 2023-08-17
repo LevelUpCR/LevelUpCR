@@ -158,7 +158,6 @@ module.exports.login = async (request, response, next) => {
       email: user.correo,
       role: user.role
     }
-      console.log(user);
     //Crear Token
     const token= jwt.sign(payload,process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE

@@ -28,7 +28,7 @@ async function main() {
   //Rol
   await prisma.role.createMany({
     data: rol,
-  })
+  });
   //Usuarios
   await prisma.usuarios.create({
     data: {
