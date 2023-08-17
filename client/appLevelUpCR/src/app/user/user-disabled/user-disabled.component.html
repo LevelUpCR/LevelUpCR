@@ -57,7 +57,11 @@
           >
             Rol del Usuario
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.role }}</td>
+          <td mat-cell *matCellDef="let row">
+            <ng-container *ngFor="let role of row.role">
+              {{ role.tipoRol }}
+            </ng-container>
+          </td>
         </ng-container>
         <!-- Columna acciones -->
         <ng-container matColumnDef="acciones">

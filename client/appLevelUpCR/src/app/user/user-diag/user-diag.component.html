@@ -22,7 +22,11 @@
 
           <div class="col">
             <p>Correo: {{ datos.correo }}</p>
-            <p>Rol de Usuario: {{ datos.role }}</p>
+            <p>Rol de Usuario: <ng-container *ngFor="let role of datos.role">
+              {{ role.tipoRol }}
+            </ng-container></p>
+
+            
           </div>
           
         </div>
@@ -64,11 +68,16 @@
           <div class="row">
             <div class="col">
               <mat-form-field class="full-width">
-                <input
-                  matInput
-                  placeholder="Provincia"
+                <mat-select
+                  placeholder="Provincias"
                   formControlName="provincia"
-                />
+                  (selectionChange)="onProvinciaSelected(pro.value)"
+                  #pro
+                >
+                  <mat-option *ngFor="let g of apiResponse" [value]="g.nombre">
+                    {{ g.nombre }}
+                  </mat-option>
+                </mat-select>
 
                 <mat-error *ngIf="errorHandling1('provincia', 'required')">
                   Provincia es <strong>requerida</strong>
@@ -77,7 +86,17 @@
             </div>
             <div class="col">
               <mat-form-field class="full-width">
-                <input matInput placeholder="Canton" formControlName="canton" />
+                <mat-select
+                  placeholder="Canton"
+                  formControlName="canton"
+                  (selectionChange)="onCantonSelected(pro.value, can.value)"
+                  #can
+                >
+                  <mat-option *ngFor="let g of apiResponse2" [value]="g.nombre">
+                    {{ g.nombre }}
+                  </mat-option>
+                </mat-select>
+
                 <mat-error *ngIf="errorHandling1('canton', 'required')">
                   Canton es <strong>requerida</strong>
                 </mat-error>
@@ -85,13 +104,18 @@
             </div>
             <div class="col">
               <mat-form-field class="full-width">
-                <input
-                  matInput
+                <mat-select
                   placeholder="Distrito"
                   formControlName="distrito"
-                />
-                <mat-error *ngIf="errorHandling1('distrito', 'required')">
-                  Distrito es <strong>requerido</strong>
+                  #dis
+                >
+                  <mat-option *ngFor="let g of apiResponse3" [value]="g.nombre">
+                    {{ g.nombre }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="errorHandling1('canton', 'required')">
+                  Canton es <strong>requerida</strong>
                 </mat-error>
               </mat-form-field>
             </div>

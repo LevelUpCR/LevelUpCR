@@ -36,6 +36,9 @@ export class PedidosIndexComponent implements OnInit {
   currentUser: any;
   direccionSeleccionada: any;
   tiposPagoList: any;
+  apiResponse: any;
+  apiResponse2: any;
+  apiResponse3: any;
 
   //Nombre del formulario
   pedidosForm: FormGroup;
@@ -68,6 +71,8 @@ export class PedidosIndexComponent implements OnInit {
     this.formularioReactive();
     this.formularioReactive2();
     this.formularioReactive3();
+    this.cargaAPI();
+
   }
 
   ngOnInit(): void {
@@ -77,7 +82,7 @@ export class PedidosIndexComponent implements OnInit {
     this.total = this.cartService.getTotal();
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     //Suscriocion a la informacion del usuario actual
-    console.log(this.currentUser.user.idUsuario)
+
     this.listaDirecciones(1);
     this.listaMetodos(1);
     // this.http.get('https://levelupcr.github.io/APIProvinciasCR/CRAPI.json').subscribe((res: Response) => {
@@ -115,7 +120,7 @@ export class PedidosIndexComponent implements OnInit {
         );
         return;
       }
-      console.log(itemsCarrito);
+
       let detalles = itemsCarrito.map(
         (x) => ({
           ['productoId']: x.idItem,
@@ -124,14 +129,14 @@ export class PedidosIndexComponent implements OnInit {
         })
         //Datos para el API
       );
-      console.log(this.pedidosForm.value);
+
       let infoOrden = {
         fechaOrden: new Date(this.fecha),
         otros: this.pedidosForm.value,
         productos: detalles,
         total: this.total,
       };
-      console.log(infoOrden);
+
       this.gService.create('pedidos', infoOrden).subscribe((respuesta: any) => {
         this.noti.mensaje(
           'Orden',
@@ -140,7 +145,7 @@ export class PedidosIndexComponent implements OnInit {
         );
         this.cartService.deleteCart();
         this.total = this.cartService.getTotal();
-        console.log(respuesta);
+
       });
       this.limpiar();
     } else {
@@ -154,7 +159,7 @@ export class PedidosIndexComponent implements OnInit {
 
   registrarDireccion() {
     this.direccionesForm.patchValue({ usuarioId: this.currentUser.user.idUsuario });
-    console.log(this.direccionesForm.value);
+
     if (this.direccionesForm.invalid) {
       this.noti.mensaje(
         'Direcciones',
@@ -170,13 +175,13 @@ export class PedidosIndexComponent implements OnInit {
             'Dirección Registrada',
             TipoMessage.success
         );
-        console.log(respuesta.idDireccion);
+
 
         // Aquí dentro, el valor de respuesta.idDireccion está disponible y es correcto
         const idDireccionGuardada = respuesta.idDireccion;
 
         this.listaDirecciones(1);
-        console.log(this.direccionList);
+
 
         this.pedidosForm.get('direccion')?.reset();
         this.pedidosForm.get('direccion')?.setValue(idDireccionGuardada);
@@ -185,19 +190,19 @@ export class PedidosIndexComponent implements OnInit {
       .list(`direccion/${idDireccionGuardada}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+
         this.selectedAddress = data;
       });
 
       
-        console.log(this.selectedAddress);
+
 
     });
 }
 
 registrarPago() {
   this.pagosForm.patchValue({ usuarioId: this.currentUser.user.idUsuario });
-  console.log(this.pagosForm.value);
+
 
   if (this.pagosForm.invalid) {
     this.noti.mensaje(
@@ -213,7 +218,7 @@ registrarPago() {
       'Pago Registrado',
       TipoMessage.success
     );
-    console.log(respuesta.idPago);
+
 
     // Aquí dentro, el valor de respuesta.idPago está disponible y es correcto
     const idPagoGuardada = respuesta.idPago;
@@ -227,10 +232,10 @@ registrarPago() {
       .list(`pagos/${idPagoGuardada}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+
         this.selectedPayment = data;
         // Now the data is assigned to selectedPayment.
-        console.log(this.selectedPayment);
+
       });
   });
   this.pagosForm.reset();
@@ -378,11 +383,11 @@ registrarPago() {
       .list(`direccion/usuario/${clienteId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+
         this.direccionList = data;
       });
       
-      console.log(this.direccionList);
+
   }
   listaMetodos(id: number) {
     const clienteId = this.currentUser.user.idUsuario;
@@ -391,7 +396,6 @@ registrarPago() {
       .list(`pagos/usuario/${clienteId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
         this.metodosList = data;
       });
   }
@@ -400,14 +404,14 @@ registrarPago() {
     this.selectedAddress = this.direccionList.find(
       (address: any) => address.idDireccion === selectedAddressId
     );
-    console.log(this.selectedAddress);
+
   }
   onpaymentSelected(event: any) {
     const selectedPaymentId = event.value;
     this.selectedPayment = this.metodosList.find(
       (payment: any) => payment.idPago === selectedPaymentId
     );
-    console.log(this.selectedPayment);
+
   }
   onpaymentTypeSelected(event: any) {
     const selectedTypePaymentId = event.value;
@@ -423,7 +427,7 @@ registrarPago() {
     this.pagosForm.controls['fechaExpiracion'].setValidators(this.getfechaValidators());
     this.pagosForm.controls['fechaExpiracion'].updateValueAndValidity();
     const proveedorControl = this.pagosForm.get('numTarjeta');
-    console.log('Validaciones para fechaExpiracion:', proveedorControl.errors);
+
   }
 
   listaTiposPago() {
@@ -432,16 +436,59 @@ registrarPago() {
       .list('tipopago')
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        // console.log(data);
         this.tiposPagoList = data;
       });
+      
+  }
+  cargaAPI() {
+    this.apiResponse = null;
+    this.gService
+      .list('direccion/provincia')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+         
+        this.apiResponse = data;
+      });
+
   }
 
-  onprovinceSelected(event: any) {
-    const selectedProvince = event.value;
-    
-    console.log(this.selectedProvince);
+  cargaAPICantones(provincia:string) {
+    this.apiResponse2 = null;
+    this.gService
+      .list(`direccion/canton/${provincia}`)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+         
+        this.apiResponse2 = data;
+      });
+
   }
+
+  cargaAPIDistritos(provincia:string,canton:string) {
+    this.apiResponse3 = null;
+    this.gService
+      .list(`direccion/distrito/${provincia}/${canton}`)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+         
+        this.apiResponse3 = data;
+
+      });
+
+  }
+
+  onProvinciaSelected(provincia:string) {
+
+    this.cargaAPICantones(provincia);
+
+  }
+  onCantonSelected(idPro:string,idCan:string) {
+
+    this.cargaAPIDistritos(idPro,idCan);
+  }
+
+
+  
 
   limpiar() {
     this.stepper.reset();
@@ -450,7 +497,7 @@ registrarPago() {
   }
 
   detalleProducto(id: number) {
-    console.log(id);
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.data = {

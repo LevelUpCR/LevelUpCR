@@ -36,7 +36,7 @@ module.exports.create = async (request, response, next) => {
     let direccion = request.body;
     direccion.codigoPostal=parseInt(direccion.codigoPostal)
     direccion.telefono=parseInt(direccion.telefono)
-    console.log(direccion)
+
     const newDireccion = await prisma.direccion.create({
         data: {
             provincia: direccion.provincia,
@@ -55,14 +55,102 @@ module.exports.update = async (request, response, next) => {
 };
 
 module.exports.getProvincia = async (request, response, next) => {
+    const axios = require('axios'); // Import the axios library if not already imported
     
-      const apiUrl = 'https://levelupcr.github.io/APIProvinciasCR/CRAPI.json'; // Reemplaza con la URL de la API externa
+    const apiUrl = 'https://levelupcr.github.io/APIProvinciasCR/CRAPI.json';
   
-      // Realizar una solicitud GET a la API externa utilizando axios
-      const apiResponse = await axios.get(apiUrl);
+    try {
+        const apiResponse = await axios.get(apiUrl);
+        const dataFromApi = apiResponse.data;
+
+        // Extract the list of provinces
+        const provincesList = Object.keys(dataFromApi.provincias).map(provinceId => {
+            const province = dataFromApi.provincias[provinceId];
+            return {
+                id: provinceId,
+                nombre: province.nombre
+            };
+        });
+
+        response.json(provincesList);
+    } catch (error) {
+        console.error('Error:', error);
+        response.status(500).json({ error: 'An error occurred while fetching data.' });
+    }
+};
+
+module.exports.getCanton = async (request, response, next) => {
+    const provinciaNombre = request.params.id; // Obtén el nombre de la provincia del request
+    const axios = require('axios'); // Importa la biblioteca axios si aún no está importada
+
+    const apiUrl = 'https://levelupcr.github.io/APIProvinciasCR/CRAPI.json';
   
-      // Obtener los datos de la respuesta de la API
-      const dataFromApi = apiResponse.data;
+    try {
+        const apiResponse = await axios.get(apiUrl);
+        const dataFromApi = apiResponse.data;
+
+        // Busca la provincia por su nombre en el objeto 'provincias'
+        const provinciaSeleccionada = Object.values(dataFromApi.provincias).find(provincia => provincia.nombre === provinciaNombre);
+
+        if (!provinciaSeleccionada) {
+            return response.status(404).json({ error: 'Provincia seleccionada no encontrada.' });
+        }
+
+        // Extrae la lista de cantones para la provincia seleccionada
+        const listaDeCantones = Object.keys(provinciaSeleccionada.cantones).map(cantonId => {
+            const canton = provinciaSeleccionada.cantones[cantonId];
+            return {
+                id: cantonId,
+                nombre: canton.nombre
+            };
+        });
+
+        response.json(listaDeCantones);
+    } catch (error) {
+        console.error('Error:', error);
+        response.status(500).json({ error: 'Se produjo un error al obtener los datos.' });
+    }
+};
+
+
+
+module.exports.getDistrito = async (request, response, next) => {
+    const provinciaNombre = request.params.idpro;
+    const cantonNombre = request.params.idcan;
+    const axios = require('axios'); // Importa la biblioteca axios si aún no está importada
+
+    const apiUrl = 'https://levelupcr.github.io/APIProvinciasCR/CRAPI.json';
   
-      response.json(dataFromApi);
-  };
+    try {
+        const apiResponse = await axios.get(apiUrl);
+        const dataFromApi = apiResponse.data;
+
+        // Busca la provincia por su nombre en el objeto 'provincias'
+        const provinciaSeleccionada = Object.values(dataFromApi.provincias).find(provincia => provincia.nombre === provinciaNombre);
+
+        if (!provinciaSeleccionada) {
+            return response.status(404).json({ error: 'Provincia seleccionada no encontrada.' });
+        }
+
+        // Busca el cantón por su nombre en los cantones de la provincia seleccionada
+        const cantonSeleccionado = Object.values(provinciaSeleccionada.cantones).find(canton => canton.nombre === cantonNombre);
+
+        if (!cantonSeleccionado) {
+            return response.status(404).json({ error: 'Cantón seleccionado no encontrado.' });
+        }
+
+        // Extrae la lista de distritos para el cantón seleccionado
+        const listaDeDistritos = Object.keys(cantonSeleccionado.distritos).map(distritoId => {
+            const distritoNombre = cantonSeleccionado.distritos[distritoId];
+            return {
+                id: distritoId,
+                nombre: distritoNombre
+            };
+        });
+
+        response.json(listaDeDistritos);
+    } catch (error) {
+        console.error('Error:', error);
+        response.status(500).json({ error: 'Se produjo un error al obtener los datos.' });
+    }
+};

@@ -28,6 +28,9 @@ export class UserDiagComponent  implements OnInit{
   selectedPayment:any;
   selectedPaymentType:any;
   tiposPagoList:any;
+  apiResponse: any;
+  apiResponse2: any;
+  apiResponse3: any;
     //Respuesta del API crear/modificar
     respPregunta: any;
     respRespuesta: any;
@@ -45,6 +48,7 @@ export class UserDiagComponent  implements OnInit{
   ) { 
     this.datosDialog=data;
     this.listaTiposPago();
+    this.cargaAPI();
   }
 
 
@@ -349,6 +353,53 @@ formularioReactive3() {
     nombre: [null,Validators.compose([Validators.required, Validators.minLength(3)])],
     usuarioId: [null, Validators.required],
   });
+}
+
+cargaAPI() {
+  this.apiResponse = null;
+  this.gService
+    .list('direccion/provincia')
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((data: any) => {
+       
+      this.apiResponse = data;
+    });
+
+}
+
+cargaAPICantones(provincia:string) {
+  this.apiResponse2 = null;
+  this.gService
+    .list(`direccion/canton/${provincia}`)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((data: any) => {
+       
+      this.apiResponse2 = data;
+    });
+
+}
+
+cargaAPIDistritos(provincia:string,canton:string) {
+  this.apiResponse3 = null;
+  this.gService
+    .list(`direccion/distrito/${provincia}/${canton}`)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((data: any) => {
+       
+      this.apiResponse3 = data;
+
+    });
+
+}
+
+onProvinciaSelected(provincia:string) {
+
+  this.cargaAPICantones(provincia);
+
+}
+onCantonSelected(idPro:string,idCan:string) {
+
+  this.cargaAPIDistritos(idPro,idCan);
 }
 
 
