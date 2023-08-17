@@ -67,7 +67,8 @@ export class ProductosIndexComponent {
     });
   }
   isCliente(): boolean {
-    return this.currentUser?.user.role == "Cliente";
+    const roles = this.currentUser?.user.role || [];
+    return roles.some(role => role.idRol === 2);
   }
   ngOnDestroy() {
     this.destroy$.next(true);
