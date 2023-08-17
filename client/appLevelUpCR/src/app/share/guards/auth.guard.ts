@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
     if (this.isAuthenticated) {
       //console.log(this.authService.getUserRoles());
-      const userRole = route.data['roles'];
+      const userRole = this.currentUser.user.role;
       console.log(this.currentUser.user.role);
       //roles.length && roles.indexOf(verify.role)===-1
       if(route.data['habilitado']){
