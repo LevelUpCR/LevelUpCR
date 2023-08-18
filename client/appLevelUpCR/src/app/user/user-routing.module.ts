@@ -20,11 +20,11 @@ const routes: Routes = [
 
   {path:'usuarios/all', 
     component: UserAllComponent,
-    // canActivate:[AuthGuard],
-    // data:{
-    //   habilitado: [true],
-    //   roles:['ADMIN']
-    //}
+    canActivate:[AuthGuard],
+    data:{
+      habilitado: [true],
+      roles:['ADMIN']
+    }
   },
   {path:'usuarios/disabled', 
     component: UserDisabledComponent,
@@ -41,11 +41,11 @@ const routes: Routes = [
     roles:['ADMIN']
   }},
   {path:'usuarios/update/:id', component: UserFormComponent,
-  // canActivate:[AuthGuard],
-  // data:{
-  //   habilitado: [true],
-  //   roles:['ADMIN']
-  // }
+  canActivate:[AuthGuard],
+  data:{
+    habilitado: [true],
+    roles:['ADMIN']
+  }
 },
 ];
 

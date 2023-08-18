@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { NotificacionService, TipoMessage } from 'src/app/share/notification.service';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 
@@ -20,6 +20,7 @@ export class UserFormComponent implements OnInit {
   formCreate: FormGroup;
   makeSubmit: boolean = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  selectedRoles=null;
   //Titulo
   titleForm: string = 'Crear';
   titlePass: string = 'Password';
@@ -79,7 +80,7 @@ export class UserFormComponent implements OnInit {
       ],
       password: [null, Validators.required],
       role: [null, Validators.required],
-      compania: [null, null]
+      compania: [null, this.getCompaniaValidators()],
     });
     this.getRoles();
   }
@@ -108,9 +109,10 @@ export class UserFormComponent implements OnInit {
               telefono: this.usuarioInfo.telefono,
               correo: this.usuarioInfo.correo,
               password: "",
-              role: this.usuarioInfo.role,
+              role: this.usuarioInfo.role.map(({idRol}) => idRol),
               compania: this.usuarioInfo.compania,
             });
+            console.log(this.formCreate.value)
           });
       }
     });
@@ -155,6 +157,18 @@ export class UserFormComponent implements OnInit {
     //Establecer submit verdadero
     this.submitted = true;
 
+    let rFormat:any=this.formCreate.get('role').value.map(x=>({['idRol']: x }));
+    //Asignar valor al formulario 
+    this.formCreate.patchValue({ role:rFormat});
+
+    if (rFormat.length > 1 && rFormat[0].idRol === 1) {
+      this.noti.mensaje(
+        'Usuarios',
+        'Admin no puede tener otros roles',
+        TipoMessage.warning
+      );
+      return;
+    }
 
 
     console.log(this.formCreate.value);
@@ -179,10 +193,47 @@ export class UserFormComponent implements OnInit {
         });
       });
   }
+
+  shouldShowCompaniaField() {
+    if (this.selectedRoles===null) {
+      return false
+    } else {
+      return this.selectedRoles.includes(3);
+    }
+    
+  }
+
+  onCompanySelected(rolesSelected: any) {
+
+   this.selectedRoles=rolesSelected
+   this.formCreate.controls['compania'].setValidators(this.getCompaniaValidators());
+   this.formCreate.controls['compania'].updateValueAndValidity();
+   this.formCreate.get('compania').reset();
+   //const proveedorControl = this.formCreate.get('compania');
+   //console.log('Validaciones para fechaExpiracion:', proveedorControl.errors);
+  }
+
+  getCompaniaValidators(): any {
+    return (control: AbstractControl) => {
+      if (this.selectedRoles?.includes(3)) {
+        return Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+        ])(control);
+      } else {
+        return null; // No aplicar validaciones si no se cumple la condición
+      }
+    };
+  }
   //Actualizar Videojuego
   actualizarUsuario() {
     //Establecer submit verdadero
     this.submitted = true;
+    let rFormat:any=this.formCreate.get('role').value.map(x=>({['idRol']: x }));
+    //Asignar valor al formulario 
+    this.formCreate.patchValue({ role:rFormat});
+
+
     //Verificar validación
     if (this.formCreate.invalid) {
       this.noti.mensaje(

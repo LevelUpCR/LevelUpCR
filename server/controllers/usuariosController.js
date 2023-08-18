@@ -85,6 +85,7 @@ module.exports.disabled = async (request, response, next) => {
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {
     let usuario = request.body;
+    console.log(usuario)
     let idUsuario = parseInt(request.params.id);
     //Salt es una cadena aleatoria.
     //"salt round" factor de costo controla cuánto tiempo se necesita para calcular un solo hash de BCrypt

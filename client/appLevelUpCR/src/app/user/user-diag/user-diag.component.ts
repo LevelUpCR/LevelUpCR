@@ -352,6 +352,7 @@ formularioReactive3() {
     fechaExpiracion: [null,this.getfechaValidators()],
     nombre: [null,Validators.compose([Validators.required, Validators.minLength(3)])],
     usuarioId: [null, Validators.required],
+
   });
 }
 
