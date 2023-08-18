@@ -132,24 +132,39 @@ module.exports.getByProductosxIdUsuario = async (request, response, next) => {
 
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
-  let infoOrden=request.body;
+  let infoOrden = request.body;
+
   const newVideoJuego = await prisma.pedidos.create({
-    data:{
-    fechaCompra:infoOrden.fechaOrden,
-    usuarioId:infoOrden.otros.usuarioId,
-    estadoPedidoId:1,
-    direccionId:infoOrden.otros.direccion,
-    pagoId:infoOrden.otros.metodo,
-    total:infoOrden.total,
-    productos:{
-      createMany:{
-        //[{ivedojuegoId,cantidad}]
-        data: infoOrden.productos
+    data: {
+      fechaCompra: infoOrden.fechaOrden,
+      usuarioId: infoOrden.otros.usuarioId,
+      estadoPedidoId: 1,
+      direccionId: infoOrden.otros.direccion,
+      pagoId: infoOrden.otros.metodo,
+      total: infoOrden.total,
+      productos: {
+        createMany: {
+          data: infoOrden.productos
+        }
       }
     }
-    }
-  })
+  });
+
+  // Update the product quantities based on infoOrden.productos
+  for (const producto of infoOrden.productos) {
+    await prisma.productos.update({
+      where: { idProducto: producto.productoId }, // Assuming "productoId" is the unique identifier for the product
+      data: {
+        cantidad: {
+          decrement: producto.cantidad // Subtract the ordered quantity from the current quantity
+        }
+      }
+    });
+  }
+
   response.json(newVideoJuego);
 };
+
+
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {};

@@ -29,6 +29,7 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { UserDisabledComponent } from './user-disabled/user-disabled.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -67,6 +68,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule, 
+    MatSlideToggleModule,
   ]
 })
 export class UserModule { }

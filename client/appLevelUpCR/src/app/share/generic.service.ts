@@ -56,12 +56,6 @@ export class GenericService {
     );
   }
 
-  disable(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
-    console.log(this.urlAPI + endopoint + `/${objUpdate}`);
-    return this.http.put<any | any[]>(
-      this.urlAPI + endopoint + `/${objUpdate}`,
-      objUpdate
-    );
-  }
+
 
 }

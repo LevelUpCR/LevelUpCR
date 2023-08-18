@@ -65,7 +65,7 @@ module.exports.register = async (request, response, next) => {
       });
 };
 
-//Deshabulitar un usuario
+//Deshabilitar un usuario
 module.exports.disabled = async (request, response, next) => {
   let idUser = parseInt(request.params.id);
   const usuarioViejo = await prisma.usuarios.findUnique({
