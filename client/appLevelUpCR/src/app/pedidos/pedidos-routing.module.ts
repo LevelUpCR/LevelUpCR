@@ -10,41 +10,26 @@ const routes: Routes = [
     path: 'pedidos',
     component: PedidosIndexComponent,
     canActivate: [AuthGuard],
-    data: {
-      habilitado: [true],
-    },
   },
   {
     path: 'pedidos/cliente',
     component: PedidosClienteComponent,
     canActivate: [AuthGuard],
-    data: {
-      habilitado: [true],
-    },
   },
   {
     path: 'pedidos/cliente/:id',
     component: PedidosClienteComponent,
     canActivate: [AuthGuard],
-    data: {
-      habilitado: [true],
-    },
   },
   {
     path: 'pedidos/vendedor',
     component: PedidosVendedorComponent,
     canActivate: [AuthGuard],
-    data: {
-      habilitado: [true],
-    },
   },
   {
     path: 'pedidos/vendedor/:id',
     component: PedidosVendedorComponent,
     canActivate: [AuthGuard],
-    data: {
-      habilitado: [true],
-    },
   },
   /*{path:'pedidos/all', component: PedidosAllComponent,
     canActivate: [AuthGuard],
