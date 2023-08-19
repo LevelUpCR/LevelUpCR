@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { tap } from 'rxjs/operators';
+import { NotificacionService, TipoMessage } from 'src/app/share/notification.service';
 
 @Component({
   selector: 'app-productos-diag',
@@ -31,12 +32,13 @@ export class ProductosDiagComponent  implements OnInit{
     @Inject(MAT_DIALOG_DATA) data,
     private dialogRef:MatDialogRef<ProductosDiagComponent>,
     private dialog: MatDialog,private gService:GenericService,private router: Router,
-    private activeRouter: ActivatedRoute,
+    private activeRouter: ActivatedRoute,private noti: NotificacionService,
     private authService: AuthenticationService,
   ) { 
     this.datosDialog=data;
     this.formularioReactive1();
     this.formularioReactive2();
+    
   }
 
   //Crear Formulario
@@ -67,11 +69,21 @@ export class ProductosDiagComponent  implements OnInit{
   }
 
   isCliente(): boolean {
-    return this.currentUser.user.role == "Cliente";
+    const roles = this.currentUser?.user.role || [];
+    return roles.some(role => role.idRol === 2);
   }
 
   isVendedor(): boolean {
-    return this.currentUser.user.role == "Vendedor";
+    const roles = this.currentUser?.user.role || [];
+    return roles.some(role => role.idRol === 3);
+  }
+
+  responderProductos(){
+    if (this.datos.usuarioId===this.currentUser.user.idUsuario) {
+        return true
+      } else {
+        return false
+      }
   }
 
   obtenerProducto(id:any){
@@ -110,7 +122,12 @@ export class ProductosDiagComponent  implements OnInit{
      .subscribe((data: any) => {
       //Obtener respuesta
       this.respPregunta=data;
-      this.respuestaForm.reset();
+      this.preguntaForm.reset();
+      this.noti.mensaje(
+        'Pregunta',
+        'Pregunta creada con exito, pronto el vendedor la responderá',
+        TipoMessage.success
+      );
     });
   }
   public errorHandling1 = (control: string, error: string) => {
@@ -143,7 +160,12 @@ export class ProductosDiagComponent  implements OnInit{
         })
       )
       .subscribe((data: any) => {
-        
+        this.respuestaForm.reset();
+        this.noti.mensaje(
+          'Respuesta',
+          'La pregunta ha sido respondida con éxito',
+          TipoMessage.success
+        );
       });
   }
   close(){

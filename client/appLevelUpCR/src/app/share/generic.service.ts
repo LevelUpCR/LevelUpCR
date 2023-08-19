@@ -56,6 +56,13 @@ export class GenericService {
     );
   }
 
+  // actualizar
+  update2(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
+    return this.http.put<any | any[]>(
+      this.urlAPI + endopoint,
+      objUpdate
+    );
+  }
 
 
 }

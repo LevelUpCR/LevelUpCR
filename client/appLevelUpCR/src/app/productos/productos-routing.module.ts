@@ -7,6 +7,7 @@ import { ProductosDetailComponent } from './productos-detail/productos-detail.co
 import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
 import { ProductosCreateImageComponent } from './productos-create-image/productos-create-image.component';
 import { AuthGuard } from '../share/guards/auth.guard';
+import { ProductosVendidosComponent } from './productos-vendidos/productos-vendidos.component';
 
 //locahost:3000/videojuego/all
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       habilitado: [true],
+      roles: ['ADMIN'],
     },
   },
   {
@@ -33,7 +35,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       habilitado: [true],
-      roles: ['ADMIN'], //roles:['ADMIN','USER'] Iguales al enum
+      roles: ['Vendedor'], //roles:['ADMIN','USER'] Iguales al enum
     },
   },
   {
@@ -52,6 +54,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       habilitado: [true],
+      roles:['Vendedor']
+    },
+  },
+  {
+    path: 'productos/vendidos',
+    component: ProductosVendidosComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles:['Vendedor']
     },
   },
   {
@@ -60,6 +72,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       habilitado: [true],
+      roles:['Vendedor']
     },
   },
 
@@ -78,6 +91,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       habilitado: [true],
+      roles:['Vendedor']
     },
   },
 ];

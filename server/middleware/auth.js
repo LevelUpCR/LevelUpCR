@@ -38,10 +38,19 @@ exports.grantRole = function (roles) {
       }
       if (token) {
         const verify = jwt.verify(token, process.env.SECRET_KEY);
-       //!== Se debe cambiar para que la funcion haga una comparacion entre 2 array en el codigo de esta semana hay una 
-        if (roles.length && roles.indexOf(verify.role)===-1) {
+        //!== Se debe cambiar para que la funcion haga una comparacion entre 2 array en el codigo de esta semana hay una
+        let authorized = false;
+
+        verify.role.forEach((roleObj) => {
+          if (roles.includes(roleObj.tipoRol)) {
+            authorized = true;
+          }
+        });
+
+        if (!authorized) {
           return res.status(401).json({ message: "No autorizado" });
         }
+
         next();
       }
     } catch (error) {

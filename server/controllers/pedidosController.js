@@ -20,6 +20,129 @@ module.exports.get = async (request, response, next) => {
   });
   response.json(productos);
 };
+
+module.exports.getProductosPedidos = async (request, response, next) => {
+  const productos = await prisma.pedidos_Productos.findMany({
+    include: {
+      productos: true,
+    },
+    orderBy: [
+      {
+        pedidoId: 'asc',    // Orden ascendente por pedidoId
+      },
+      {
+        productoId: 'asc',   // Orden ascendente por productoId
+      },
+    ],
+  });
+  response.json(productos);
+};
+
+module.exports.getProductosPedidosbyVendedor = async (request, response, next) => {
+
+    let id = parseInt(request.params.id);
+    const productos = await prisma.pedidos_Productos.findMany({
+      where: {
+        productos: {
+          usuarioId: id,
+        },
+      },
+      include:{
+        productos:{
+          include:{
+            usuarios:true,
+          }
+        },
+        pedidos:true,
+      },
+      orderBy: [
+        {
+          pedidoId: 'asc',    // Orden ascendente por pedidoId
+        },
+        {
+          productoId: 'asc',   // Orden ascendente por productoId
+        },
+      ],
+    });
+    response.json(productos);
+
+};
+
+module.exports.getProPedbyPedido = async (request, response, next) => {
+  console.log(request.params.id);
+  let id = parseInt(request.params.id);
+  const productos = await prisma.pedidos_Productos.findMany({
+    where: {
+      pedidoId:id
+    },
+    include:{
+      productos:{
+        include:{
+          usuarios:true,
+        }
+      },
+    },
+    orderBy: [
+      {
+        pedidoId: 'asc',    // Orden ascendente por pedidoId
+      },
+      {
+        productoId: 'asc',   // Orden ascendente por productoId
+      },
+    ],
+  });
+  console.log(productos);
+  response.json(productos);
+
+};
+
+//Actualizar un usuario
+module.exports.updateEstadoProdu = async (request, response, next) => {
+  let produPed = request.body;
+  console.log(produPed)
+
+  
+  const newproduPed = await prisma.pedidos_Productos.update({
+      where: {
+        pedidoId_productoId: {
+          pedidoId: produPed.pedidoId,
+          productoId: produPed.productoId,
+        },
+      },
+      data: {
+        estadoPedidoId:2
+      },
+      include:{
+        productos:{
+          include:{
+            usuarios:true,
+          }
+        },
+        pedidos:true,
+      },
+  });
+  console.log(newproduPed);
+  response.json(newproduPed);
+};
+module.exports.updateEstadoPed = async (request, response, next) => {
+  let pedido = request.body;
+  console.log(pedido.estadopedido)
+
+  
+  const newPedido = await prisma.pedidos.update({
+      where: {
+        idPedido: pedido.idPedido,
+      },
+      data: {
+        estadoPedidoId:pedido.estadoPedidoId
+      },
+      
+  });
+  console.log(newPedido);
+  response.json(newPedido);
+};
+
+
 //Obtener por Id
 module.exports.getById = async (request, response, next) => {
   let id = parseInt(request.params.id);

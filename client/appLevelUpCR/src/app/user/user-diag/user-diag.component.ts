@@ -63,9 +63,39 @@ export class UserDiagComponent  implements OnInit{
     this.listaDirecciones(1);
     this.formularioReactive3();
     this.listaMetodos(1);
+    
   }
 
+  isCliente(): boolean {
   
+    const roles = this.currentUser?.user.role || [];
+    
+    return roles.some(role => role.idRol === 2);
+  }
+  
+
+  isVendedor(): boolean {
+    const roles = this.currentUser?.user.role || [];
+    return roles.some(role => role.idRol === 3);
+  }
+  isAdmin(): boolean {
+    const roles = this.currentUser?.user.role || [];
+    return roles.some(role => role.idRol === 1);
+  }
+
+  direccionVendedor(){
+    
+    if (this.isVendedor()) {
+      if (this.direccionList.length>0) {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      return false
+    }
+
+  }
 
 
   obtenerUsuario(id:any){
