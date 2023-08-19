@@ -26,7 +26,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { FotosProductosAllComponent } from '../fotos-productos/fotos-productos-all/fotos-productos-all.component';
-
+import { ProductosVendidosComponent } from './productos-vendidos/productos-vendidos.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FotosProductosAllComponent } from '../fotos-productos/fotos-productos-a
     ProductosFormComponent,
     ProductosVendedorComponent,
     ProductosCreateImageComponent,
+    ProductosVendidosComponent,
 
   ],
   imports: [
@@ -61,7 +63,9 @@ import { FotosProductosAllComponent } from '../fotos-productos/fotos-productos-a
     MatMenuModule,
     MatRadioModule,
     MatInputModule,
+    MatCheckboxModule,
     ReactiveFormsModule, //Gestionar Formularios
+     
     
   ]
 })

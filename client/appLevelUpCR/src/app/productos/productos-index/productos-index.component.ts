@@ -60,10 +60,15 @@ export class ProductosIndexComponent {
     .get('productos',id)
     .pipe(takeUntil(this.destroy$))
     .subscribe((data:any)=>{
+      if (data.cantidad>0) {
       //Agregar videojuego obtenido del API al carrito
       this.cartService.addToCart(data);
       //Notificar al usuario
       this.notificacion.mensaje('Orden', 'Producto: '+data.nombre+' agregado a la orden', TipoMessage.success)
+      } else {
+        this.notificacion.mensaje('Orden', 'Producto: '+data.nombre+' no hay stock', TipoMessage.warning)
+      }
+      
     });
   }
   isCliente(): boolean {

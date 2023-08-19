@@ -7,4 +7,8 @@ export const estadoPedido = [
     {
         estado: "Entregado"
     },
+    //3
+    {
+        estado: "En Proceso"
+    },
 ];

@@ -39,6 +39,7 @@ export class PedidosIndexComponent implements OnInit {
   apiResponse: any;
   apiResponse2: any;
   apiResponse3: any;
+  productoInfo: any;
 
   //Nombre del formulario
   pedidosForm: FormGroup;
@@ -92,19 +93,30 @@ export class PedidosIndexComponent implements OnInit {
     // console.log(this.provinces);
   }
   actualizarCantidad(item: any) {
-    this.cartService.addToCart(item);
-    this.total = this.cartService.getTotal();
-    this.noti.mensaje(
+    
+    if (item.product.cantidad>0&&item.cantidad+1<=item.product.cantidad) {
+      this.cartService.addToCart(item);
+      this.total = this.cartService.getTotal();
+      this.noti.mensaje(
       'Orden',
       'Cantidad Actualizada ' + item.cantidad,
       TipoMessage.info
     );
+    }else{
+      this.noti.mensaje(
+        'Orden',
+        'No existe esta cantidad en stock, el maximo disponible son: '+item.product.cantidad,
+        TipoMessage.warning
+      );
+    }
+    
   }
   eliminarItem(item: any) {
     this.cartService.removeFromCart(item);
     this.total = this.cartService.getTotal();
     this.noti.mensaje('Orden', 'Producto Eliminado', TipoMessage.warning);
   }
+  
   registrarOrden() {
     if (this.cartService.getItems != null) {
       let itemsCarrito = this.cartService.getItems;
@@ -121,6 +133,11 @@ export class PedidosIndexComponent implements OnInit {
         return;
       }
 
+
+
+      console.log(itemsCarrito)
+
+
       let detalles = itemsCarrito.map(
         (x) => ({
           ['productoId']: x.idItem,
@@ -130,6 +147,8 @@ export class PedidosIndexComponent implements OnInit {
         //Datos para el API
       );
 
+      
+      
       let infoOrden = {
         fechaOrden: new Date(this.fecha),
         otros: this.pedidosForm.value,
@@ -143,6 +162,7 @@ export class PedidosIndexComponent implements OnInit {
           'Orden Registrada #' + respuesta.idPedido,
           TipoMessage.success
         );
+          
         this.cartService.deleteCart();
         this.total = this.cartService.getTotal();
 

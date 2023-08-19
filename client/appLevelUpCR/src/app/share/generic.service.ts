@@ -56,12 +56,13 @@ export class GenericService {
     );
   }
 
-  disable(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
-    console.log(this.urlAPI + endopoint + `/${objUpdate}`);
+  // actualizar
+  update2(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
     return this.http.put<any | any[]>(
-      this.urlAPI + endopoint + `/${objUpdate}`,
+      this.urlAPI + endopoint,
       objUpdate
     );
   }
+
 
 }

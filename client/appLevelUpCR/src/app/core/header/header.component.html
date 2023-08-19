@@ -87,6 +87,15 @@
     <mat-icon>person</mat-icon>Usuarios
     </button>
   </ng-container>
+  <ng-container *ngIf="isAdmin()">
+    <button
+      mat-menu-item
+      [routerLink]="['usuarios/disabled']"
+      routerLinkActive="mat-raised-button"
+    >
+    <mat-icon>person</mat-icon>Usuarios Deshabilitados
+    </button>
+  </ng-container>
   
     <!-- <button mat-menu-item [matMenuTriggerFor]="menu2">Listados</button> -->
     

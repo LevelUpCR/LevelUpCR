@@ -165,15 +165,31 @@ export class ProductosFormComponent implements OnInit {
         });
       });
   }
+
   //Actualizar Videojuego
   actualizarProducto() {
     //Establecer submit verdadero
     this.submitted = true;
     //Verificar validación
+
+    if (this.productoInfo.usuarioId!==this.currentUser.user.idUsuario) {
+      this.noti.mensaje(
+        'Productos',
+        'No puede actualizar un producto que no haya sido creado por su usuario',
+        TipoMessage.warning
+      );
+      return;
+    }
     if (this.productoForm.invalid) {
+      this.noti.mensaje(
+        'Productos',
+        'Complete todos los campos para crear el producto',
+        TipoMessage.warning
+      );
       return;
     }
 
+    
     //Obtener id Generos del Formulario y Crear arreglo con {id: value}
     //let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x }));
 

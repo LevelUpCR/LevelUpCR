@@ -20,6 +20,129 @@ module.exports.get = async (request, response, next) => {
   });
   response.json(productos);
 };
+
+module.exports.getProductosPedidos = async (request, response, next) => {
+  const productos = await prisma.pedidos_Productos.findMany({
+    include: {
+      productos: true,
+    },
+    orderBy: [
+      {
+        pedidoId: 'asc',    // Orden ascendente por pedidoId
+      },
+      {
+        productoId: 'asc',   // Orden ascendente por productoId
+      },
+    ],
+  });
+  response.json(productos);
+};
+
+module.exports.getProductosPedidosbyVendedor = async (request, response, next) => {
+
+    let id = parseInt(request.params.id);
+    const productos = await prisma.pedidos_Productos.findMany({
+      where: {
+        productos: {
+          usuarioId: id,
+        },
+      },
+      include:{
+        productos:{
+          include:{
+            usuarios:true,
+          }
+        },
+        pedidos:true,
+      },
+      orderBy: [
+        {
+          pedidoId: 'asc',    // Orden ascendente por pedidoId
+        },
+        {
+          productoId: 'asc',   // Orden ascendente por productoId
+        },
+      ],
+    });
+    response.json(productos);
+
+};
+
+module.exports.getProPedbyPedido = async (request, response, next) => {
+  console.log(request.params.id);
+  let id = parseInt(request.params.id);
+  const productos = await prisma.pedidos_Productos.findMany({
+    where: {
+      pedidoId:id
+    },
+    include:{
+      productos:{
+        include:{
+          usuarios:true,
+        }
+      },
+    },
+    orderBy: [
+      {
+        pedidoId: 'asc',    // Orden ascendente por pedidoId
+      },
+      {
+        productoId: 'asc',   // Orden ascendente por productoId
+      },
+    ],
+  });
+  console.log(productos);
+  response.json(productos);
+
+};
+
+//Actualizar un usuario
+module.exports.updateEstadoProdu = async (request, response, next) => {
+  let produPed = request.body;
+  console.log(produPed)
+
+  
+  const newproduPed = await prisma.pedidos_Productos.update({
+      where: {
+        pedidoId_productoId: {
+          pedidoId: produPed.pedidoId,
+          productoId: produPed.productoId,
+        },
+      },
+      data: {
+        estadoPedidoId:2
+      },
+      include:{
+        productos:{
+          include:{
+            usuarios:true,
+          }
+        },
+        pedidos:true,
+      },
+  });
+  console.log(newproduPed);
+  response.json(newproduPed);
+};
+module.exports.updateEstadoPed = async (request, response, next) => {
+  let pedido = request.body;
+  console.log(pedido.estadopedido)
+
+  
+  const newPedido = await prisma.pedidos.update({
+      where: {
+        idPedido: pedido.idPedido,
+      },
+      data: {
+        estadoPedidoId:pedido.estadoPedidoId
+      },
+      
+  });
+  console.log(newPedido);
+  response.json(newPedido);
+};
+
+
 //Obtener por Id
 module.exports.getById = async (request, response, next) => {
   let id = parseInt(request.params.id);
@@ -132,24 +255,39 @@ module.exports.getByProductosxIdUsuario = async (request, response, next) => {
 
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
-  let infoOrden=request.body;
+  let infoOrden = request.body;
+
   const newVideoJuego = await prisma.pedidos.create({
-    data:{
-    fechaCompra:infoOrden.fechaOrden,
-    usuarioId:infoOrden.otros.usuarioId,
-    estadoPedidoId:1,
-    direccionId:infoOrden.otros.direccion,
-    pagoId:infoOrden.otros.metodo,
-    total:infoOrden.total,
-    productos:{
-      createMany:{
-        //[{ivedojuegoId,cantidad}]
-        data: infoOrden.productos
+    data: {
+      fechaCompra: infoOrden.fechaOrden,
+      usuarioId: infoOrden.otros.usuarioId,
+      estadoPedidoId: 1,
+      direccionId: infoOrden.otros.direccion,
+      pagoId: infoOrden.otros.metodo,
+      total: infoOrden.total,
+      productos: {
+        createMany: {
+          data: infoOrden.productos
+        }
       }
     }
-    }
-  })
+  });
+
+  // Update the product quantities based on infoOrden.productos
+  for (const producto of infoOrden.productos) {
+    await prisma.productos.update({
+      where: { idProducto: producto.productoId }, // Assuming "productoId" is the unique identifier for the product
+      data: {
+        cantidad: {
+          decrement: producto.cantidad // Subtract the ordered quantity from the current quantity
+        }
+      }
+    });
+  }
+
   response.json(newVideoJuego);
 };
+
+
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {};

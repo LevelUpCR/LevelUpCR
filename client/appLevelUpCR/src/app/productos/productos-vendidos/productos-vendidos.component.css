@@ -1,7 +1,6 @@
 .full-width-table {
     width: 100%;
   }
-
   .headerh1{
     font-family: 'Press Start 2P', cursive;
     font-size: large;
@@ -22,5 +21,6 @@
   .custom-paginator {
     background-color: #c9c9c9c5; /* Cambia el color de fondo según tus necesidades */
   }
-
-  
+  .body{
+    margin-bottom: 20px;
+  }

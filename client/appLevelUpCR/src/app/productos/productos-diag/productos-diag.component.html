@@ -120,7 +120,7 @@
         <div *ngIf="datos.preguntas && datos.preguntas.length > 0">
           <div *ngFor="let pregunta of datos.preguntas" class="message">
             <div class="textpregunta">{{ pregunta.pregunta }}</div>
-            <div class="textrespuesta" *ngIf="isVendedor()">
+            <div class="textrespuesta" *ngIf="responderProductos()">
               <form [formGroup]="respuestaForm">
                 <div class="row">
                   <div class="col-lg-10 col-md-9">

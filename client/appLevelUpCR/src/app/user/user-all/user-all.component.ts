@@ -7,6 +7,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GenericService } from 'src/app/share/generic.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UserDiagComponent } from '../user-diag/user-diag.component';
+import { NotificacionService, TipoMessage } from 'src/app/share/notification.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class UserAllComponent implements AfterViewInit {
   respUsuario: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
   usuarioInfo: any;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   //@ViewChild(MatTable) table!: MatTable<ProductosAllItem>;
@@ -31,6 +33,7 @@ export class UserAllComponent implements AfterViewInit {
     'telefono',
     'correo',
     'role',
+    'estado',
     'acciones',
   ];
 
@@ -39,6 +42,7 @@ export class UserAllComponent implements AfterViewInit {
     private route: ActivatedRoute,
     private gService: GenericService,
     private dialog: MatDialog,
+    private notificacion:NotificacionService,
     private activeRouter: ActivatedRoute,
   ) {}
 
@@ -82,7 +86,7 @@ export class UserAllComponent implements AfterViewInit {
   deshabilitarUsuario(id: any) {
     //Accion API create enviando toda la informacion del formulario
     this.gService
-      .disable('usuarios/disable', id)
+      .update(`usuarios/disable`, {id: id})
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         //Obtener respuesta
@@ -90,6 +94,12 @@ export class UserAllComponent implements AfterViewInit {
         this.router.navigate(['/usuarios/all'], {
           queryParams: { update: 'true' },
         });
+        if (data.habilitado) {
+          //Notificar al usuario
+          this.notificacion.mensaje('Usuarios', 'El usuario '+data.nombre+' fue habilitado.', TipoMessage.success)
+          } else {
+            this.notificacion.mensaje('Usuarios', 'El usuario '+data.nombre+' fue deshabilitado.', TipoMessage.success)
+          }
       });
   }
 

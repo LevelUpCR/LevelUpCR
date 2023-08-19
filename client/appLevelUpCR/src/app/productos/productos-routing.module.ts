@@ -7,6 +7,7 @@ import { ProductosDetailComponent } from './productos-detail/productos-detail.co
 import { ProductosVendedorComponent } from './productos-vendedor/productos-vendedor.component';
 import { ProductosCreateImageComponent } from './productos-create-image/productos-create-image.component';
 import { AuthGuard } from '../share/guards/auth.guard';
+import { ProductosVendidosComponent } from './productos-vendidos/productos-vendidos.component';
 
 //locahost:3000/videojuego/all
 const routes: Routes = [
@@ -20,13 +21,18 @@ const routes: Routes = [
     path: 'productos/all',
     component: ProductosAllComponent,
     canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles: ['ADMIN'],
+    },
   },
   {
     path: 'productos/vendedor/:id',
     component: ProductosVendedorComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['ADMIN'], //roles:['ADMIN','USER'] Iguales al enum
+      habilitado: [true],
+      roles: ['Vendedor'], //roles:['ADMIN','USER'] Iguales al enum
     },
   },
   {
@@ -42,11 +48,28 @@ const routes: Routes = [
     path: 'productos/create',
     component: ProductosFormComponent,
     canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles:['Vendedor']
+    },
+  },
+  {
+    path: 'productos/vendidos',
+    component: ProductosVendidosComponent,
+    canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles:['Vendedor']
+    },
   },
   {
     path: 'productos/createFoto',
     component: ProductosCreateImageComponent,
     canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles:['Vendedor']
+    },
   },
 
   {
@@ -59,6 +82,10 @@ const routes: Routes = [
     path: 'productos/update/:id',
     component: ProductosFormComponent,
     canActivate: [AuthGuard],
+    data: {
+      habilitado: [true],
+      roles:['Vendedor']
+    },
   },
 ];
 
