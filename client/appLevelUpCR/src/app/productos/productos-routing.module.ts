@@ -15,9 +15,6 @@ const routes: Routes = [
     path: 'productos',
     component: ProductosIndexComponent,
     canActivate: [AuthGuard],
-    data: {
-      habilitado: [true],
-    },
   },
 
   {
@@ -25,7 +22,6 @@ const routes: Routes = [
     component: ProductosAllComponent,
     canActivate: [AuthGuard],
     data: {
-      habilitado: [true],
       roles: ['ADMIN'],
     },
   },
@@ -34,7 +30,6 @@ const routes: Routes = [
     component: ProductosVendedorComponent,
     canActivate: [AuthGuard],
     data: {
-      habilitado: [true],
       roles: ['Vendedor'], //roles:['ADMIN','USER'] Iguales al enum
     },
   },
@@ -43,7 +38,6 @@ const routes: Routes = [
     component: ProductosVendedorComponent,
     canActivate: [AuthGuard],
     data: {
-      habilitado: [true],
       roles: ['Vendedor'], //roles:['ADMIN','USER'] Iguales al enum
     },
   },
@@ -53,7 +47,6 @@ const routes: Routes = [
     component: ProductosFormComponent,
     canActivate: [AuthGuard],
     data: {
-      habilitado: [true],
       roles:['Vendedor']
     },
   },
@@ -62,7 +55,6 @@ const routes: Routes = [
     component: ProductosVendidosComponent,
     canActivate: [AuthGuard],
     data: {
-      habilitado: [true],
       roles:['Vendedor']
     },
   },
@@ -71,7 +63,6 @@ const routes: Routes = [
     component: ProductosCreateImageComponent,
     canActivate: [AuthGuard],
     data: {
-      habilitado: [true],
       roles:['Vendedor']
     },
   },
@@ -80,9 +71,6 @@ const routes: Routes = [
     path: 'productos/:id',
     component: ProductosDetailComponent,
     canActivate: [AuthGuard],
-    data: {
-      habilitado: [true],
-    },
   },
 
   {
@@ -90,7 +78,6 @@ const routes: Routes = [
     component: ProductosFormComponent,
     canActivate: [AuthGuard],
     data: {
-      habilitado: [true],
       roles:['Vendedor']
     },
   },

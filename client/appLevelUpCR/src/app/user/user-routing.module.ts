@@ -22,7 +22,6 @@ const routes: Routes = [
     component: UserAllComponent,
     canActivate:[AuthGuard],
     data:{
-      habilitado: [true],
       roles:['ADMIN']
     }
   },
@@ -30,20 +29,17 @@ const routes: Routes = [
     component: UserDisabledComponent,
     canActivate:[AuthGuard],
     data:{
-      habilitado: [true],
       roles:['ADMIN']
     }
   },
   {path:'usuarios/create', component: UserFormComponent,
   canActivate:[AuthGuard],
   data:{
-    habilitado: [true],
     roles:['ADMIN']
   }},
   {path:'usuarios/update/:id', component: UserFormComponent,
   canActivate:[AuthGuard],
   data:{
-    habilitado: [true],
     roles:['ADMIN']
   }
 },
