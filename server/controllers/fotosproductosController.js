@@ -16,6 +16,19 @@ module.exports.get = async (request, response, next) => {
     response.json(fotosproductos);
 };
 
+module.exports.getById = async (request, response, next) => {
+  let id=parseInt(request.params.id)
+  const fotosproductos = await prisma.fotos_Productos.findMany({
+    where:{
+      idProducto:id
+    },
+      orderBy: {
+        idFoto: 'asc'
+      }
+  });
+  response.json(fotosproductos);
+};
+
 
 
 

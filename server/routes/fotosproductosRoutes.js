@@ -59,7 +59,7 @@ const upload = multer({ storage });
 
 
 router.get("/",fotosproductosController.get);
-
+router.get("/:id",fotosproductosController.getById);
 router.post('/',fotosproductosController.createFoto);
 
 
