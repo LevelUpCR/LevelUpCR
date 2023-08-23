@@ -1,22 +1,35 @@
 mat-card {
-background-color: #00013600;
+  background-color: #00013600;
   margin: 2em auto;
   text-align: center;
   border-radius: 20px;
 }
-.carrusel{
+.carrusel {
   max-width: 450px;
-  
 }
-.margincard{
+.margincard {
   margin-top: 2em;
 }
-.tiles{
-background-color: #00013671;
-color: #ffffff;
-margin: 1%;
-max-width: 17vw;
-height: 30vh;
+.tiles {
+  background-color: #00013671;
+  color: #ffffff;
+  margin: 1%;
+  max-width: 17vw;
+  height: 30vh;
+}
+.tiles2 {
+  background-color: #00013671;
+  color: #ffffff;
+  margin: 1%;
+  max-width: 56%;
+  height: 30vh;
+}
+.tiles3 {
+  background-color: #00013671;
+  color: #ffffff;
+  margin: 1%;
+  max-width: 92%;
+  height: 30vh;
 }
 .tiles:hover {
   color: #b80000;
@@ -31,23 +44,134 @@ height: 30vh;
   width: 100%; /* Ancho del carrusel */
 }
 
-.headerCardcolor{
+.headerCardcolor {
   background-color: #b8000071;
   color: #ffffff;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 25px;
   padding-bottom: 2%;
-  border-radius:  20px 20px 0  0 ;
-}
-.footerCardcolor{
-  background-color: #00013671;
-  color: #ffffff;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
-  border-radius:  0  0 20px 20px;
+  border-radius: 20px 20px 0 0;
 }
 
-.formatimage img {
-  width: 90%;
-  max-width: 100%;
+.headerCardcolor2 {
+  background-color: #b8000071 !important;
+  color: #ffffff !important;
+  font-family: "Press Start 2P", cursive !important;
+  font-size: 25px !important;
+  padding: 2% 0 !important;
+  border-radius: 20px 0 0 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1.5 !important;
+  text-align: center;
+}
+
+
+.headerCardcolor2 {
+  background-color: #b8000071 !important;
+  color: #ffffff !important;
+  font-family: "Press Start 2P", cursive !important;
+  font-size: 17px !important;
+  padding: 2% 0 !important;
+  border-radius: 20px 0 0 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1.5 !important;
+  text-align: center;
+}
+.footerCardcolor {
+  background-color: #00013671;
+  color: #ffffff;
+  font-family: "Press Start 2P", cursive;
+  font-size: 12px;
+  border-radius: 0 0 20px 20px;
+}
+
+.marginTile{
+  max-width: 95%;
+}
+.backChart{
+  background-color: #000000c4;
+  border-radius: 0 20px 20px 0;
+}
+
+.chart {
+  display: block !important;
+  margin: 5px auto !important;
+  box-sizing: border-box!important;
+  height: 281px!important;
+  width: 562px!important;
+
+
+}
+
+.datoPrincipal{
+  color: #ffffff !important;
+  font-family: "Press Start 2P", cursive !important;
+  font-size: 50px !important;
+  display: flex !important;
+  align-items: bottom !important;
+  justify-content: right !important;
+  line-height: 1.5 !important;
+  text-align: center;
+}
+
+.datoPrincipal2{
+  color: #ffffff !important;
+  font-family: "Press Start 2P", cursive !important;
+  font-size: 25px !important;
+  display: flex !important;
+  align-items: bottom !important;
+  justify-content: center !important;
+  line-height: 1.5 !important;
+  text-align: center;
+}
+
+.smallTitle{
+  color: #ffffff !important;
+  font-family: "Press Start 2P", cursive !important;
+  font-size: 15px !important;
+  
+  display: flex !important;
+  align-items: bottom !important;
+  justify-content: right !important;
+  line-height: 1.5 !important;
+  text-align: left;
+}
+
+.smallTitle2{
+  color: #ffffff !important;
+  font-family: "Press Start 2P", cursive !important;
+  font-size: 15px !important;
+  
+  display: flex !important;
+  align-items: bottom !important;
+  justify-content: left !important;
+  line-height: 1.5 !important;
+  text-align: left;
+}
+
+.logo-image {
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textfotos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  text-align: center;
+  padding: 2%;
+  background-color: #75000096;
+  border-radius: 20px;
+  height: 250px;
+  width: 250px;
+  margin-bottom: 10px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 13px;
 }

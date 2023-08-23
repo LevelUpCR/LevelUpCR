@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient,Prisma } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -20,6 +20,31 @@ module.exports.get = async (request, response, next) => {
   });
   response.json(productos);
 };
+
+module.exports.getGetPedidosHoy = async (request, response, next) => {
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0); // Set UTC time to the start of the day
+  const tomorrow = new Date(today);
+  tomorrow.setUTCDate(tomorrow.getUTCDate() + 1); // Get the start of the next UTC day
+
+  const pedidosHoy = await prisma.pedidos.findMany({
+    where: {
+      fechaCompra: {
+        gte: today.toISOString(),
+        lt: tomorrow.toISOString(),
+      },
+    },
+  });
+
+  response.json(pedidosHoy);
+};
+
+
+
+
+
+
+
 
 module.exports.getProductosPedidos = async (request, response, next) => {
   const productos = await prisma.pedidos_Productos.findMany({
@@ -286,6 +311,40 @@ module.exports.create = async (request, response, next) => {
   }
 
   response.json(newVideoJuego);
+};
+
+module.exports.getVentaProductoMes = async (request, response, next) => {
+  let mes = parseInt(request.params.mes); 
+
+  
+ const result=await prisma.$queryRaw(
+  Prisma.sql`Select pro.nombre, SUM(pp.cantidad) as suma FROM pedidos ped, pedidos_productos pp, productos pro WHERE ped.idPedido=pp.pedidoId and pp.productoId=pro.idProducto and month(ped.fechaCompra) = ${mes} group by pp.productoId ORDER BY suma DESC limit 5`
+  )
+  console.log(result)
+  response.json(result)
+};
+
+module.exports.getMejorCliente = async (request, response, next) => {
+  let usuarioId = parseInt(request.params.id); 
+
+  
+ const result=await prisma.$queryRaw(
+  Prisma.sql`SELECT usu.nombre, SUM(pp.cantidad) AS suma FROM usuarios usu JOIN pedidos ped ON usu.idUsuario = ped.usuarioId JOIN pedidos_productos pp ON ped.idPedido = pp.pedidoId JOIN productos pro ON pp.productoId = pro.idProducto WHERE pro.usuarioId = ${usuarioId} GROUP BY usu.nombre ORDER BY suma DESC Limit 1;`
+  )
+  console.log(result)
+  response.json(result)
+};
+
+
+module.exports.getMasVendido = async (request, response, next) => {
+  let usuarioId = parseInt(request.params.id); 
+
+  
+ const result=await prisma.$queryRaw(
+  Prisma.sql`Select pro.*, SUM(pp.cantidad) as suma FROM pedidos ped, pedidos_productos pp, productos pro WHERE ped.idPedido=pp.pedidoId and pp.productoId=pro.idProducto and pro.usuarioId = ${usuarioId} group by pp.productoId ORDER BY suma DESC limit 1;`
+  )
+  console.log(result)
+  response.json(result)
 };
 
 

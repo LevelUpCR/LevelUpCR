@@ -1,11 +1,12 @@
 <div class="grid-container">
   <div class="headerh1">Productos</div>
   <mat-card class="border2">
-   
     <mat-card-content>
       <div class="row">
         <div class="col">
-          <mat-card-header><h1 class="headerh3">Buscar por nombre</h1></mat-card-header>
+          <mat-card-header
+            ><h1 class="headerh3">Buscar por nombre</h1></mat-card-header
+          >
           <mat-form-field class="full-width" [color]="'warn'">
             <mat-label>Nombre del producto</mat-label>
             <input matInput #texto (keyup)="filterProductos(texto.value)" />
@@ -20,32 +21,39 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-card-header><h1 class="headerh3">Buscar por categoria</h1></mat-card-header>
+          <mat-card-header
+            ><h1 class="headerh3">Buscar por categoria</h1></mat-card-header
+          >
           <mat-form-field class="full-width" [color]="'warn'">
-            <mat-select placeholder="Categoría del Producto" [(ngModel)]="selectedCategoryId" (selectionChange)="filterCategoria($event.value)">
-              <mat-option *ngFor="let c of categoriasList" [value]="c.idCategoria">
+            <mat-select
+              placeholder="Categoría del Producto"
+              [(ngModel)]="selectedCategoryId"
+              (selectionChange)="filterCategoria($event.value)"
+            >
+              <mat-option
+                *ngFor="let c of categoriasList"
+                [value]="c.idCategoria"
+              >
                 {{ c.categoria }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-
         </div>
 
         <div class="col">
           <mat-card-header><h1 class="headerh3">Ordenar</h1></mat-card-header>
           <mat-form-field class="full-width" [color]="'warn'">
-            <mat-select placeholder="Ordenar Productos por"  (selectionChange)="filterOrdenes($event.value)">
+            <mat-select
+              placeholder="Ordenar Productos por"
+              (selectionChange)="filterOrdenes($event.value)"
+            >
               <mat-option *ngFor="let c of ordenesList" [value]="c.idOrden">
                 {{ c.Orden }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-
         </div>
       </div>
-      
-
-      
     </mat-card-content>
   </mat-card>
   <mat-grid-list [cols]="2" rowHeight="25em" gutterSize="10px">
@@ -85,7 +93,7 @@
                     <mat-icon class="mat-18">info</mat-icon>
                   </button>
                   <button
-                  *ngIf="isCliente()"
+                    *ngIf="isCliente()"
                     mat-mini-fab
                     class="action-button"
                     color=""

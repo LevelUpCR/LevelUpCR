@@ -1,9 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
-const express = require('express');
-
+const { PrismaClient,Prisma } = require("@prisma/client");
 const prisma = new PrismaClient();
-const app = express();
-
 //Obtener listado
 module.exports.get = async (request, response, next) => {
   const productos = await prisma.productos.findMany({
@@ -19,7 +15,6 @@ module.exports.get = async (request, response, next) => {
   });
   response.json(productos);
 };
-
 // Obtener por Id
 module.exports.getById = async (request, response, next) => {
   let id = parseInt(request.params.id);
@@ -70,7 +65,6 @@ module.exports.create = async (request, response, next) => {
   });
   response.json(newProducto);
 };
-
 //Actualizar un usuario
 module.exports.update = async (request, response, next) => {
   let producto = request.body;
@@ -109,3 +103,4 @@ module.exports.update = async (request, response, next) => {
   });
   response.json(newProducto);
 };
+
