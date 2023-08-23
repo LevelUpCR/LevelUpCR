@@ -1,0 +1,41 @@
+.full-width {
+    width: 100%;
+    
+  }
+  .headerh1{
+    font-family: 'Press Start 2P', cursive;
+    font-size: large;
+    margin: 1.5rem;
+    
+    background-color: #b80000;
+    color: #ffffff;
+    padding: 0.3rem 1rem;
+    border-radius: 40px;
+  }
+  .shipping-card {
+    min-width: 120px;
+    margin: 20px auto;
+    background-color: #ffffff49;
+  }
+  
+  .mat-radio-button {
+    display: block;
+    margin: 5px 0;
+  }
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .col {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .col:last-child {
+    margin-right: 0;
+  }
+
+
+  

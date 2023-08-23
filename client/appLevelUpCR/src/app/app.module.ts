@@ -23,6 +23,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { FotosProductosModule } from './fotos-productos/fotos-productos.module';
 import { HttpErrorInterceptorService } from './share/http-error-interceptor.service';
+import { EvaluacionesModule } from "./evaluaciones/evaluaciones.module";
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { HttpErrorInterceptorService } from './share/http-error-interceptor.serv
     LevelUpCRModule,
     ProductosModule,
     PedidosModule,
+    EvaluacionesModule,
     AppRoutingModule,
     MatToolbarModule,
     MatButtonModule,

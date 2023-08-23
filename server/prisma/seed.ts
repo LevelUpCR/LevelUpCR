@@ -518,7 +518,7 @@ async function main() {
     data: {
       calificacion: 5,
       comentario: "Excelente.",
-      usuarioId: 3,
+      usuarioId: 1,
       pedidoId: 2,
     },
   });
@@ -536,7 +536,7 @@ async function main() {
     data: {
       calificacion: 5,
       comentario: "Excelente servicio al cliente",
-      usuarioId: 2,
+      usuarioId: 3,
       pedidoId: 3,
     },
   });
