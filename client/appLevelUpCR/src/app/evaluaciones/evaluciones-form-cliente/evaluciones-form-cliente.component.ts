@@ -12,6 +12,14 @@ import { NotificacionService, TipoMessage } from 'src/app/share/notification.ser
   styleUrls: ['./evaluciones-form-cliente.component.css']
 })
 export class EvalucionesFormClienteComponent {
+  calificacion= [
+    { idCalificacion: 1, calificacion:  '1' },
+    { idCalificacion: 2, calificacion:  '2' },
+    { idCalificacion: 3, calificacion:  '3' },
+    { idCalificacion: 4, calificacion:  '4' },
+    { idCalificacion: 5, calificacion:  '5' },
+    // ...
+  ];
   destroy$: Subject<boolean> = new Subject<boolean>();
   //Titulo
   titleForm: string = 'Crear';
@@ -75,14 +83,6 @@ export class EvalucionesFormClienteComponent {
               id: this.evaluacionInfo.idEvaluacion,
               calificacion: this.evaluacionInfo.calificacion,
               comentario: this.evaluacionInfo.comentario,
-              /* id: this.productoInfo.idProducto,
-              nombre: this.productoInfo.nombre,
-              descripcion: this.productoInfo.descripcion,
-              precio: this.productoInfo.precio,
-              cantidad: this.productoInfo.cantidad,
-              usuario: this.productoInfo.usuarioId,
-              categoria: this.productoInfo.categoriaId,
-              estado: this.productoInfo.estadoProductoId, */
             });
           });
       }
@@ -132,7 +132,7 @@ export class EvalucionesFormClienteComponent {
       return;
     }
     this.gService
-      .create('productos', this.evaluacionForm.value)
+      .create('evaluacion', this.evaluacionForm.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         //Obtener respuesta

@@ -22,6 +22,7 @@ import { EvalucionesClienteComponent } from './evaluciones-cliente/evaluciones-c
 import { EvalucionesVendedorComponent } from './evaluciones-vendedor/evaluciones-vendedor.component';
 import { EvalucionesFormVendedorComponent } from './evaluciones-form-vendedor/evaluciones-form-vendedor.component';
 import { EvalucionesFormClienteComponent } from './evaluciones-form-cliente/evaluciones-form-cliente.component';
+import { EvalucionesDiagClienteComponent } from './evaluciones-diag-cliente/evaluciones-diag-cliente.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { EvalucionesFormClienteComponent } from './evaluciones-form-cliente/eval
     EvalucionesClienteComponent,
     EvalucionesVendedorComponent,
     EvalucionesFormVendedorComponent,
-    EvalucionesFormClienteComponent
+    EvalucionesFormClienteComponent,
+    EvalucionesDiagClienteComponent
   ],
   imports: [
     CommonModule,
