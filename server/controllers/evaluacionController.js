@@ -130,6 +130,17 @@ module.exports.getByIdCalificador = async (request, response, next) => {
   response.json(evaluacion);
 };
 
+module.exports.getByIdCalificado = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  const evaluacion = await prisma.evaluacion.findMany({
+    where: {
+      calificadoId:id
+    },
+  });
+
+  response.json(evaluacion);
+};
+
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
   let evaluacion = request.body;

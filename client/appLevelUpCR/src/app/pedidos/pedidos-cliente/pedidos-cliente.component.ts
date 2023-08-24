@@ -44,7 +44,7 @@ export class PedidosClienteComponent implements AfterViewInit {
   listaPedidos() {
     //localhost:3000/pedidos/cliente/:id
     const clienteId = this.currentUser.user.idUsuario;
-    //const clienteId = this.currentUser.user.idUsuario;
+    //const clienteId = 1;
     this.gService
       .list(`pedidos/cliente/${clienteId}`)
       .pipe(takeUntil(this.destroy$))
