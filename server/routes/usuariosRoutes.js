@@ -2,16 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const usuariosController = require("../controllers/usuariosController");
+const auth=require("../middleware/auth")
 
-router.get("/",usuariosController.get);
-
+router.get("/",auth.grantRole(['ADMIN']),usuariosController.get);
 
 router.post("/",usuariosController.register);
-router.get("/:id",usuariosController.getById);
-router.put("/:id",usuariosController.update);
-router.put("/disable/:id",usuariosController.disabled);
 
+router.get("/:id",auth.grantRole(['ADMIN']),usuariosController.getById);
 
+router.put("/:id",auth.grantRole(['ADMIN']),usuariosController.update);
+
+router.put("/disable/:id",auth.grantRole(['ADMIN']),usuariosController.disabled);
 
 router.post("/login", usuariosController.login);
 
