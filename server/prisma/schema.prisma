@@ -28,6 +28,7 @@ model Usuarios {
   pedidos             Pedidos[]
   evaluacion          Evaluacion[]
   preguntas           Preguntas[]
+  evaluacion2 Evaluacion[] @relation("UsuariosRel2") // Segunda relación con Evaluacion
 }
 
 model Role {
@@ -181,17 +182,21 @@ model Pedidos_Productos {
   estadoPedido        Estado_Pedido               @relation(fields: [estadoPedidoId],references: [idEstadoPedido])
 }
 
-model Evaluacion  {
-  idEvaluacion        Int                         @id @default(autoincrement())
-  calificacion        Decimal?
-  comentario          String?
+model Evaluacion {
+  idEvaluacion  Int       @id @default(autoincrement())
+  calificacion  Decimal?
+  comentario    String?
   
-  usuarioId           Int
-  pedidoId            Int
+  calificadorId     Int
+  calificadoId    Int     // Segunda relación con Usuarios
+  
+  pedidoId      Int
 
-  usuarios            Usuarios                    @relation(fields: [usuarioId],references: [idUsuario])
-  pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
+  calificador      Usuarios  @relation(fields: [calificadorId], references: [idUsuario])
+  calificado     Usuarios  @relation("UsuariosRel2", fields: [calificadoId], references: [idUsuario]) // Segunda relación
+  pedidos       Pedidos   @relation(fields: [pedidoId], references: [idPedido])
 }
+
 
 
 // enum Role {

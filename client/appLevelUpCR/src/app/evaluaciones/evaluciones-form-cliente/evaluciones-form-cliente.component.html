@@ -14,12 +14,11 @@
     <mat-card-content>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" [color]="'warn'">
+          <mat-form-field class="full-width" [color]="'warn'" >
             <mat-label>Calificación</mat-label>
-            <mat-select>
-              <mat-option>None</mat-option>
+            <mat-select formControlName="calificacion">
               <mat-option *ngFor="let c of calificacion" [value]="c.idCalificacion">{{
-                c.calificacion
+                c.idCalificacion
               }}</mat-option>
             </mat-select>
             <mat-error *ngIf="errorHandling('calificacion', 'required')">

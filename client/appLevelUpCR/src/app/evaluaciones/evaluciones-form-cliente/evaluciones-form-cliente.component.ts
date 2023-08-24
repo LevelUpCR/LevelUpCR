@@ -92,7 +92,9 @@ export class EvalucionesFormClienteComponent {
   formularioReactive() {
     //[null, Validators.required]
     this.evaluacionForm = this.fb.group({
-      id: [null, null],
+      calificadorId: [null, null],
+      calificadoId: [null, null],
+      pedidoId: [null, null],
       calificacion: [
         null,
         Validators.compose([Validators.required]),
@@ -116,9 +118,9 @@ export class EvalucionesFormClienteComponent {
     //Obtener id Generos del Formulario y Crear arreglo con {id: value}
     //let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x}))
 
-
+    console.log(this.currentUser?.user.idUsuario)
     //Asignar valor al formulario
-    this.evaluacionForm.patchValue({ usuario: this.currentUser.user.idUsuario });
+    this.evaluacionForm.patchValue({ id: this.currentUser?.user.idUsuario });
 
     console.log(this.evaluacionForm.value);
     //Accion API create enviando toda la informacion del formulario

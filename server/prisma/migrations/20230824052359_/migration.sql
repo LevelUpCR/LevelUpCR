@@ -151,7 +151,8 @@ CREATE TABLE `Evaluacion` (
     `idEvaluacion` INTEGER NOT NULL AUTO_INCREMENT,
     `calificacion` DECIMAL(65, 30) NULL,
     `comentario` VARCHAR(191) NULL,
-    `usuarioId` INTEGER NOT NULL,
+    `calificadorId` INTEGER NOT NULL,
+    `calificadoId` INTEGER NOT NULL,
     `pedidoId` INTEGER NOT NULL,
 
     PRIMARY KEY (`idEvaluacion`)
@@ -218,7 +219,10 @@ ALTER TABLE `Pedidos_Productos` ADD CONSTRAINT `Pedidos_Productos_productoId_fke
 ALTER TABLE `Pedidos_Productos` ADD CONSTRAINT `Pedidos_Productos_estadoPedidoId_fkey` FOREIGN KEY (`estadoPedidoId`) REFERENCES `Estado_Pedido`(`idEstadoPedido`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_calificadorId_fkey` FOREIGN KEY (`calificadorId`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_calificadoId_fkey` FOREIGN KEY (`calificadoId`) REFERENCES `Usuarios`(`idUsuario`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Evaluacion` ADD CONSTRAINT `Evaluacion_pedidoId_fkey` FOREIGN KEY (`pedidoId`) REFERENCES `Pedidos`(`idPedido`) ON DELETE RESTRICT ON UPDATE CASCADE;

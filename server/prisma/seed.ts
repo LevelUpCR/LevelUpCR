@@ -512,34 +512,34 @@ async function main() {
       total: 479.99,
     },
   });
-  //Evaluacion
-  //1
-  await prisma.evaluacion.create({
-    data: {
-      calificacion: 5,
-      comentario: "Excelente.",
-      usuarioId: 1,
-      pedidoId: 2,
-    },
-  });
-  //2
-  await prisma.evaluacion.create({
-    data: {
-      calificacion: 4,
-      comentario: "No todos los productos estaban disponibles.",
-      usuarioId: 1,
-      pedidoId: 1,
-    },
-  });
-  //3
-  await prisma.evaluacion.create({
-    data: {
-      calificacion: 5,
-      comentario: "Excelente servicio al cliente",
-      usuarioId: 3,
-      pedidoId: 3,
-    },
-  });
+  // //Evaluacion
+  // //1
+  // await prisma.evaluacion.create({
+  //   data: {
+  //     calificacion: 5,
+  //     comentario: "Excelente.",
+  //     usuarioId: 1,
+  //     pedidoId: 2,
+  //   },
+  // });
+  // //2
+  // await prisma.evaluacion.create({
+  //   data: {
+  //     calificacion: 4,
+  //     comentario: "No todos los productos estaban disponibles.",
+  //     usuarioId: 1,
+  //     pedidoId: 1,
+  //   },
+  // });
+  // //3
+  // await prisma.evaluacion.create({
+  //   data: {
+  //     calificacion: 5,
+  //     comentario: "Excelente servicio al cliente",
+  //     usuarioId: 3,
+  //     pedidoId: 3,
+  //   },
+  // });
   //Pedidos_Productos
   //2
   await prisma.pedidos_Productos.create({
