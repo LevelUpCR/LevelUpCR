@@ -38,4 +38,82 @@
   }
 
 
+  .dashboard-card {
+    margin: 2%;
+  }
+  
+  .principal{
+    background-color: #000136;
+  }
+    
+  .dashboard-card-content {
+    text-align: left;
+    line-height: 1.5em;
+  }
+  
+  .headerh1{
+    font-family: 'Press Start 2P', cursive;
+    margin: 1.5rem;
+    text-align: center;
+    background-color: #b80000;
+    border-radius: 20px;
+    flex-grow: 1;
+    line-height: 2.5;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+  
+  }
+  
+  .close-button {
+    margin-left: 15px;
+  }
+  
+  .bodyDiag{
+    background-color: #888888;
+    color: #ffffff;
+    margin: 0 10px;
+    border-radius: 10px;
+  }
+  
+  .logo-image {
+    max-height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+  }
+  .align-right {
+    margin-top: 3%;
+    text-align: right;
+  }
+  .titulodiag{
+    color: #ffffff;
+    background-color: #b80000;
+    padding: 0 5%;
+    border-radius: 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 13px;
+    margin-top: 3%;
+  }
+  
+  .custom-table {
+    background-color: #f0f0f000; /* Cambia el color de fondo según tus necesidades */
+    /*border-radius: 0 0  20px 20px ;*/
+  }
+  .thtabla{
+    background-color: #000163c0;
+    color:#ffffff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+  }
+  .tdtabla{
+    background-color: #ffffff4b;
+    color:#000000;
+  }
+  
+
+
   

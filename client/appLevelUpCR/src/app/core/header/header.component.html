@@ -66,6 +66,15 @@
       [routerLink]="['/productos/vendidos']"
       routerLinkActive="mat-raised-button"
     >
+    <mat-icon>check</mat-icon>Entregar Pedidos
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isVendedor()">
+    <button
+      mat-menu-item
+      [routerLink]="['/pedidos/vendedor']"
+      routerLinkActive="mat-raised-button"
+    >
     <mat-icon>shopping_basket</mat-icon>Pedidos
     </button>
   </ng-container>

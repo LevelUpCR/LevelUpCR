@@ -8,7 +8,7 @@ router.get("/",auth.grantRole(['ADMIN']),usuariosController.get);
 
 router.post("/",usuariosController.register);
 
-router.get("/:id",auth.grantRole(['ADMIN']),usuariosController.getById);
+router.get("/:id",auth.grantRole(['ADMIN','Cliente','Vendedor']),usuariosController.getById);
 
 router.put("/:id",auth.grantRole(['ADMIN']),usuariosController.update);
 
