@@ -29,12 +29,24 @@ export class InicioComponent implements OnInit,AfterViewInit {
   datos: any;
   //Canvas para el grafico
   canvas: any;
+  canvas2: any;
+  canvas3: any;
+  canvas4: any;
   //Contexto del Canvas
   ctx: any;
+  ctx2: any;
+  ctx3: any;
+  ctx4: any;
   //Elemento html del Canvas
   @ViewChild('graficoCanvas') graficoCanvas!: { nativeElement: any };
+  @ViewChild('graficoTop5') graficoTop5!: { nativeElement: any };
+  @ViewChild('graficoTop3') graficoTop3!: { nativeElement: any };
+  @ViewChild('graficoCant') graficoCant!: { nativeElement: any };
   //Establecer gráfico
   grafico: any;
+  grafico2: any;
+  grafico3: any;
+  grafico4: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private fb: FormBuilder,
@@ -49,21 +61,30 @@ export class InicioComponent implements OnInit,AfterViewInit {
   }
   ngOnInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    if (this.isVendedor) {
-      this.inicioGrafico2();
+    
+    if (this.isVendedor()) {
+      
       this.mejorCliente();
       this.masVendido();
 
     }
-    if (this.isAdmin) {
+    if (this.isAdmin()) {
       this.cantComprasHoy();
       this.inicioGrafico();
+      this.iniciarTop5();
+      this.iniciarTop3();
     }
     
   }
 
   ngAfterViewInit(): void {
-    this.fotosMasVendido(this.masVendidoSelected[0].idProducto)
+    if (this.isVendedor()) {
+      this.inicioGrafico2();
+      if(this.masVendidoSelected.length>0){
+        this.fotosMasVendido(this.masVendidoSelected[0].idProducto)
+      }
+    
+  }
   }
   fotosMasVendido(id:number){
     console.log(id)
@@ -80,7 +101,7 @@ export class InicioComponent implements OnInit,AfterViewInit {
     this.gService
     .get('pedidos/masVendido',idVendedor)
     .pipe(takeUntil(this.destroy$))
-    .subscribe((data:any)=>{
+    .subscribe((data?:any)=>{
       this.masVendidoSelected=data;
       console.log(this.masVendidoSelected[0])
       
@@ -103,6 +124,7 @@ export class InicioComponent implements OnInit,AfterViewInit {
     .list('pedidos/cantHoy')
     .pipe(takeUntil(this.destroy$))
     .subscribe((data:any)=>{
+      console.log(data.length)
       this.cantCompras=data.length;
     })
   }
@@ -115,14 +137,36 @@ export class InicioComponent implements OnInit,AfterViewInit {
       this.graficoBrowser();
     })
   }
-
   inicioGrafico2(){
     this.gService
-    .get('pedidos/vProducto',this.numeroMes)
+    .get('evaluacion/countCalificaciones',this.currentUser?.user.idUsuario)
     .pipe(takeUntil(this.destroy$))
     .subscribe((data:any)=>{
       this.datos=data;
-      this.graficoBrowser();
+      console.log(this.datos)
+      this.graficoBrowser4();
+    })
+  }
+
+  iniciarTop5(){
+    this.gService
+    .list('evaluacion/top5')
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((data:any)=>{
+      this.datos=data;
+      console.log(data)
+      this.graficoBrowser2();
+    })
+  }
+
+  iniciarTop3(){
+    this.gService
+    .list('evaluacion/top3')
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((data:any)=>{
+      this.datos=data;
+      console.log(data)
+      this.graficoBrowser3();
     })
   }
 
@@ -156,6 +200,121 @@ export class InicioComponent implements OnInit,AfterViewInit {
            responsive:false,
            maintainAspectRatio: false,
            indexAxis: 'y',
+           
+         },
+       
+    });
+   }
+
+   graficoBrowser2(): void {
+    this.canvas2=this.graficoTop5.nativeElement;
+    console.log(this.canvas2)
+    this.ctx2 = this.canvas2.getContext('2d');
+
+    this.canvas2.width = this.canvas2.offsetWidth;
+    this.canvas2.height = this.canvas2.offsetHeight;
+    //Si existe destruir el Canvas para mostrar el grafico
+    if(this.grafico2){
+     this.grafico2.destroy();
+    }
+    this.grafico2= new Chart(this.ctx2,{
+     type:'bar',
+     data:{
+       //Etiquetas debe ser un array
+       labels: this.datos.map(x => x.nombre),
+       
+       datasets:[
+         {
+           backgroundColor: [
+            'rgb(184, 0, 0)',
+            'rgb(0, 1, 75)',
+            
+         ],
+         //Datos del grafico, debe ser un array
+         data: this.datos.map(x => x.promedio)
+         },
+       ]
+     },
+         options:{
+           responsive:false,
+           maintainAspectRatio: false,
+           indexAxis: 'y',
+           
+         },
+       
+    });
+   }
+
+   graficoBrowser3(): void {
+    this.canvas3=this.graficoTop3.nativeElement;
+    console.log(this.canvas3)
+    this.ctx3 = this.canvas3.getContext('2d');
+
+    
+    //Si existe destruir el Canvas para mostrar el grafico
+    if(this.grafico3){
+     this.grafico3.destroy();
+    }
+    this.grafico3= new Chart(this.ctx3,{
+     type:'bar',
+     data:{
+       //Etiquetas debe ser un array
+       labels: this.datos.map(x => x.nombre),
+       
+       datasets:[
+         {
+           backgroundColor: [
+            'rgb(184, 0, 0)',
+            'rgb(0, 1, 75)',
+            
+         ],
+         //Datos del grafico, debe ser un array
+         data: this.datos.map(x => x.promedio)
+         },
+       ]
+     },
+         options:{
+           responsive:false,
+           maintainAspectRatio: false,
+           indexAxis: 'y',
+           
+         },
+       
+    });
+   }
+
+   graficoBrowser4(): void {
+    this.canvas4=this.graficoCant.nativeElement;
+    console.log(this.canvas4)
+    this.ctx4 = this.canvas4.getContext('2d');
+
+    
+    //Si existe destruir el Canvas para mostrar el grafico
+    if(this.grafico4){
+     this.grafico4.destroy();
+    }
+    this.grafico4= new Chart(this.ctx4,{
+     type:'pie',
+     data:{
+       //Etiquetas debe ser un array
+       labels: this.datos.map(x => x.calificacion),
+       
+       datasets:[
+         {
+           backgroundColor: [
+            'rgb(184, 0, 0)',
+            'rgb(0, 1, 75)',
+            'rgb(0, 0, 0)',
+            
+         ],
+         //Datos del grafico, debe ser un array
+         data: this.datos.map(x => x.cantidad)
+         },
+       ]
+     },
+         options:{
+           responsive:false,
+           maintainAspectRatio: false,
            
          },
        

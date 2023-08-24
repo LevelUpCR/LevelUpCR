@@ -102,7 +102,9 @@
       <mat-card-content class="headerCardcolor">
         <p>Top 5 Mejores vendedores</p>
       </mat-card-content>
-      <div style="width: 450px; height: 400px; background-color: #ffffff"></div>
+      <div style="width: 450px; height: 400px; background-color: #000000c4">
+        <canvas #graficoTop5  class="chart2"></canvas>
+      </div>
       <mat-card-content class="footerCardcolor">
         <p>La tienda que te sube de nivel</p>
       </mat-card-content>
@@ -116,6 +118,7 @@
       </mat-card>
       <mat-card class="col-lg-8 tiles2">
         <H1>Top 3 Peores vendedores</H1>
+        <canvas #graficoTop3 width="702" height="351" class="chart3"></canvas>
       </mat-card>
     </div>
     <div class="row marginTile">
@@ -155,8 +158,8 @@
         </div>
       </div>
       <mat-card-content class="footerCardcolor">
-        <p>Nombre: {{masVendidoSelected[0].nombre}}</p>
-        <p>Cantidad vendida:{{masVendidoSelected[0].suma}}</p>
+        <p>Nombre: {{masVendidoSelected[0]?.nombre}}</p>
+        <p>Cantidad vendida:{{masVendidoSelected[0]?.suma}}</p>
       </mat-card-content>
     </mat-card>
   </div>
@@ -164,8 +167,8 @@
     <div class="row">
       <mat-card class="col-lg-12 tiles3 d-flex justify-content-center">
         <H1 class="smallTitle2">Cliente que mas compra nuestros productos: </H1>
-        <p class="datoPrincipal2">{{mejorClienteSelected[0].nombre}}</p>
-        <H1 class="smallTitle2"> con {{mejorClienteSelected[0].suma}} productos comprados</H1>
+        <p class="datoPrincipal2">{{mejorClienteSelected[0]?.nombre}}</p>
+        <H1 class="smallTitle2"> con {{mejorClienteSelected[0]?.suma}} productos comprados</H1>
       </mat-card>
     </div>
     <div class="row marginTile">
@@ -173,7 +176,7 @@
         <p>Calificaciones de clientes</p>
       </div>
       <div class="col backChart">
-        <canvas #graficoCanvas width="702" height="351" class="chart"></canvas>
+        <canvas #graficoCant width="702" height="351" class="chart4"></canvas>
       </div>
     </div>
   </div>

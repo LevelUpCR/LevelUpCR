@@ -17,4 +17,7 @@ router.get("/cliente/:id",auth.grantRole(['Cliente']),evaluacionController.getBy
 router.get("/vendedor/:id",evaluacionController.getByIdVendedor);
 router.get("/pedido/:id",evaluacionController.getByIdPedido);
 router.get("/calificador/:id",evaluacionController.getByIdCalificador);
+router.get("/top5",evaluacionController.top5Mejores);
+router.get("/top3",evaluacionController.top3Peores);
+router.get("/countCalificaciones/:id",evaluacionController.countCalificaciones);
 module.exports = router;

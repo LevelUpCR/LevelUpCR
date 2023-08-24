@@ -67,7 +67,6 @@ module.exports.getProductosPedidos = async (request, response, next) => {
 };
 
 module.exports.getProductosPedidosbyVendedor = async (request, response, next) => {
-
     let id = parseInt(request.params.id);
     const productos = await prisma.pedidos_Productos.findMany({
       where: {
@@ -93,7 +92,6 @@ module.exports.getProductosPedidosbyVendedor = async (request, response, next) =
       ],
     });
     response.json(productos);
-
 };
 
 module.exports.getProPedbyPedido = async (request, response, next) => {
@@ -127,9 +125,7 @@ module.exports.getProPedbyPedido = async (request, response, next) => {
 //Actualizar un usuario
 module.exports.updateEstadoProdu = async (request, response, next) => {
   let produPed = request.body;
-
-
-  
+ 
   const newproduPed = await prisma.pedidos_Productos.update({
       where: {
         pedidoId_productoId: {
@@ -154,9 +150,6 @@ module.exports.updateEstadoProdu = async (request, response, next) => {
 };
 module.exports.updateEstadoPed = async (request, response, next) => {
   let pedido = request.body;
-
-
-  
   const newPedido = await prisma.pedidos.update({
       where: {
         idPedido: pedido.idPedido,

@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, Prisma } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -173,3 +173,36 @@ module.exports.update = async (request, response, next) => {
   });
   response.json(newEvaluacion);
 };
+
+
+module.exports.top5Mejores = async (request, response, next) => {
+
+ const result=await prisma.$queryRaw(
+  Prisma.sql`SELECT usu.nombre, AVG(ev.calificacion) as promedio FROM usuarios usu JOIN _roletousuarios ru ON usu.idUsuario = ru.B JOIN evaluacion ev ON usu.idUsuario = ev.calificadoId WHERE ru.A = 3 GROUP BY usu.nombre ORDER BY promedio DESC LIMIT 5;`
+  )
+
+  response.json(result)
+};
+
+module.exports.top3Peores = async (request, response, next) => {
+
+  const result=await prisma.$queryRaw(
+   Prisma.sql`SELECT usu.nombre, AVG(ev.calificacion) as promedio FROM usuarios usu JOIN _roletousuarios ru ON usu.idUsuario = ru.B JOIN evaluacion ev ON usu.idUsuario = ev.calificadoId WHERE ru.A = 3 GROUP BY usu.nombre ORDER BY promedio ASC LIMIT 3;`
+   )
+ 
+   response.json(result)
+ };
+
+ module.exports.countCalificaciones = async (request, response, next) => {
+  let usuarioId = parseInt(request.params.id); 
+  console.log(usuarioId)
+  const result=await prisma.$queryRaw(
+   Prisma.sql`SELECT ev.calificacion, COUNT(ev.calificacion) as cantidad FROM evaluacion ev JOIN usuarios usu ON ev.calificadoId = usu.idUsuario WHERE usu.idUsuario = ${usuarioId} GROUP BY ev.calificacion;`
+   )
+
+   const serializedResults = result.map(result => ({
+    calificacion: result.calificacion,
+    cantidad: Number(result.cantidad) // Convertir BigInt a número entero
+  }));
+   response.json(serializedResults)
+ };

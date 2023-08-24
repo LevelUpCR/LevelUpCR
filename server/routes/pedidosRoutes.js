@@ -6,7 +6,7 @@ const auth=require("../middleware/auth");
 
 router.get("/",pedidosController.get);
 
-router.post("/",auth.grantRole(['Vendedor']),pedidosController.create);
+router.post("/",auth.grantRole(['Cliente']),pedidosController.create);
 
 router.get("/produped",pedidosController.getProductosPedidos);
 

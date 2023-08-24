@@ -31,6 +31,7 @@ mat-card {
   max-width: 92%;
   height: 30vh;
 }
+
 .tiles:hover {
   color: #b80000;
   background-color: #000136;
@@ -93,7 +94,7 @@ mat-card {
   max-width: 95%;
 }
 .backChart{
-  background-color: #000000c4;
+  background-color: #000000c4 ;
   border-radius: 0 20px 20px 0;
 }
 
@@ -105,6 +106,30 @@ mat-card {
   width: 562px!important;
 
 
+}
+
+.chart2 {
+  display: block !important;
+  margin: 5px auto !important;
+  box-sizing: border-box!important;
+  height: 100%!important;
+  width: 100%!important;
+}
+
+.chart3 {
+  display: block !important;
+  margin: 5px auto !important;
+  box-sizing: border-box!important;
+  height: 75%!important;
+  width: 90%!important;
+}
+
+.chart4 {
+  display: block !important;
+  margin: 5px auto !important;
+  box-sizing: border-box!important;
+  height: 281px!important;
+  width: 562px!important;
 }
 
 .datoPrincipal{
@@ -172,9 +197,8 @@ mat-card {
   text-align: center;
   padding: 2%;
   background-color: #75000096;
-  border-radius: 20px;
-  height: 250px;
-  width: 250px;
+  color: #ffffff;
+  width: 450px; height: 400px;
   margin-bottom: 10px;
   font-family: "Press Start 2P", cursive;
   font-size: 13px;
