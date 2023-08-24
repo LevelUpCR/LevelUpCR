@@ -129,6 +129,10 @@ mat-card {
   text-align: center;
 }
 
+.formatimage img {
+  width: 92%;
+  max-width: 100%;
+}
 .smallTitle{
   color: #ffffff !important;
   font-family: "Press Start 2P", cursive !important;
