@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const evaluacionController = require("../controllers/evaluacionController");
+const auth=require("../middleware/auth");
 
 router.get("/",evaluacionController.get);
 
@@ -11,8 +12,8 @@ router.post("/", evaluacionController.create);
 
 router.put("/:id", evaluacionController.update);
 
-router.get("/cliente/:id",evaluacionController.getByIdCliente);
+router.get("/cliente/:id",auth.grantRole(['Cliente']),evaluacionController.getByIdCliente);
 
-router.get("/vendedor/:id",evaluacionController.getByIdVendedor);
+router.get("/vendedor/:id",auth.grantRole(['Vendedor']),evaluacionController.getByIdVendedor);
 
 module.exports = router;

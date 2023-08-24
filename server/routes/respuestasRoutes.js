@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const respuestasController = require("../controllers/respuestasController");
+const auth=require("../middleware/auth");
 
 router.get("/",respuestasController.get);
 
-router.post("/",respuestasController.create);
+router.post("/",auth.grantRole(['Vendedor']),respuestasController.create);
 
 router.get("/:id",respuestasController.getById);
 
