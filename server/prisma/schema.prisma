@@ -193,6 +193,7 @@ model Evaluacion  {
   pedidos             Pedidos                     @relation(fields: [pedidoId],references: [idPedido])
 }
 
+
 // enum Role {
 //   ADMIN
 //   Vendedor

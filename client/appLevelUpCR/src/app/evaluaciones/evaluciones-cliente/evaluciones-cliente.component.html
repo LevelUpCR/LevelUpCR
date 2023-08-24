@@ -1,0 +1,53 @@
+<mat-card class="full-width" style="background-color: #00026300;">
+    <mat-card-title class="headerh1">
+        <div style="display: inline-block;">
+        Evaluaciones
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <div class="mat-elevation-z8" *ngIf="dataSource">
+            <table
+            mat-table
+            [dataSource]="dataSource"
+            class="full-width-table custom-table"
+            matSort
+            aria-label="Elements"
+            >
+              <ng-container matColumnDef="calificacion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Calificacion</th>
+                <td mat-cell *matCellDef="let row">{{ row.calificacion }}</td>
+              </ng-container>
+              <!-- Columna nombre -->
+              <ng-container matColumnDef="comentario">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Comentario</th>
+                <td mat-cell *matCellDef="let row">{{ row.comentario }}</td>
+              </ng-container>
+              <!-- Columna descripcion -->
+              <ng-container matColumnDef="usuario">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+                <td mat-cell *matCellDef="let row">{{ row.usuarioId }}</td>
+              </ng-container>
+              <!-- Columna precio -->
+              <ng-container matColumnDef="pedido">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Pedido</th>
+                <td mat-cell *matCellDef="let row">{{ row.pedidoId }}</td>
+              </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+
+            <mat-paginator
+            #paginator
+            [length]="dataSource?.data?.length"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 8, 10]"
+            aria-label="Selecccione una página"
+            class="custom-paginator"
+            >
+            </mat-paginator>
+        </div>
+    </mat-card-content>
+
+</mat-card>

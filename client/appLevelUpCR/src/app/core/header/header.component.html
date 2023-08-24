@@ -97,6 +97,26 @@
     </button>
   </ng-container>
   
+  <ng-container *ngIf="isCliente()">
+    <button
+      mat-menu-item
+      [routerLink]="['/evaluaciones/cliente']" 
+      routerLinkActive="mat-raised-button" 
+    >
+    <mat-icon>stars</mat-icon>Evaluaciones
+  </button>
+  </ng-container>
+
+  <ng-container *ngIf="isVendedor()">
+    <button
+      mat-menu-item
+      [routerLink]="['/evaluaciones/vendedor']" 
+      routerLinkActive="mat-raised-button" 
+    >
+    <mat-icon>stars</mat-icon>Evaluaciones
+  </button>
+  </ng-container>
+
     <!-- <button mat-menu-item [matMenuTriggerFor]="menu2">Listados</button> -->
     
   </mat-menu>

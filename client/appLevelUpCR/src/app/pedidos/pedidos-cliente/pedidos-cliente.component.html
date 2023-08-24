@@ -3,7 +3,7 @@
   <mat-card-title class="headerh1">
     <div style="display: inline-block">
       Pedidos de Cliente
-      <a
+      <!-- <a
         mat-fab
         matTooltip="Crear Pedido"
         aria-label="Crear Pedido"
@@ -12,7 +12,7 @@
         style="background-color: #000163; color: #ffffff"
       >
         <mat-icon>add</mat-icon>
-      </a>
+      </a> -->
     </div>
   </mat-card-title>
   <mat-card-content>
@@ -81,6 +81,23 @@
               <mat-icon class="mat-18">info</mat-icon>
             </button>
           </td>
+        </ng-container>
+
+        <ng-container matColumnDef="calificacion">
+          <th mat-header-cell *matHeaderCellDef>Calificación</th>
+          <td mat-cell *matCellDef="let row">
+
+          <button [hidden] = "row.estadoPedido?.estado !== 'Entregado'"
+              mat-mini-fab
+              color="accent"
+              matTooltip="Detalle Producto"
+              aria-label="Detalle Producto"
+              color="primary"
+              (click)="crearCalificacion(row.idPedido)"
+              style="background-color: #000163; color: #ffffff"
+            >
+              <mat-icon class="mat-18">stars</mat-icon>
+            </button>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
