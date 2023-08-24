@@ -15,6 +15,12 @@ router.put("/:id", evaluacionController.update);
 router.get("/cliente/:id",auth.grantRole(['Cliente']),evaluacionController.getByIdCliente);
 
 router.get("/vendedor/:id",evaluacionController.getByIdVendedor);
+
 router.get("/pedido/:id",evaluacionController.getByIdPedido);
+
 router.get("/calificador/:id",evaluacionController.getByIdCalificador);
+
+router.get("/calificado/:id",evaluacionController.getByIdCalificado);
+
+
 module.exports = router;

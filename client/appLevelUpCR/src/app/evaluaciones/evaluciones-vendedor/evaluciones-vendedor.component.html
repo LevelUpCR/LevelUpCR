@@ -35,7 +35,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
-
+        
 
             <mat-paginator
             #paginator
@@ -48,6 +48,11 @@
             >
             </mat-paginator>
         </div>
+        <mat-card-title class="headerh1">
+          <div style="display: inline-block;">
+            Calificación Promedio: 
+          </div>
+      </mat-card-title>
     </mat-card-content>
 
 </mat-card>

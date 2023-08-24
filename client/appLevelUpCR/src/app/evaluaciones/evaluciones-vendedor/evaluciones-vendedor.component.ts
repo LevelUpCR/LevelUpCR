@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
 
 @Component({
@@ -33,17 +34,19 @@ export class EvalucionesVendedorComponent {
     private router: Router,
     private route: ActivatedRoute,
     private gService: GenericService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthenticationService
   ) {}
 
   ngAfterViewInit(): void {
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     this.listaEvaluaciones();
   }
 
   listaEvaluaciones(){
     const vendedorId = this.currentUser.user.idUsuario;
     this.gService
-      .list(`evaluacion/vendedor/${vendedorId}`)
+      .list(`evaluacion/calificado/${vendedorId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         console.log(data);
@@ -51,11 +54,29 @@ export class EvalucionesVendedorComponent {
         this.dataSource = new MatTableDataSource(this.datos);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        
       });
   }
 
   ngOnDestroy(){
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  promedio(){
+    const vendedorId = this.currentUser.user.idUsuario;
+    var promedio = 0
+    this.gService
+      .list(`evaluacion/calificado/${vendedorId}`)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: any) => {
+        console.log(data);
+        this.datos = data;
+        for (let index = 0; index < data.length; index++) {
+          promedio = promedio + parseFloat(data[index]['calificacion']);
+        }
+        promedio = promedio/data.length
+        console.log(promedio);
+      })
   }
 }
