@@ -23,9 +23,11 @@ module.exports.get = async (request, response, next) => {
 
 module.exports.getGetPedidosHoy = async (request, response, next) => {
   const today = new Date();
-  today.setUTCHours(0, 0, 0, 0); // Set UTC time to the start of the day
+  const timezoneOffset = -6; // GMT-6 offset
+  today.setUTCHours(today.getUTCHours() + timezoneOffset, 0, 0, 0); // Convert to GMT-6 and set time to the start of the day
+  
   const tomorrow = new Date(today);
-  tomorrow.setUTCDate(tomorrow.getUTCDate() + 1); // Get the start of the next UTC day
+  tomorrow.setDate(tomorrow.getDate() + 1); // Get the start of the next day
 
   const pedidosHoy = await prisma.pedidos.findMany({
     where: {
@@ -35,6 +37,7 @@ module.exports.getGetPedidosHoy = async (request, response, next) => {
       },
     },
   });
+  
 
   response.json(pedidosHoy);
 };
@@ -94,7 +97,7 @@ module.exports.getProductosPedidosbyVendedor = async (request, response, next) =
 };
 
 module.exports.getProPedbyPedido = async (request, response, next) => {
-  console.log(request.params.id);
+
   let id = parseInt(request.params.id);
   const productos = await prisma.pedidos_Productos.findMany({
     where: {
@@ -116,7 +119,7 @@ module.exports.getProPedbyPedido = async (request, response, next) => {
       },
     ],
   });
-  console.log(productos);
+
   response.json(productos);
 
 };
@@ -124,7 +127,7 @@ module.exports.getProPedbyPedido = async (request, response, next) => {
 //Actualizar un usuario
 module.exports.updateEstadoProdu = async (request, response, next) => {
   let produPed = request.body;
-  console.log(produPed)
+
 
   
   const newproduPed = await prisma.pedidos_Productos.update({
@@ -146,12 +149,12 @@ module.exports.updateEstadoProdu = async (request, response, next) => {
         pedidos:true,
       },
   });
-  console.log(newproduPed);
+
   response.json(newproduPed);
 };
 module.exports.updateEstadoPed = async (request, response, next) => {
   let pedido = request.body;
-  console.log(pedido.estadopedido)
+
 
   
   const newPedido = await prisma.pedidos.update({
@@ -163,7 +166,7 @@ module.exports.updateEstadoPed = async (request, response, next) => {
       },
       
   });
-  console.log(newPedido);
+
   response.json(newPedido);
 };
 
@@ -227,6 +230,7 @@ module.exports.getPedidoById = async (request, response, next) => {
 //Obtener listado por IDUsuario
 module.exports.getByIdUsuario = async (request, response, next) => {
   let id = parseInt(request.params.id);
+
   const pedidos = await prisma.pedidos.findMany({
     where: { usuarioId: id },
     include: {
@@ -320,7 +324,7 @@ module.exports.getVentaProductoMes = async (request, response, next) => {
  const result=await prisma.$queryRaw(
   Prisma.sql`Select pro.nombre, SUM(pp.cantidad) as suma FROM pedidos ped, pedidos_productos pp, productos pro WHERE ped.idPedido=pp.pedidoId and pp.productoId=pro.idProducto and month(ped.fechaCompra) = ${mes} group by pp.productoId ORDER BY suma DESC limit 5`
   )
-  console.log(result)
+
   response.json(result)
 };
 
@@ -331,7 +335,7 @@ module.exports.getMejorCliente = async (request, response, next) => {
  const result=await prisma.$queryRaw(
   Prisma.sql`SELECT usu.nombre, SUM(pp.cantidad) AS suma FROM usuarios usu JOIN pedidos ped ON usu.idUsuario = ped.usuarioId JOIN pedidos_productos pp ON ped.idPedido = pp.pedidoId JOIN productos pro ON pp.productoId = pro.idProducto WHERE pro.usuarioId = ${usuarioId} GROUP BY usu.nombre ORDER BY suma DESC Limit 1;`
   )
-  console.log(result)
+
   response.json(result)
 };
 
@@ -343,7 +347,7 @@ module.exports.getMasVendido = async (request, response, next) => {
  const result=await prisma.$queryRaw(
   Prisma.sql`Select pro.*, SUM(pp.cantidad) as suma FROM pedidos ped, pedidos_productos pp, productos pro WHERE ped.idPedido=pp.pedidoId and pp.productoId=pro.idProducto and pro.usuarioId = ${usuarioId} group by pp.productoId ORDER BY suma DESC limit 1;`
   )
-  console.log(result)
+
   response.json(result)
 };
 

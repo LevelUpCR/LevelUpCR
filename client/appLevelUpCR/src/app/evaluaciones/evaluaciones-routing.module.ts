@@ -8,14 +8,14 @@ import { EvalucionesFormVendedorComponent } from "./evaluciones-form-vendedor/ev
 
 
 const routes: Routes = [
-  {
-    path: 'evaluaciones/cliente',
-    component: EvalucionesClienteComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles:['Cliente']
-    },
-  },
+  // {
+  //   path: 'evaluaciones/cliente',
+  //   component: EvalucionesClienteComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     roles:['Cliente']
+  //   },
+  // },
   {
     path: 'evaluaciones/vendedor',
     component: EvalucionesVendedorComponent,

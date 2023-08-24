@@ -14,5 +14,6 @@ router.put("/:id", evaluacionController.update);
 router.get("/cliente/:id",evaluacionController.getByIdCliente);
 
 router.get("/vendedor/:id",evaluacionController.getByIdVendedor);
-
+router.get("/pedido/:id",evaluacionController.getByIdPedido);
+router.get("/calificador/:id",evaluacionController.getByIdCalificador);
 module.exports = router;

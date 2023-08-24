@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from 'src/app/share/authentication.service';
 import { GenericService } from 'src/app/share/generic.service';
 import { NotificacionService, TipoMessage } from 'src/app/share/notification.service';
@@ -12,6 +13,14 @@ import { NotificacionService, TipoMessage } from 'src/app/share/notification.ser
   styleUrls: ['./evaluciones-form-vendedor.component.css']
 })
 export class EvalucionesFormVendedorComponent {
+  calificacion= [
+    { idCalificacion: 1, calificacion:  '1' },
+    { idCalificacion: 2, calificacion:  '2' },
+    { idCalificacion: 3, calificacion:  '3' },
+    { idCalificacion: 4, calificacion:  '4' },
+    { idCalificacion: 5, calificacion:  '5' },
+    // ...
+  ];
   destroy$: Subject<boolean> = new Subject<boolean>();
   //Titulo
   titleForm: string = 'Crear';
@@ -37,14 +46,17 @@ export class EvalucionesFormVendedorComponent {
   isCreate: boolean = true;
 
   currentUser: any;
-
+  datosDialog:any;
   constructor(
     private fb: FormBuilder,
     private gService: GenericService,
     private router: Router,private noti: NotificacionService,
     private activeRouter: ActivatedRoute,
     private authService: AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) data,
+    private dialogRef:MatDialogRef<EvalucionesFormVendedorComponent>,
   ) {
+    this.datosDialog=data;
     this.formularioReactive();
     /* this.listaCategorias();
     this.listaEstados(); */
@@ -69,20 +81,11 @@ export class EvalucionesFormVendedorComponent {
           .pipe(takeUntil(this.destroy$))
           .subscribe((data: any) => {
             this.evaluacionForm = data;
-            console.log(data);
             //Establecer los valores en cada una de las entradas del formulario
             this.evaluacionForm.setValue({
               id: this.evaluacionInfo.idEvaluacion,
               calificacion: this.evaluacionInfo.calificacion,
               comentario: this.evaluacionInfo.comentario,
-              /* id: this.productoInfo.idProducto,
-              nombre: this.productoInfo.nombre,
-              descripcion: this.productoInfo.descripcion,
-              precio: this.productoInfo.precio,
-              cantidad: this.productoInfo.cantidad,
-              usuario: this.productoInfo.usuarioId,
-              categoria: this.productoInfo.categoriaId,
-              estado: this.productoInfo.estadoProductoId, */
             });
           });
       }
@@ -92,7 +95,9 @@ export class EvalucionesFormVendedorComponent {
   formularioReactive() {
     //[null, Validators.required]
     this.evaluacionForm = this.fb.group({
-      id: [null, null],
+      calificadorId: [null, null],
+      calificadoId: [null, null],
+      pedidoId: [null, null],
       calificacion: [
         null,
         Validators.compose([Validators.required]),
@@ -113,33 +118,39 @@ export class EvalucionesFormVendedorComponent {
     //Establecer submit verdadero
     this.submitted = true;
 
-    //Obtener id Generos del Formulario y Crear arreglo con {id: value}
-    //let gFormat:any=this.videojuegoForm.get('generos').value.map(x=>({['id']: x}))
+    this.evaluacionForm.patchValue({ pedidoId: this.datosDialog.id });
+    this.evaluacionForm.patchValue({ calificadorId: this.currentUser?.user.idUsuario });
+    this.evaluacionForm.patchValue({ calificadoId: this.datosDialog.calificadoId });
 
-
-    //Asignar valor al formulario
-    this.evaluacionForm.patchValue({ usuario: this.currentUser.user.idUsuario });
-
-    console.log(this.evaluacionForm.value);
     //Accion API create enviando toda la informacion del formulario
     //Verificar validación
     if (this.evaluacionForm.invalid) {
       this.noti.mensaje(
-        'Productos',
-        'Complete todos los campos para crear el producto',
+        'Evaluacion',
+        'Complete todos los campos para crear la evaluacion',
         TipoMessage.warning
       );
       return;
     }
     this.gService
-      .create('productos', this.evaluacionForm.value)
-      .pipe(takeUntil(this.destroy$))
+      .create('evaluacion', this.evaluacionForm.value)
+      .pipe(takeUntil(this.destroy$))//,
+      // tap((data: any) => {
+      //   // Obtener respuesta
+      //   this.respPregunta = data;
+      //   // Volver a obtener las preguntas para actualizar la lista
+      //   this.obtenerProducto(this.datosDialog.id);
+      // })
       .subscribe((data: any) => {
         //Obtener respuesta
         this.respevaluacion = data;
-        this.router.navigate(['/evaluacion/cliente'], {
-          queryParams: { create: 'true' },
-        });
+        this.noti.mensaje(
+          'Evaluacion',
+          'La Evaluacion sobre este cliente ha sido completada',
+          TipoMessage.success
+        );
+
+        this.close()
       });
   }
 
@@ -151,5 +162,11 @@ export class EvalucionesFormVendedorComponent {
     this.destroy$.next(true);
     // Desinscribirse
     this.destroy$.unsubscribe();
+  }
+
+  close(){
+    //Dentro de close ()
+     //this.form.value 
+    this.dialogRef.close();
   }
 }

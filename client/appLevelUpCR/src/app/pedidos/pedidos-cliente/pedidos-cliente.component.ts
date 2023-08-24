@@ -38,27 +38,27 @@ export class PedidosClienteComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    console.log(this.currentUser);
+
     this.listaPedidos();
   }
   listaPedidos() {
     //localhost:3000/pedidos/cliente/:id
+    const clienteId = this.currentUser.user.idUsuario;
     //const clienteId = this.currentUser.user.idUsuario;
-    const clienteId = 1;
     this.gService
       .list(`pedidos/cliente/${clienteId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+
         this.datos = data;
         this.dataSource = new MatTableDataSource(this.datos);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
-    console.log(this.datos);
+
   }
   detalle(id: number) {
-    console.log(id);
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.data = {
@@ -83,7 +83,7 @@ export class PedidosClienteComponent implements AfterViewInit {
     /* this.router.navigate(['/evaluaciones/cliente/create'], {
       relativeTo: this.route,
     }); */
-    console.log(id);
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.data = {

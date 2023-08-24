@@ -1,92 +1,110 @@
-<!-- <form [formGroup]="evaluacionForm" (ngSubmit)="isCreate ? crearEvaluacion(): actualizarProducto()"  novalidate > -->    
-    <form [formGroup]="evaluacionForm" (ngSubmit)="isCreate ? crearEvaluacion(): crearEvaluacion()" novalidate > 
-        <input type="hidden" formControlName="id" />
-         <mat-card class="shipping-card"> 
-           <mat-card-header class="d-flex justify-content-center">
-             <mat-card-title class="headerh1">{{titleForm}} Evaluación</mat-card-title>
-           </mat-card-header>
-           <mat-card-content>
-     
-             <div class="row">
-               <div class="col">
-                 <mat-form-field class="full-width" [color]="'warn'">
-                   <input matInput formControlName="calificacion" placeholder="Calificación">
-                   <!-- <mat-hint align="end"> / 20</mat-hint> -->
-                   <mat-error *ngIf="errorHandling('calificacion','required')">
-                     Calificación es <strong>requerido</strong>
-                   </mat-error>
-                   <!-- <mat-error *ngIf="errorHandling('calificacion','minlength')">
-                     calificacion debe tener <strong>3 caracteres</strong>
-                   </mat-error> -->
-                 </mat-form-field>
-               </div>
-               <div class="col">
-                 <mat-form-field class="full-width" [color]="'warn'">
-                   <input matInput formControlName="comentario" placeholder="Comentario" >
-                   <!-- <mat-hint align="end"> / 20</mat-hint> -->
-                   <mat-error *ngIf="errorHandling('comentario','required')">
-                     Comentario es <strong>requerido</strong>
-                   </mat-error>
-                   <mat-error *ngIf="errorHandling('comentario','minlength')">
-                     Comentario debe tener <strong>3 caracteres</strong>
-                   </mat-error>
-                 </mat-form-field>
-               </div>
-             </div>
-     
-             <!--  
-             <div class="row">
-               <div class="col">
-                 <mat-form-field class="full-width" [color]="'warn'">
-                   <input matInput placeholder="Cantidad" formControlName="cantidad">
-                   <mat-error *ngIf="errorHandling('cantidad','required')">
-                     Cantidad es <strong>requerida</strong>
-                   </mat-error>
-                 </mat-form-field>
-               </div>
-               <div class="col">
-                 <mat-form-field class="full-width" [color]="'warn'">
-                   <input matInput placeholder="Precio" formControlName="precio">
-                   <mat-error *ngIf="errorHandling('precio','required')">
-                     Precio es <strong>requerido</strong>
-                   </mat-error>
-                 </mat-form-field>
-               </div>
-             </div>
-             -->
-     
-             <!--  -->
-             <!-- <div class="row">
-                  <div class="col" *ngIf="categoriasList">
-                     <mat-form-field class="full-width" [color]="'warn'">
-                         <mat-select placeholder="Categoría del Producto" formControlName="categoria">
-                         <mat-option *ngFor="let c of categoriasList" [value]="c.idCategoria">
-                             {{c.categoria}}
-                         </mat-option>
-                         </mat-select>
-                         <mat-error >
-                         Categoría es <strong>requerida</strong>
-                         </mat-error>
-                     </mat-form-field>
-                 </div> 
-     
-                  <div class="col" *ngIf="estadosList">
-                     <mat-form-field class="full-width" [color]="'warn'">
-                     <mat-select placeholder="Estado del Producto" formControlName="estado">
-                         <mat-option *ngFor="let e of estadosList" [value]="e.idEstado">
-                             {{e.estado}}
-                         </mat-option>
-                     </mat-select>
-                     <mat-error >
-                         Estado es <strong>requerido</strong>
-                     </mat-error>
-                     </mat-form-field>
-                 </div> 
-             </div> -->
-           </mat-card-content>
-           <mat-card-actions class="d-flex justify-content-center">
-             <button mat-raised-button style="background-color: #000136; color:#ffffff;" type="submit">{{titleButton}}</button>
-           </mat-card-actions>
-         </mat-card>
-       </form>
-       
+<!-- <form [formGroup]="evaluacionForm" (ngSubmit)="isCreate ? crearEvaluacion(): actualizarProducto()"  novalidate > -->
+  <form
+  [formGroup]="evaluacionForm"
+  (ngSubmit)="isCreate ? crearEvaluacion() : crearEvaluacion()"
+  novalidate
+>
+  <input type="hidden" formControlName="id" />
+  <mat-card class="shipping-card">
+    <mat-card-header class="d-flex justify-content-center">
+      <mat-card-title class="headerh1"
+        >{{ titleForm }} Evaluación</mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" [color]="'warn'" >
+            <mat-label>Calificación</mat-label>
+            <mat-select formControlName="calificacion">
+              <mat-option *ngFor="let c of calificacion" [value]="c.idCalificacion">{{
+                c.idCalificacion
+              }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('calificacion', 'required')">
+              Calificación es <strong>requerido</strong>
+            </mat-error>
+            <!-- <mat-error *ngIf="errorHandling('calificacion','minlength')">
+                calificacion debe tener <strong>3 caracteres</strong>
+              </mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width" [color]="'warn'">
+            <input
+              matInput
+              formControlName="comentario"
+              placeholder="Comentario"
+            />
+            <!-- <mat-hint align="end"> / 20</mat-hint> -->
+            <mat-error *ngIf="errorHandling('comentario', 'required')">
+              Comentario es <strong>requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="errorHandling('comentario', 'minlength')">
+              Comentario debe tener <strong>3 caracteres</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!--  
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width" [color]="'warn'">
+              <input matInput placeholder="Cantidad" formControlName="cantidad">
+              <mat-error *ngIf="errorHandling('cantidad','required')">
+                Cantidad es <strong>requerida</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width" [color]="'warn'">
+              <input matInput placeholder="Precio" formControlName="precio">
+              <mat-error *ngIf="errorHandling('precio','required')">
+                Precio es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        -->
+
+      <!--  -->
+      <!-- <div class="row">
+             <div class="col" *ngIf="categoriasList">
+                <mat-form-field class="full-width" [color]="'warn'">
+                    <mat-select placeholder="Categoría del Producto" formControlName="categoria">
+                    <mat-option *ngFor="let c of categoriasList" [value]="c.idCategoria">
+                        {{c.categoria}}
+                    </mat-option>
+                    </mat-select>
+                    <mat-error >
+                    Categoría es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div> 
+
+             <div class="col" *ngIf="estadosList">
+                <mat-form-field class="full-width" [color]="'warn'">
+                <mat-select placeholder="Estado del Producto" formControlName="estado">
+                    <mat-option *ngFor="let e of estadosList" [value]="e.idEstado">
+                        {{e.estado}}
+                    </mat-option>
+                </mat-select>
+                <mat-error >
+                    Estado es <strong>requerido</strong>
+                </mat-error>
+                </mat-form-field>
+            </div> 
+        </div> -->
+    </mat-card-content>
+    <mat-card-actions class="d-flex justify-content-center">
+      <button
+        mat-raised-button
+        style="background-color: #000136; color: #ffffff"
+        type="submit"
+      >
+        {{ titleButton }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

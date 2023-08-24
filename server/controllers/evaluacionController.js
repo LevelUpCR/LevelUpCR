@@ -109,15 +109,38 @@ module.exports.getByIdVendedor = async (request, response, next) => {
   response.json(evaluacion);
 };
 
+module.exports.getByIdPedido = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  const evaluacion = await prisma.evaluacion.findMany({
+    where: {
+      pedidoId:id
+    },
+  });
+
+  response.json(evaluacion);
+};
+module.exports.getByIdCalificador = async (request, response, next) => {
+  let id = parseInt(request.params.id);
+  const evaluacion = await prisma.evaluacion.findMany({
+    where: {
+      calificadorId:id
+    },
+  });
+
+  response.json(evaluacion);
+};
+
 //Crear un usuario
 module.exports.create = async (request, response, next) => {
   let evaluacion = request.body;
+
   const newEvaluacion = await prisma.evaluacion.create({
     data: {
-      calificacion: evaluacion.calificacion,
+      calificacion: parseFloat(evaluacion.calificacion),
       comentario: evaluacion.comentario,
       pedidoId: parseInt(evaluacion.pedidoId),
-      usuarios: parseInt(evaluacion.usuarioId),
+      calificadoId: parseInt(evaluacion.calificadoId),
+      calificadorId: parseInt(evaluacion.calificadorId),
     },
   });
   response.json(newEvaluacion);

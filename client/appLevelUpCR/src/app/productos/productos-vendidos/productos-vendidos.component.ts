@@ -53,7 +53,7 @@ export class ProductosVendidosComponent implements AfterViewInit {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
 
     let id = this.currentUser.user.idUsuario;
-    console.log(id);
+
     if (!isNaN(Number(id))) {
       this.listaProductos(Number(id));
     }
@@ -65,16 +65,16 @@ export class ProductosVendidosComponent implements AfterViewInit {
       .list(`pedidos/produped/${vendedorId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
-        console.log(data);
+
         this.datos = data;
         this.dataSource = new MatTableDataSource(this.datos);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
-    console.log(this.datos);
+
   }
   detalle(id: number) {
-    console.log(id);
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.data = {
@@ -101,7 +101,7 @@ export class ProductosVendidosComponent implements AfterViewInit {
   }
 
   actualizarestado(row: any) {
-    console.log(row);
+
     let track = row.pedidos.estadoPedidoId;
     this.gService
       .update2('pedidos/upproduped', row)
@@ -123,14 +123,14 @@ export class ProductosVendidosComponent implements AfterViewInit {
       .get('pedidos/propedido', row.pedidoId)
       .pipe(takeUntil(this.destroy$))
       .subscribe((productos: any[]) => {
-        console.log(productos)
+
         // const deliveredCount = productos.reduce((count, producto) => {
         //   return count + (producto.estadoPedidoId === 2 ? 1 : 0);
         // }, 0);
         const allProductsDelivered = productos.every(
           (producto) => producto.estadoPedidoId === 1
         );
-        if (allProductsDelivered) {
+        if (allProductsDelivered&&productos.length>1) {
           const updatedPedido = { idPedido: row.pedidoId, estadoPedidoId: 3 };
           this.gService
             .update2('pedidos/upped', updatedPedido)
@@ -153,22 +153,22 @@ export class ProductosVendidosComponent implements AfterViewInit {
   }
 
   checkAndUpdatePedidoEstado(pedidoId: number) {
-    console.log(pedidoId);
+
     // Consultar los registros relacionados en la tabla pedidos_productos
     this.gService
       .get('pedidos/propedido', pedidoId)
       .pipe(takeUntil(this.destroy$))
       .subscribe((productos: any[]) => {
-        console.log(productos);
+
         // Verificar si todos los registros tienen estadoPedidoId igual a 2
         const allProductsDelivered = productos.every(
           (producto) => producto.estadoPedidoId === 2
         );
-        console.log(allProductsDelivered);
+
         if (allProductsDelivered) {
           // Actualizar el estado en la tabla de pedidos
           const updatedPedido = { idPedido: pedidoId, estadoPedidoId: 2 };
-          console.log(updatedPedido);
+
           this.gService
             .update2('pedidos/upped', updatedPedido)
             .pipe(takeUntil(this.destroy$))
