@@ -22,7 +22,7 @@ export class EvalucionesClienteComponent {
   @ViewChild(MatSort) sort!: MatSort;
   //@ViewChild(MatTable) table!: MatTable<ProductosAllItem>;
   dataSource = new MatTableDataSource<any>();
-
+  promedioFinal:any;
   displayedColumns = [
     'calificacion',
     'comentario',
@@ -41,10 +41,12 @@ export class EvalucionesClienteComponent {
   ngAfterViewInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     this.listaEvaluaciones();
+    this.promedio();
   }
 
   listaEvaluaciones(){
     const clienteId = this.currentUser.user.idUsuario;
+    console.log(clienteId)
     this.gService
       .list(`evaluacion/calificador/${clienteId}`)
       .pipe(takeUntil(this.destroy$))
@@ -64,9 +66,10 @@ export class EvalucionesClienteComponent {
 
   promedio(){
     const clienteId = this.currentUser.user.idUsuario;
-    var promedio = 0
+    console.log(clienteId)
+    var promedio = 0.00
     this.gService
-      .list(`evaluacion/calificado/${clienteId}`)
+      .list(`evaluacion/calificador/${clienteId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         console.log(data);
@@ -74,8 +77,9 @@ export class EvalucionesClienteComponent {
         for (let index = 0; index < data.length; index++) {
           promedio = promedio + parseFloat(data[index]['calificacion']);
         }
-        promedio = promedio/data.length
-        console.log(promedio);
+        console.log(data.length)
+        this.promedioFinal = (promedio/data.length).toFixed(2);
+        console.log(this.promedioFinal);
       })
   }
 }

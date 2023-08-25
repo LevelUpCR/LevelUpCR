@@ -145,7 +145,7 @@ module.exports.login = async (request, response, next) => {
   }
   //Verifica la contraseña
   const checkPassword=await bcrypt.compare(userReq.password, user.password)
-  if(checkPassword===false){
+  if(checkPassword===false||user.habilitado===false){
     response.status(401).send({
       success: false,
       message: "Credenciales no validas",

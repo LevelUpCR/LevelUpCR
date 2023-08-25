@@ -29,6 +29,7 @@ export class EvalucionesVendedorComponent {
     'usuario',
     'pedido'
   ];
+  promedioFinal: string;
 
   constructor(
     private router: Router,
@@ -41,6 +42,7 @@ export class EvalucionesVendedorComponent {
   ngAfterViewInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     this.listaEvaluaciones();
+    this.promedio();
   }
 
   listaEvaluaciones(){
@@ -64,10 +66,11 @@ export class EvalucionesVendedorComponent {
   }
 
   promedio(){
-    const vendedorId = this.currentUser.user.idUsuario;
-    var promedio = 0
+    const clienteId = this.currentUser.user.idUsuario;
+    console.log(clienteId)
+    var promedio = 0.00
     this.gService
-      .list(`evaluacion/calificado/${vendedorId}`)
+      .list(`evaluacion/calificado/${clienteId}`)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         console.log(data);
@@ -75,8 +78,9 @@ export class EvalucionesVendedorComponent {
         for (let index = 0; index < data.length; index++) {
           promedio = promedio + parseFloat(data[index]['calificacion']);
         }
-        promedio = promedio/data.length
-        console.log(promedio);
+        console.log(data.length)
+        this.promedioFinal = (promedio/data.length).toFixed(2);
+        console.log(this.promedioFinal);
       })
   }
 }
