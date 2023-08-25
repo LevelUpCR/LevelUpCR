@@ -21,13 +21,13 @@
     >
     <mat-icon>home</mat-icon>Inicio
     </button>
-    <button
+    <!-- <button
       mat-menu-item
       [routerLink]="['/acerca-de']"
       routerLinkActive="mat-raised-button"
     >
     <mat-icon>info</mat-icon>Acerca de
-    </button>
+    </button> -->
     
       <!-- <button
       mat-menu-item
@@ -38,12 +38,12 @@
     </button> -->
     <ng-container *ngIf="isCliente()||currentUser?.user.role == null">
       <button mat-menu-item [routerLink]="['/productos']" routerLinkActive="mat-raised-button">
-        <mat-icon>shopping_bag</mat-icon>Productos
+        <mat-icon>shopping_bag</mat-icon>Catalogo de productos
       </button>
     </ng-container>
     <ng-container *ngIf="isVendedor()">
       <button mat-menu-item [routerLink]="['/productos/vendedor']" routerLinkActive="mat-raised-button">
-        <mat-icon>shopping_bag</mat-icon>Productos
+        <mat-icon>shopping_bag</mat-icon>Productos de Vendedor
       </button>
     </ng-container>
     <ng-container *ngIf="isAdmin()">
@@ -75,25 +75,25 @@
       [routerLink]="['/pedidos/vendedor']"
       routerLinkActive="mat-raised-button"
     >
-    <mat-icon>shopping_basket</mat-icon>Pedidos
+    <mat-icon>shopping_basket</mat-icon>Pedidos Vendedor
     </button>
   </ng-container>
-  <ng-container *ngIf="isAdmin()">
+  <!-- <ng-container *ngIf="isAdmin()">
     <button
       mat-menu-item
       [routerLink]="['/pedidos/all']"
       routerLinkActive="mat-raised-button"
     >
-    <mat-icon>shopping_basket</mat-icon>Pedidos
+    <mat-icon>shopping_basket</mat-icon>Pedidos CLiente
     </button>
-  </ng-container>
+  </ng-container> -->
   <ng-container *ngIf="isAdmin()">
     <button
       mat-menu-item
       [routerLink]="['usuarios/all']"
       routerLinkActive="mat-raised-button"
     >
-    <mat-icon>person</mat-icon>Usuarios
+    <mat-icon>person</mat-icon>Administrar Usuarios
     </button>
   </ng-container>
   <ng-container *ngIf="isAdmin()">
@@ -112,7 +112,7 @@
       [routerLink]="['/evaluaciones/cliente']" 
       routerLinkActive="mat-raised-button" 
     >
-    <mat-icon>stars</mat-icon>Evaluaciones
+    <mat-icon>stars</mat-icon>Evaluaciones Cliente
   </button>
   </ng-container>
 
@@ -122,7 +122,7 @@
       [routerLink]="['/evaluaciones/vendedor']" 
       routerLinkActive="mat-raised-button" 
     >
-    <mat-icon>stars</mat-icon>Evaluaciones
+    <mat-icon>stars</mat-icon>Evaluaciones Vendedor
   </button>
   </ng-container>
 

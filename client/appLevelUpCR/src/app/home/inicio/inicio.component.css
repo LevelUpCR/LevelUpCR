@@ -18,14 +18,15 @@ mat-card {
   height: 30vh;
 }
 .tiles2 {
-  background-color: #00013671;
+  background-color: #000000c4;
   color: #ffffff;
   margin: 1%;
   max-width: 56%;
   height: 30vh;
 }
 .tiles3 {
-  background-color: #00013671;
+  background-color: #000000c4 ;
+  ;
   color: #ffffff;
   margin: 1%;
   max-width: 92%;
